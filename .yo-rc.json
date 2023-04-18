@@ -1,0 +1,16 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "plusBeta": false,
+    "isCreatingSolution": true,
+    "version": "1.15.2",
+    "libraryName": "fps-slick-sections",
+    "libraryId": "5813961a-67e8-495d-bce3-c319322b8a86",
+    "environment": "spo",
+    "packageManager": "npm",
+    "solutionName": "fps-slick-sections",
+    "solutionShortDescription": "fps-slick-sections description",
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "componentType": "webpart"
+  }
+}

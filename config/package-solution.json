@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "fps-slick-sections-client-side-solution",
+    "id": "5813961a-67e8-495d-bce3-c319322b8a86",
+    "version": "1.0.0.1",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.15.2"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "fps-slick-sections description"
+      },
+      "longDescription": {
+        "default": "fps-slick-sections description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "fps-slick-sections Feature",
+        "description": "The feature that activates elements of the fps-slick-sections solution.",
+        "id": "9a7053ed-b9d8-43fb-b47b-69c0adc651cc",
+        "version": "1.0.0.1"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/fps-slick-sections.sppkg"
+  }
+}
