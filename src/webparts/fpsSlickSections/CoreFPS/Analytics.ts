@@ -14,7 +14,7 @@ import { DisplayMode, } from '@microsoft/sp-core-library';
  */
 
  import { IFpsSlickSectionsProps } from '../components/IFpsSlickSectionsProps';
- import { check4Gulp, ILoadPerformance, } from '../fpsReferences';
+ import { check4Gulp, ILoadPerformance, IWebpartBannerProps, } from '../fpsReferences';
  import { saveAnalytics3, getMinPerformanceString } from '@mikezimm/fps-library-v2/lib/pnpjs/Logging/saveAnalytics';
  import { IZLoadAnalytics, IZSentAnalytics, } from '@mikezimm/fps-library-v2/lib/pnpjs/Logging/interfaces';
 import { panelVersionNumber } from '../components/HelpPanel/About';
@@ -31,7 +31,7 @@ import { panelVersionNumber } from '../components/HelpPanel/About';
   */
 
  export const analyticsWeb: string = "/sites/Templates/Analytics/";
- export const analyticsList: string = "WebPartTesting";
+ export const analyticsList: string = "SlickSections";
 
 /***
  *     .d8b.  d8b   db  .d8b.  db      db    db d888888b d888888b  .o88b. .d8888. 
@@ -44,14 +44,14 @@ import { panelVersionNumber } from '../components/HelpPanel/About';
  *
  */
 
-export function saveViewAnalytics( Title: string, Result: string, parentProps: IFpsSlickSectionsProps, analyticsWasExecuted: boolean, performanceObj: ILoadPerformance) : boolean {
+// export function saveViewAnalytics( Title: string, Result: string, parentProps: IFpsSlickSectionsProps, analyticsWasExecuted: boolean, performanceObj: ILoadPerformance) : boolean {
+export function saveViewAnalytics( Title: string, Result: string, bannerProps: IWebpartBannerProps, analyticsWasExecuted: boolean, performanceObj: ILoadPerformance) : boolean {
 
     if ( analyticsWasExecuted === true ) {
       console.log('saved view info already');
       return true;
 
     } else {
-    const { bannerProps } = parentProps;
     const { context, displayMode , analyticsProps } = bannerProps;
 
       // Do not save anlytics while in Edit Mode... only after save and page reloads
@@ -126,7 +126,7 @@ export function saveViewAnalytics( Title: string, Result: string, parentProps: I
         //Info1 in some webparts.  Simple category defining results.   Like Unique / Inherited / Collection
         // zzzText6: `${ 'zzzText6' }`, //Info2 in some webparts.  Phrase describing important details such as "Time to check old Permissions: 86 snaps / 353ms"
 
-        fetch: performanceObj.ops.fetch.ms,
+        fetch: performanceObj.ops.fetch ? performanceObj.ops.fetch.ms : null,
         // zzzNumber2: fetchInfo.regexTime,
         // zzzNumber3: fetchInfo.Block.length,
         // zzzNumber4: fetchInfo.Warn.length,

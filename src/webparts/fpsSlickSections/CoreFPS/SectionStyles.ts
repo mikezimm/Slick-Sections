@@ -3,9 +3,16 @@ import { findParentElementLikeThis } from "@mikezimm/fps-library-v2/lib/logic/DO
 
 import { IFpsSlickSectionsWebPartProps } from "../IFpsSlickSectionsWebPartProps";
 import { DisplayMode } from "@microsoft/sp-core-library";
+import { IPerformanceOp } from "../fpsReferences";
+import { startPerformOpV2, updatePerformanceEndV2 } from "@mikezimm/fps-library-v2/lib/components/molecules/Performance/functions";
+import { IStartPerformOp } from "@mikezimm/fps-library-v2/lib/components/molecules/Performance/IPerformanceSettings";
 
 
-export function updateSectionStyles (  thisWPClass: IThisFPSWebPartClass ): void  {
+export function updateSectionStyles (  op: string, thisWPClass: IThisFPSWebPartClass ): IPerformanceOp  {
+  const performanceSettings: IStartPerformOp = {  label: op, updateMiliseconds: true, includeMsStr: true, op: op  } as IStartPerformOp;
+  let performanceOp = startPerformOpV2( performanceSettings );
+
+  let udpates: number = 0;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const webPartProps: any = thisWPClass.properties as IFpsSlickSectionsWebPartProps;
@@ -29,11 +36,24 @@ export function updateSectionStyles (  thisWPClass: IThisFPSWebPartClass ): void
         updateSectionCSS( thisDiv, `backgroundRepeat`, `no-repeat` );
         updateSectionCSS( thisDiv, `backgroundSize`, `cover` );
         updateSectionCSS( thisDiv, `backgroundPosition`, `relative` );
+        udpates += 5;
       }
-      if ( webPartProps[ `sectBgColor${ sectionNo + 1 }` ] ) updateSectionCSS( thisDiv, `backgroundColor`, webPartProps[ `sectBgColor${ sectionNo + 1 }` ] );
-      if ( webPartProps[ `sectHeight${ sectionNo + 1 }` ] ) updateSectionCSS( thisDiv, `height`, webPartProps[ `sectHeight${ sectionNo + 1 }` ] );
-      if ( webPartProps[ `sectOpacity${ sectionNo + 1 }` ] ) updateSectionCSS( thisDiv, `opacity`, webPartProps[ `sectOpacity${ sectionNo + 1 }` ] );
-      if ( webPartProps[ `sectMargBot${ sectionNo + 1 }` ] ) updateSectionCSS( thisDiv, `marginBottom`, `${webPartProps[ `sectMargBot${ sectionNo + 1 }` ]}px` );
+      if ( webPartProps[ `sectBgColor${ sectionNo + 1 }` ] ) { 
+        updateSectionCSS( thisDiv, `backgroundColor`, webPartProps[ `sectBgColor${ sectionNo + 1 }` ] );
+        udpates ++;
+      }
+      if ( webPartProps[ `sectHeight${ sectionNo + 1 }` ] ) {
+        updateSectionCSS( thisDiv, `height`, webPartProps[ `sectHeight${ sectionNo + 1 }` ] );
+        udpates ++;
+      }
+      if ( webPartProps[ `sectOpacity${ sectionNo + 1 }` ] ) { 
+        updateSectionCSS( thisDiv, `opacity`, webPartProps[ `sectOpacity${ sectionNo + 1 }` ] );
+        udpates ++;
+      }
+      if ( webPartProps[ `sectMargBot${ sectionNo + 1 }` ] ) { 
+        updateSectionCSS( thisDiv, `marginBottom`, `${webPartProps[ `sectMargBot${ sectionNo + 1 }` ]}px` );
+        udpates ++;
+      }
 
       if ( webPartProps[ `sectWPBack${ sectionNo + 1 }` ] ) { 
 
@@ -43,6 +63,7 @@ export function updateSectionStyles (  thisWPClass: IThisFPSWebPartClass ): void
 
         webparts.map( ( thisWP, wpNumb ) => {
           updateSectionCSS( thisWP, `background`, webPartProps[ `sectWPBack${ sectionNo + 1 }` ] );
+          udpates ++;
 
         });
       }
@@ -51,6 +72,9 @@ export function updateSectionStyles (  thisWPClass: IThisFPSWebPartClass ): void
 
   });
 
+  performanceOp = updatePerformanceEndV2( { op: performanceOp, updateMiliseconds: true, count: udpates });
+
+  return performanceOp;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
