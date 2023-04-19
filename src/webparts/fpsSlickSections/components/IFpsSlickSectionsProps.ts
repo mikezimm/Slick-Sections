@@ -4,6 +4,7 @@ import { IFPSCorePinMeReactComponentState } from '@mikezimm/fps-library-v2/lib/b
 import { ILoadPerformance } from '../fpsReferences';
 
 export interface IFPSSlickSectionWPProps {
+  index: number;
   enable: boolean;
   BgImage?: string;
   BgColor?: string;
@@ -33,5 +34,8 @@ export interface IFpsSlickSectionsProps  extends IFPSCoreReactComponentProps {
 
 export interface IFpsSlickSectionsState  extends IFPSCorePinMeReactComponentState {
 
-  
+  showSettings: boolean;
+  showThisWebpart: boolean;
+  selectedSection: IFPSSlickSectionWPProps;
+
 }

@@ -130,6 +130,7 @@ export function GetSlickSectionProps(thisWPClass: IThisFPSWebPartClass, sectionN
   const thisProps: any = thisWPClass.properties as IFpsSlickSectionsWebPartProps;
 
   let result: IFPSSlickSectionWPProps = {
+    index: sectionNo,
     enable: thisProps[ `sectEnable${sectionNo}` ],
     BgImage: thisProps[ `sectBgImage${sectionNo}` ],
     BgColor: thisProps[ `sectBgColor${sectionNo}` ],

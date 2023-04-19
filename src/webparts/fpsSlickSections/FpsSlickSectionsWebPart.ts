@@ -105,6 +105,7 @@ export default class FpsSlickSectionsWebPart extends FPSBaseClass<IFpsSlickSecti
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this._initPerf = updateSectionStyles( 'stylesI', this as any );
+    this._allowPandoramic = false;
 
     this._repoLink = gitRepoSlickSections; //Set as any but will get created in FPSSuperOnOnit
     this._exportIgnorePropsWP = exportIgnorePropsWP;

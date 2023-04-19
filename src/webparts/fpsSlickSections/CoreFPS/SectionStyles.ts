@@ -7,6 +7,7 @@ import { IPerformanceOp } from "../fpsReferences";
 import { startPerformOpV2, updatePerformanceEndV2 } from "@mikezimm/fps-library-v2/lib/components/molecules/Performance/functions";
 import { IStartPerformOp } from "@mikezimm/fps-library-v2/lib/components/molecules/Performance/IPerformanceSettings";
 
+import styles from '../components/FpsSlickSections.module.scss';
 
 export function updateSectionStyles (  op: string, thisWPClass: IThisFPSWebPartClass ): IPerformanceOp  {
   const performanceSettings: IStartPerformOp = {  label: op, updateMiliseconds: true, includeMsStr: true, op: op  } as IStartPerformOp;
@@ -17,10 +18,12 @@ export function updateSectionStyles (  op: string, thisWPClass: IThisFPSWebPartC
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const webPartProps: any = thisWPClass.properties as IFpsSlickSectionsWebPartProps;
 
-  if ( thisWPClass.displayMode === DisplayMode.Read ) {
-    const thisControlZone = findParentElementLikeThis( thisWPClass.domElement, 'classList', 'ControlZone--control', 10 , 'contains', false, true );
-    if ( thisControlZone ) updateSectionCSS( thisControlZone.parentElement, `display`, `none` );
-  }
+  // This will hide the current web part
+  // if ( thisWPClass.displayMode === DisplayMode.Read ) {
+  //   const thisControlZone = findParentElementLikeThis( thisWPClass.domElement, 'classList', 'ControlZone--control', 10 , 'contains', false, true );
+  //   if ( thisControlZone ) updateSectionCSS( thisControlZone.parentElement, `display`, `none` );
+  // }
+
   // const divs: any[] = Array.from( document.querySelectorAll('[data-automation-id="CanvasSection"]'));
   const divs: any[] = Array.from( document.querySelectorAll('.CanvasZone'));
   console.log( "CanvasZone.length: ", divs.length );
@@ -30,12 +33,16 @@ export function updateSectionStyles (  op: string, thisWPClass: IThisFPSWebPartC
     if ( webPartProps[ `sectEnable${ sectionNo + 1 }` ] === true ) {
       const originalBgImage = webPartProps[ `sectBgImage${ sectionNo + 1 }` ];
       if ( originalBgImage ) { 
+
+        thisDiv.classList.add( styles.baseSlickBackground );
+        if ( sectionNo > 0 ) thisDiv.classList.add( styles.targetedSlickSection );
+
         const imageProp = originalBgImage.indexOf( 'http' ) === 0 ? `url("${originalBgImage}")` : originalBgImage;
         updateSectionCSS( thisDiv, `backgroundImage`, imageProp );
-        updateSectionCSS( thisDiv, `backgroundPosition`, `center` );
-        updateSectionCSS( thisDiv, `backgroundRepeat`, `no-repeat` );
-        updateSectionCSS( thisDiv, `backgroundSize`, `cover` );
-        updateSectionCSS( thisDiv, `backgroundPosition`, `relative` );
+        // updateSectionCSS( thisDiv, `backgroundPosition`, `center` );
+        // updateSectionCSS( thisDiv, `backgroundRepeat`, `no-repeat` );
+        // updateSectionCSS( thisDiv, `backgroundSize`, `cover` );
+        // updateSectionCSS( thisDiv, `backgroundPosition`, `relative` );
         udpates += 5;
       }
       if ( webPartProps[ `sectBgColor${ sectionNo + 1 }` ] ) { 
@@ -43,7 +50,7 @@ export function updateSectionStyles (  op: string, thisWPClass: IThisFPSWebPartC
         udpates ++;
       }
       if ( webPartProps[ `sectHeight${ sectionNo + 1 }` ] ) {
-        updateSectionCSS( thisDiv, `height`, webPartProps[ `sectHeight${ sectionNo + 1 }` ] );
+        updateSectionCSS( thisDiv, `minHeight`, webPartProps[ `sectHeight${ sectionNo + 1 }` ] );
         udpates ++;
       }
       if ( webPartProps[ `sectOpacity${ sectionNo + 1 }` ] ) { 
