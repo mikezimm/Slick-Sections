@@ -88,6 +88,8 @@ import { FPSBaseClass } from '@mikezimm/fps-library-v2/lib/banner/FPSWebPartClas
 import { IThisFPSWebPartClass } from '@mikezimm/fps-library-v2/lib/banner/FPSWebPartClass/IThisFPSWebPartClass';
 import { createSectionGroups, FPSSlickSectionProp, GetSlickSectionProps } from './PropPaneGroups/FPSSlickSectionPropGroup';
 import { getSectionCount, updateSectionStyles } from './CoreFPS/SectionStyles';
+import { IPerformanceOp } from './fpsReferences';
+import { saveViewAnalytics } from './CoreFPS/Analytics';
 
 
 export default class FpsSlickSectionsWebPart extends FPSBaseClass<IFpsSlickSectionsWebPartProps> {
@@ -95,10 +97,14 @@ export default class FpsSlickSectionsWebPart extends FPSBaseClass<IFpsSlickSecti
   private _isDarkTheme: boolean = false;
   private _environmentMessage: string = '';
 
+  private _analyticsRun = false;
 
-   
+  private _initPerf : IPerformanceOp = null;
   protected async onInit(): Promise<void> {
     this._environmentMessage = this._getEnvironmentMessage();
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    this._initPerf = updateSectionStyles( 'stylesI', this as any );
 
     this._repoLink = gitRepoSlickSections; //Set as any but will get created in FPSSuperOnOnit
     this._exportIgnorePropsWP = exportIgnorePropsWP;
@@ -111,6 +117,7 @@ export default class FpsSlickSectionsWebPart extends FPSBaseClass<IFpsSlickSecti
     return super.onInit().then(async _ => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       runFPSSuperOnInit( this as any, PreConfiguredProps, SPPermission );
+      this._performance.ops.process0 = this._initPerf;
 
     });
   }
@@ -133,7 +140,10 @@ export default class FpsSlickSectionsWebPart extends FPSBaseClass<IFpsSlickSecti
     const bannerProps = runFPSWebPartRender( this as any, strings, WebPartAnalyticsChanges, WebPartPanelChanges, );
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    updateSectionStyles( this as any );
+    this._performance.ops.process1 = updateSectionStyles( 'stylesR', this as any );
+    console.log( `this._performance.ops`, this._performance.ops );
+
+    this._analyticsRun = saveViewAnalytics( `Render`, `Success`, bannerProps, this._analyticsRun, this._performance );
 
     const element: React.ReactElement<IFpsSlickSectionsProps> = React.createElement(
       FpsSlickSections,
