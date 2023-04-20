@@ -63,6 +63,75 @@ $themePrimary: '[theme:themePrimary, default:#0078d7]';
 
   background: hsl(0deg 0% 100% / 76%);
   // padding: 2em;
+
+  .sectionRow {
+    display: flex;
+    padding: .6em;
+    justify-content: space-between;
+
+  }
+
+  .sectionButtons {
+    display: flex;
+
+  }
+
+  .scrollMessage {
+    transition:all 0.3s ease;
+    opacity: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: none;
+    font-size: larger;
+    font-weight: 600;
+    color: default;
+  }
+
+  .scrollHide {
+    transition:all 0.6s ease;
+    // opacity: 0;
+    // height: 0px;
+    // overflow: hidden !important;
+    color: transparent !important;
+  }
+
+  button {
+    cursor: pointer;
+    padding: 3px 10px;
+    height: 30px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    // max-width: 50px;
+    // margin-right: 10px;
+    // margin-top: 10px;
+
+    text-decoration: none;
+    text-align: center;
+
+    // Primary Button
+    // min-width: 50px;
+    background-color: lightgray;
+    border-color: lightgray;
+    color: black;
+  }
+
+  button.isSelected {
+    background-color: $ms-color-themePrimary;
+    border-color: $ms-color-themePrimary;
+    color: $ms-color-white;
+    font-weight: bolder;
+  }
+
+  button {
+    // padding: 5px;
+    margin: 5px;
+    // background: darkblue;
+    cursor: pointer;
+  }
+
+
 }
 
 .slickSectionElements {
@@ -118,44 +187,4 @@ $themePrimary: '[theme:themePrimary, default:#0078d7]';
       color: var(--linkHovered); // note: CSS Custom Properties support is limited to modern browsers only
     }
   }
-}
-
-.sectionButtons {
-  display: flex;
-
-}
-
-.button {
-  cursor: pointer;
-  padding: 7px 10px;
-  height: 16px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  // max-width: 50px;
-  margin-right: 10px;
-  margin-top: 10px;
-
-  text-decoration: none;
-  text-align: center;
-
-  // Primary Button
-  min-width: 50px;
-  background-color: lightgray;
-  border-color: lightgray;
-  color: black;
-}
-
-button.isSelected {
-  background-color: $ms-color-themePrimary;
-  border-color: $ms-color-themePrimary;
-  color: $ms-color-white;
-  font-weight: bolder;
-}
-
-button {
-  // padding: 5px;
-  margin: 5px;
-  // background: darkblue;
-  cursor: pointer;
 }

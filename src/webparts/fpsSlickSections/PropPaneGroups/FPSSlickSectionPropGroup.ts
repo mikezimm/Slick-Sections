@@ -56,6 +56,14 @@ export function FPSSlickSectionProp(thisWPClass: IThisFPSWebPartClass, sectionNo
   );
 
   groupFields.push(
+    PropertyPaneTextField(`sectButton${sectionNo}`, {
+      label: 'Button text',
+      description: 'Text on the button to activate section.  KEEP IT SHORT',
+      disabled: thisProps.enableTabs !== true || enableValue !== true ? true : false,
+    })
+  );
+
+  groupFields.push(
     PropertyPaneTextField(`sectBgImage${sectionNo}`, {
       label: 'Background-Image css',
       description: '',
@@ -80,8 +88,20 @@ export function FPSSlickSectionProp(thisWPClass: IThisFPSWebPartClass, sectionNo
   );
 
   groupFields.push(
+    PropertyPaneSlider(`sectWPPad${sectionNo}`, {
+      label: `Webparts padding (in px)`,
+      min: 0,
+      max: 50,
+      step: 5,
+      disabled: enableValue !== true ? true : false,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      value: thisProps[ `sectWPPad${sectionNo}` as any],
+    })
+  );
+
+  groupFields.push(
     PropertyPaneTextField(`sectHeight${sectionNo}`, {
-      label: 'Section Height',
+      label: 'Min Section Height',
       description: 'ie 50vh',
       disabled: enableValue !== true ? true : false,
     })
@@ -124,17 +144,32 @@ export function FPSSlickSectionProp(thisWPClass: IThisFPSWebPartClass, sectionNo
 }
 
 
-export function GetSlickSectionProps(thisWPClass: IThisFPSWebPartClass, sectionNo: number ): IFPSSlickSectionWPProps {
+export function buildWPSectionArray(thisWPClass: IThisFPSWebPartClass, count: number ): IFPSSlickSectionWPProps[] {
+
+  const sections: IFPSSlickSectionWPProps[]  = [];
+
+  for (let i = 0; i < count; i++) {
+    sections.push( GetSlickSectionProps( thisWPClass , i + 1 ));
+  }
+
+  return sections;
+
+}
+
+
+export function GetSlickSectionProps( thisWPClass: IThisFPSWebPartClass, sectionNo: number ): IFPSSlickSectionWPProps {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const thisProps: any = thisWPClass.properties as IFpsSlickSectionsWebPartProps;
 
-  let result: IFPSSlickSectionWPProps = {
-    index: sectionNo,
+  const result: IFPSSlickSectionWPProps = {
+    number: sectionNo,
     enable: thisProps[ `sectEnable${sectionNo}` ],
+    button: thisProps[ `sectButton${sectionNo}` ] ? thisProps[ `sectButton${sectionNo}` ] : `Section ${sectionNo}`,
     BgImage: thisProps[ `sectBgImage${sectionNo}` ],
     BgColor: thisProps[ `sectBgColor${sectionNo}` ],
-    WPBackground: thisProps[ `sectWPBack${sectionNo}` ],
+    WPBackground: thisProps[ `sectWPBack${sectionNo}` ] ? thisProps[ `sectWPBack${sectionNo}` ] : thisProps.defaultWPBack ,
+    WPPadding: thisProps[ `sectWPPad${sectionNo}` ] ? thisProps[ `sectWPPad${sectionNo}` ] : thisProps.defaultWPPad ,
     Height: thisProps[ `sectHeight${sectionNo}` ],
     Opacity: thisProps[ `sectOpacity${sectionNo}` ],
     MarginBottom: thisProps[ `sectMargBot${sectionNo}` ],

@@ -62,14 +62,52 @@ export function updateSectionStyles (  op: string, thisWPClass: IThisFPSWebPartC
         udpates ++;
       }
 
-      if ( webPartProps[ `sectWPBack${ sectionNo + 1 }` ] ) { 
+      const thisWPClassAny: any = thisWPClass;
+
+      const WPBG = webPartProps[ `sectWPBack${ sectionNo + 1 }` ] ? webPartProps[ `sectWPBack${ sectionNo + 1 }` ] : 
+        webPartProps.defaultWPBack ? webPartProps.defaultWPBack : ``;
+
+      if ( WPBG ) { 
 
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const webparts: any[] = Array.from( thisDiv.querySelectorAll('.ControlZone'));
         console.log( "CanvasControls.length: ", webparts.length );
 
         webparts.map( ( thisWP, wpNumb ) => {
-          updateSectionCSS( thisWP, `background`, webPartProps[ `sectWPBack${ sectionNo + 1 }` ] );
+
+ 
+          const isCurrentWebPart = thisWPClassAny.context._instanceId === thisWP.id ? true : false;
+
+          if ( isCurrentWebPart === true && thisWPClassAny.properties.enableTabs === false ) {
+            // Added this to remove any padding and margin from this web part if tabs are not enabled
+            // because background color will make padding visible if it is set on the web part props
+            updateSectionCSS( thisWP, `padding`, '0px' );
+            updateSectionCSS( thisWP, `margin`, '0px' );
+            udpates ++;
+
+          } else {
+            updateSectionCSS( thisWP, `background`, WPBG );
+            udpates ++;
+
+          }
+
+
+
+
+        });
+      }
+
+      const WPPadding = webPartProps[ `sectWPPad${ sectionNo + 1 }` ] ? webPartProps[ `sectWPPad${ sectionNo + 1 }` ] : 
+        webPartProps.defaultWPPad ? webPartProps.defaultWPPad : null;
+
+      if ( WPPadding ) { 
+
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const webparts: any[] = Array.from( thisDiv.querySelectorAll('.ControlZone'));
+        console.log( "CanvasControls.length: ", webparts.length );
+
+        webparts.map( ( thisWP, wpNumb ) => {
+          updateSectionCSS( thisWP, `padding`, `${WPPadding}px` );
           udpates ++;
 
         });

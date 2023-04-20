@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styles from './FpsSlickSections.module.scss';
-import { IFPSSlickSectionWPProps, IFpsSlickSectionsProps, IFpsSlickSectionsState } from './IFpsSlickSectionsProps';
+import { AllSectionsConst, IFPSSlickSectionWPProps, IFpsSlickSectionsProps, IFpsSlickSectionsState } from './IFpsSlickSectionsProps';
 import { escape } from '@microsoft/sp-lodash-subset';
 import { DisplayMode } from '@microsoft/sp-core-library';
 import { getSectionCount } from '../CoreFPS/SectionStyles';
@@ -71,6 +71,7 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
 
   private debugCmdStyles: React.CSSProperties = this.makeDebugCmdStyles( true );
 
+  private _firstSection: IFPSSlickSectionWPProps;
  /***
 *     .o88b.  .d88b.  d8b   db .d8888. d888888b d8888b. db    db  .o88b. d888888b  .d88b.  d8888b. 
 *    d8P  Y8 .8P  Y8. 888o  88 88'  YP `~~88~~' 88  `8D 88    88 d8P  Y8 `~~88~~' .8P  Y8. 88  `8D 
@@ -87,6 +88,7 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
     super(props);
 
     if ( this._performance === null ) { this._performance = this.props.performance;  }
+    this._firstSection = this.props.sections[ 0 ];
 
     this.state = {
       pinState: this.props.bannerProps.fpsPinMenu.defPinState ? this.props.bannerProps.fpsPinMenu.defPinState : 'normal',
@@ -97,9 +99,10 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
       debugMode: false,
       showSpinner: false,
 
-      showSettings: false,
+      showSettings: this.props.enableTabs !== true ? true : false,
       showThisWebpart: true,
-      selectedSection: this.props.section1,
+      selectedSection: this.props.sections[ this.props.defaultSection - 1 ],
+      scrollWarnCount: 0,
     };
   }
 
@@ -119,10 +122,10 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
       if ( this.state.analyticsWasExecuted !==  analyticsWasExecuted ) {
         this.setState({ analyticsWasExecuted: analyticsWasExecuted });
       }
-
+      this._updateSectionStyles( this.state.selectedSection );
     }
 
-    
+
 
   //        
     /***
@@ -146,7 +149,7 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
     if ( refresh === true ) {
       this._contentPages = getBannerPages( this.props.bannerProps );
     }
-    
+
 
     /**
      * This section is needed if you want to track performance in the react component.
@@ -157,10 +160,10 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
      *    this._replacePanelHTML = refreshPanelHTML( <=== This updates the performance panel content
      */
 
-      if ( refresh === true ) {
+    if ( refresh === true ) {
       //Start tracking performance item
       this._performance.ops.fetch2 = startPerformOp( 'fetch2 TitleText', this.props.bannerProps.displayMode );
-
+      this._firstSection = this.props.sections[ 0 ];
       /**
        *       Do async code here
        */
@@ -177,13 +180,12 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
   public render(): React.ReactElement<IFpsSlickSectionsProps> {
     const {
       hasTeamsContext,
+      enableTabs,
       bannerProps,
-      section1,
-      section2,
-      section3,
-      section4,
-      section5,
+      sections,
     } = this.props;
+
+    if ( enableTabs !== true && bannerProps.displayMode === DisplayMode.Read ) return <div/>;
 
     console.log( `RenderState:`, this.state );
     const devHeader = this.state.showDevHeader === true ? <div><b>Props: </b> { `this.props.lastPropChange , this.props.lastPropDetailChange` } - <b>State: lastStateChange: </b> { this.state.lastStateChange  } </div> : null ;
@@ -242,31 +244,23 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
     />;
 
 
-    let showProps: JSX.Element[] = [];
+    const showProps: JSX.Element[] = this._createThisSection( sections );
 
-    showProps = this._createThisSection( section1, showProps );
-    showProps = this._createThisSection( section2, showProps );
-    showProps = this._createThisSection( section3, showProps );
-    showProps = this._createThisSection( section4, showProps );
-    showProps = this._createThisSection( section5, showProps );
 
-    const SettingInfo = this.state.showSettings !== true ? undefined : <>
+    const SettingInfo = this.state.showSettings !== true ? undefined : <div style={{ padding: '1em'}}>
         <h2>FPS Slick Sections Web part properties</h2>
         {/* <div>Sample BgImage property:  {`url("https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE4wtd4?ver=a738")`} </div> */}
         <div className={ styles.slickSectionElements }>
           { showProps }
-      </div></>;
+      </div></div>;
 
-    let showButtons: JSX.Element[] = [];
+    const showButtons: JSX.Element[] = this._createThisButton( sections );
 
-    showButtons = this._createThisButton( section1, showButtons );
-    showButtons = this._createThisButton( section2, showButtons );
-    showButtons = this._createThisButton( section3, showButtons );
-    showButtons = this._createThisButton( section4, showButtons );
-    showButtons = this._createThisButton( section5, showButtons );
-
-    const buttonArray: JSX.Element = showButtons.length === 0 ? undefined : <div className={ styles.sectionButtons }>
-      { showButtons }
+    const buttonArray: JSX.Element = showButtons.length === 0 ? undefined : <div className={ styles.sectionRow }>
+      <div className={ styles.sectionButtons }>
+        { showButtons }
+      </div>
+      <div className={ [ styles.scrollMessage , this.state.selectedSection.number < 3 || this.state.scrollWarnCount > 5 ? styles.scrollHide : '' ].join( ' ' ) }>Tip: Scroll mouse to load web parts.</div>
     </div>
 
     return (
@@ -275,18 +269,27 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
         { Banner }
         { buttonArray }
         { SettingInfo }
-
       </section>
     );
   }
 
-  private _createThisSection( section: IFPSSlickSectionWPProps, showProps: JSX.Element[] ) : JSX.Element[] {
+  private _createThisSection( sections: IFPSSlickSectionWPProps[], ) : JSX.Element[] {
 
-    if ( showProps.length < getSectionCount() ) {
+    const elements : JSX.Element[] = [
+      <div key={ 79 }className={ styles.sectionProps }>
+        <h3>Defaults</h3>
+        <ul>
+          <li>Default Section: <b>{ this.props.defaultSection }</b></li>
+        </ul>
+      </div>
+    ];
+
+    [ ...sections].map( ( section, ) => {
       const ele = <div className={ styles.sectionProps }>
-        <h3>section{ showProps.length +1}</h3>
+        <h3>section{ section.number }</h3>
         <ul>
           <li>Enabled: <b>{ section.enable }</b></li>
+          <li>Button: <b>{ section.button }</b></li>
           <li>BgImage: <b>{ section.BgImage }</b></li>
           <li>BgColor: <b>{ section.BgColor }</b></li>
           <li>WPBackground: <b>{ section.WPBackground }</b></li>
@@ -296,42 +299,98 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
         </ul>
       </div>
 
-      showProps.push( ele );
-    }
+      elements.push( ele );
+    });
 
-
-    return showProps;
+    return elements;
 
   }
 
-  private _createThisButton( section: IFPSSlickSectionWPProps, showProps: JSX.Element[] ) : JSX.Element[] {
+  private _createThisButton( sections: IFPSSlickSectionWPProps[], ) : JSX.Element[] {
 
-    if ( showProps.length < getSectionCount() ) {
-      const ele = <div >
-        <button className={ this.state.selectedSection.index === section.index ? styles.isSelected : null }
-          onClick={ () => this._activateSection( section ) }>Section { section.index }</button>
-      </div>
+    if ( this.props.enableTabs !== true ) return [
+      <h2 key={ `79` } >Tabs are disabled in web part settings.
+      </h2>
+    ];
 
-      showProps.push( ele );
-    }
+    const elements : JSX.Element[] = [
+      <button key={ `79` } className={ this.state.selectedSection.number === AllSectionsConst.number ? styles.isSelected : null }
+        onClick={ () => this._activateSection( AllSectionsConst ) } title={ `Show all sections` }>
+        <Icon iconName='LineSpacing' className={ `` } style={{ fontSize: 'large' }}/>
+      </button>
+    ];
 
-    return showProps;
+    [ ...sections].map( ( section, index ) => {
+      if ( index <= getSectionCount() ) {
+        const ele = <div >
+          <button className={ this.state.selectedSection.number === section.number ? styles.isSelected : null }
+            onClick={ () => this._activateSection( section ) }>{ section.button }</button>
+        </div>
+
+        elements.push( ele );
+      }
+    });
+
+    return elements;
 
   }
 
   private _activateSection( selectedSection: IFPSSlickSectionWPProps, ) : void {
 
-    const divs: any[] = Array.from( document.querySelectorAll('.CanvasZone'));
+    const { scrollWarnCount } = this.state;
 
-    this.setState({ selectedSection: selectedSection })
+    this.setState({ 
+      selectedSection: selectedSection,
+      scrollWarnCount: selectedSection.number > 1 ? scrollWarnCount + 1 : scrollWarnCount,
+    });
+
+    // if ( selectedSection.number > -1 && selectedSection.number < 99 ) {
+    //   const divs: any[] = Array.from( document.querySelectorAll('.CanvasZone'));
+    //   if ( divs[ selectedSection.number ] ) {
+    //     divs[ selectedSection.number ].scrollIntoView({
+    //       behavior: this.props.scrollBehavior,
+    //       block: 'start'
+    //     });
+    //   }
+    // }
+
+    this._updateSectionStyles( selectedSection );
+
+
+  }
+
+  private _updateSectionStyles ( selectedSection: IFPSSlickSectionWPProps ): void {
+
+    if ( this.props.enableTabs !== true ) return;
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const divs: any[] = Array.from( document.querySelectorAll('.CanvasZone'));
 
     divs.map( ( thisDiv, sectionNo ) => {
       // Do not do anything to first section
-      if ( sectionNo > 0 ) {
-        if ( sectionNo + 1 === selectedSection.index ) {
+      if ( sectionNo === 0 ) {
+
+        if ( selectedSection.BgImage && sectionNo + 1 === selectedSection.number ) { 
+          // Auto expand if just first section is visible to make it fuller if there is a background image
+          // thisDiv.style.minHeight = '85vh';
+
+        } else if (  selectedSection.number !== 1 ) {
+          // Something other than first section was selected... Set height to what props say
+          thisDiv.style.minHeight = this._firstSection.Height;
+        }
+
+      } else if ( sectionNo > 0 ) {
+
+        if ( selectedSection.special === 'none' ) {
+          thisDiv.classList.add( styles.hiddenSlickSection );
+          thisDiv.classList.remove( styles.visibleSlickSection );
+          thisDiv.style.minHeight = '0px';
+
+        } else  if ( selectedSection.special === 'all' || sectionNo + 1 === selectedSection.number ) {
           thisDiv.classList.remove( styles.hiddenSlickSection );
           thisDiv.classList.add( styles.visibleSlickSection );
           thisDiv.style.minHeight = selectedSection.Height;
+
         } else {
           thisDiv.classList.add( styles.hiddenSlickSection );
           thisDiv.classList.remove( styles.visibleSlickSection );
@@ -340,6 +399,9 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
 
       }
     });
+
+    window.scrollBy(0,50);
+    // window.scrollBy(-1,0);
 
   }
 

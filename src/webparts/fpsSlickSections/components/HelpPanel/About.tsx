@@ -4,7 +4,7 @@ import { IHelpTable, } from '@mikezimm/fps-library-v2/lib/banner/components/Sing
 import { createAboutRow } from '@mikezimm/fps-library-v2/lib/banner/components/Panel/createAboutRow';
 import { IWebpartBannerProps } from '@mikezimm/fps-library-v2/lib/banner/mainReact/IWebpartBannerProps';
 
-export const panelVersionNumber = '2023-04-17 - 1.0.0.02'; //Added to show in panel
+export const panelVersionNumber = '2023-04-19 - 1.0.0.03'; //Added to show in panel
 
 export function aboutTable( bannerProps: IWebpartBannerProps ): { table: IHelpTable } {
 
@@ -27,8 +27,10 @@ export function aboutTable( bannerProps: IWebpartBannerProps ): { table: IHelpTa
      * WARNING:  DO NOT add any CDNs to Global Warn or Approve unless you want it to apply to JS as well.
      */
 
-    table.rows.push( createAboutRow('2023-04-18',"1.0.0.02","Initial Release", bannerProps.showRepoLinks === true ? bannerProps.gitHubRepo : null ) );
-    table.rows.push( createAboutRow('2023-04-17',"1.0.0.01","Initial Release", bannerProps.showRepoLinks === true ? bannerProps.gitHubRepo : null ) );
+    table.rows.push( createAboutRow('2023-04-19',"1.0.0.03","#1, #11, #12, #13, #14, #15, Add Tabs", bannerProps.showRepoLinks === true ? bannerProps.gitHubRepo : null ) );
+
+    table.rows.push( createAboutRow('2023-04-18',"1.0.0.02","#7, #8, Add performance", bannerProps.showRepoLinks === true ? bannerProps.gitHubRepo : null ) );
+    table.rows.push( createAboutRow('2023-04-17',"1.0.0.01","#2, #3, #4, #5, Initial Release", bannerProps.showRepoLinks === true ? bannerProps.gitHubRepo : null ) );
 
 
     return { table: table };
