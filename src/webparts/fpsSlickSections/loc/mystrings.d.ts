@@ -6,6 +6,11 @@ declare interface IFpsSlickSectionsWebPartStrings {
   AppLocalEnvironmentTeams: string;
   AppSharePointEnvironment: string;
   AppTeamsTabEnvironment: string;
+
+  ScrollBehaviorFieldLabel: string;
+  AutoScrollBehavior: string;
+  SmoothScrollBehavior: string;
+  
 }
 
 declare module 'FpsSlickSectionsWebPartStrings' {

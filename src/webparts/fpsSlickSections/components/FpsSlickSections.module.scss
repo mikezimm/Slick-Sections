@@ -1,5 +1,57 @@
 @import '~office-ui-fabric-react/dist/sass/References.scss';
 
+
+
+// Copy this to every web part for standard theme support
+// VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+
+
+
+// define variables first
+//https://docs.microsoft.com/en-us/sharepoint/dev/spfx/use-theme-colors-in-your-customizations#available-theme-tokens-and-their-occurances
+$themePrimary: '[theme:themePrimary, default:#0078d7]';
+$themeWhite: '[theme:white, default:white]';
+
+.fpsMainErrBlock {
+  display: grid;
+  justify-items: center;
+  background: yellow;
+  padding: 20px 20px 50px 20px;
+
+  h2 {
+    font-size: xx-large;
+  }
+
+  li {
+    color: red;
+    font-size: 20px;
+    font-weight: 600;
+  }
+}
+
+//https://docs.microsoft.com/en-us/sharepoint/dev/spfx/use-theme-colors-in-your-customizations#available-theme-tokens-and-their-occurances
+$themePrimary: '[theme:themePrimary, default:#0078d7]';
+// $themeWhite: '[theme:white, default:white]';
+
+.fpsSiteThemeDark {
+  background-color: $ms-color-themeDark;
+  color: $ms-color-white;
+}
+
+.fpsSiteThemeLight {
+  background-color: $ms-color-themeLight;
+  color: $ms-color-themeDark;
+}
+
+.fpsSiteThemePrimary {
+  background-color: $ms-color-themePrimary;
+  color: $ms-color-white !important ;
+}
+
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+// Copy this to every web part for standard theme support
+
+
 .fpsSlickSections {
   overflow: hidden;
   // padding: 1em;
@@ -10,7 +62,76 @@
   }
 
   background: hsl(0deg 0% 100% / 76%);
-  padding: 2em;
+  // padding: 2em;
+
+  .sectionRow {
+    display: flex;
+    padding: .6em;
+    justify-content: space-between;
+
+  }
+
+  .sectionButtons {
+    display: flex;
+
+  }
+
+  .scrollMessage {
+    transition:all 0.3s ease;
+    opacity: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: none;
+    font-size: larger;
+    font-weight: 600;
+    color: default;
+  }
+
+  .scrollHide {
+    transition:all 0.6s ease;
+    // opacity: 0;
+    // height: 0px;
+    // overflow: hidden !important;
+    color: transparent !important;
+  }
+
+  button {
+    cursor: pointer;
+    padding: 3px 10px;
+    height: 30px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    // max-width: 50px;
+    // margin-right: 10px;
+    // margin-top: 10px;
+
+    text-decoration: none;
+    text-align: center;
+
+    // Primary Button
+    // min-width: 50px;
+    background-color: lightgray;
+    border-color: lightgray;
+    color: black;
+  }
+
+  button.isSelected {
+    background-color: $ms-color-themePrimary;
+    border-color: $ms-color-themePrimary;
+    color: $ms-color-white;
+    font-weight: bolder;
+  }
+
+  button {
+    // padding: 5px;
+    margin: 5px;
+    // background: darkblue;
+    cursor: pointer;
+  }
+
+
 }
 
 .slickSectionElements {
@@ -23,6 +144,35 @@
 
 .sectionProps {
   margin: 0px 20px;
+}
+
+.baseSlickBackground {
+  transition:all 0.3s ease;
+  background-position: center center;
+  // background-position: relative; // WHY THIS????
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.targetedSlickSection {
+  transition:all 0.3s ease;
+  // position: absolute;
+}
+
+.visibleSlickSection {
+  transition:all 0.3s ease;
+  opacity: 1;
+}
+
+.hiddenSlickSection {
+  transition:all 0.3s ease;
+  opacity: 0 !important;
+  overflow: hidden !important;
+  // background: transparent;
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
+  height: 0px !important;
+  min-height: 0px !important;
 }
 
 .links {

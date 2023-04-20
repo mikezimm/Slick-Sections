@@ -86,10 +86,12 @@ import { runFPSWebPartRender } from '@mikezimm/fps-library-v2/lib/banner/FPSWebP
 import { onFPSPropPaneCHanged } from '@mikezimm/fps-library-v2/lib/banner/FPSWebPartClass/runOnPropChange';
 import { FPSBaseClass } from '@mikezimm/fps-library-v2/lib/banner/FPSWebPartClass/FPSBaseClass';
 import { IThisFPSWebPartClass } from '@mikezimm/fps-library-v2/lib/banner/FPSWebPartClass/IThisFPSWebPartClass';
-import { createSectionGroups, FPSSlickSectionProp, GetSlickSectionProps } from './PropPaneGroups/FPSSlickSectionPropGroup';
+import { buildWPSectionArray, createSectionGroups, } from './PropPaneGroups/FPSSlickSectionPropGroup';
 import { getSectionCount, updateSectionStyles } from './CoreFPS/SectionStyles';
 import { IPerformanceOp } from './fpsReferences';
 import { saveViewAnalytics } from './CoreFPS/Analytics';
+import { FPSSlickSectionCommonProps } from './PropPaneGroups/FPSSlickSectionCommonProps';
+import { panelVersionNumber } from './components/HelpPanel/About';
 
 
 export default class FpsSlickSectionsWebPart extends FPSBaseClass<IFpsSlickSectionsWebPartProps> {
@@ -105,8 +107,10 @@ export default class FpsSlickSectionsWebPart extends FPSBaseClass<IFpsSlickSecti
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this._initPerf = updateSectionStyles( 'stylesI', this as any );
+    this._allowPandoramic = false;
 
     this._repoLink = gitRepoSlickSections; //Set as any but will get created in FPSSuperOnOnit
+    this._panelVersion = panelVersionNumber;
     this._exportIgnorePropsWP = exportIgnorePropsWP;
     this._importBlockPropsWP = importBlockPropsWP;
     this._trickyApp = 'FPS UPDATE FPSBaseClass';
@@ -145,6 +149,9 @@ export default class FpsSlickSectionsWebPart extends FPSBaseClass<IFpsSlickSecti
 
     this._analyticsRun = saveViewAnalytics( `Render`, `Success`, bannerProps, this._analyticsRun, this._performance );
 
+    const sectionCount: number = getSectionCount();
+    const defaultSection : number = this.properties.defaultSection && parseInt(this.properties.defaultSection ) ? parseInt(this.properties.defaultSection ) : sectionCount > 1 ? 2 : 1 ;
+
     const element: React.ReactElement<IFpsSlickSectionsProps> = React.createElement(
       FpsSlickSections,
       {
@@ -156,11 +163,10 @@ export default class FpsSlickSectionsWebPart extends FPSBaseClass<IFpsSlickSecti
 
         performance: this._performance, //Alternatively, use this if available (like ALVFM): _fetchInfo.performance,
 
-        section1: GetSlickSectionProps( this as any, 1 ),
-        section2: GetSlickSectionProps( this as any, 2 ),
-        section3: GetSlickSectionProps( this as any, 3 ),
-        section4: GetSlickSectionProps( this as any, 4 ),
-        section5: GetSlickSectionProps( this as any, 5 ),
+        defaultSection: defaultSection ,
+        sections: buildWPSectionArray( this as any, sectionCount ),
+        scrollBehavior: this.properties.scrollBehavior,
+        enableTabs: this.properties.enableTabs,
         errMessage: '',
         bannerProps: bannerProps,
       }
@@ -240,7 +246,7 @@ export default class FpsSlickSectionsWebPart extends FPSBaseClass<IFpsSlickSecti
     const FPSGroups: IPropertyPaneGroup[] = getAllDefaultFPSFeatureGroups ( thisAsAny );
 
     const SlickGroups = createSectionGroups( thisAsAny, getSectionCount() );
-    groups = [ ...groups, ...SlickGroups, ...FPSGroups ];
+    groups = [ ...groups, FPSSlickSectionCommonProps( thisAsAny ), ...SlickGroups, ...FPSGroups ];
 
 
     return {

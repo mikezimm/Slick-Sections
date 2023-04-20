@@ -51,13 +51,18 @@ export const WPPresetEverywhere : IPreConfigSettings = {
         showGoToParent: false,  //defaults to true
         homeParentGearAudience: 'Page Editors',
 
+        defaultWPBack: defWPBack,
+        defaultWPPad: null,
+        scrollBehavior: 'smooth',
+        enableTabs: true,
+
         sectEnable1: false,
         sectBgImage1: ``,
         sectBgColor1: ``,
         sectHeight1: ``,
         sectOpacity1: 1,
         sectMargBot1: 0,
-        sectWPBack1: defWPBack,
+        sectWPBack1: '',
 
         sectEnable2: false,
         sectBgImage2: ``,
@@ -65,7 +70,7 @@ export const WPPresetEverywhere : IPreConfigSettings = {
         sectHeight2: ``,
         sectOpacity2: 1,
         sectMargBot2: 0,
-        sectWPBack2: defWPBack,
+        sectWPBack2: '',
 
         sectEnable3: false,
         sectBgImage3: ``,
@@ -73,7 +78,7 @@ export const WPPresetEverywhere : IPreConfigSettings = {
         sectHeight3: ``,
         sectOpacity3: 1,
         sectMargBot3: 0,
-        sectWPBack3: defWPBack,
+        sectWPBack3: '',
 
         sectEnable4: false,
         sectBgImage4: ``,
@@ -81,7 +86,7 @@ export const WPPresetEverywhere : IPreConfigSettings = {
         sectHeight4: ``,
         sectOpacity4: 1,
         sectMargBot4: 0,
-        sectWPBack4: defWPBack,
+        sectWPBack4: '',
 
         sectEnable5: false,
         sectBgImage5: ``,
@@ -89,7 +94,7 @@ export const WPPresetEverywhere : IPreConfigSettings = {
         sectHeight5: ``,
         sectOpacity5: 1,
         sectMargBot5: 0,
-        sectWPBack5: defWPBack,
+        sectWPBack5: '',
     }
 };
 

@@ -7,8 +7,11 @@
 import { IMinWPBannerProps } from '@mikezimm/fps-library-v2/lib/banner/interfaces/MinWP/IMinWPBannerProps';
 
 function createChangeSections(numb: number ) : string[] {
-  return [ `sectEnable${numb}`, `sectBgImage${numb}`, `sectBgColor${numb}`, `sectHeight${numb}`, `sectOpacity${numb}`, `sectMargBot${numb}`, `sectWPBack${numb}` ];
+  return [ `sectEnable${numb}`, `sectButton${numb}`, `sectBgImage${numb}`, `sectBgColor${numb}`, `sectHeight${numb}`, `sectOpacity${numb}`, `sectMargBot${numb}`, `sectWPBack${numb}`, `sectWPPad${numb}` ];
 }
+
+
+export const changeDefaults : string[] = [ `defaultSection`, `defaultWPBack`, `defaultWPPad`, ``, ``, ];
 
 export const changeSection1 : string[] = createChangeSections(1);
 export const changeSection2 : string[] = createChangeSections(2);
@@ -21,6 +24,7 @@ export const changeSection5 : string[] = createChangeSections(5);
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const WebPartAnalyticsChanges : any = {
+  Defaults: changeDefaults,
   Section1: changeSection1,
   Section2: changeSection2,
   Section3: changeSection3,
@@ -58,44 +62,60 @@ export interface IFpsSlickSectionsWebPartProps extends IMinWPBannerProps {
 
   description: string;
 
+  defaultSection: string;
+  defaultWPBack: string;
+  defaultWPPad: number;
+  scrollBehavior: ScrollBehavior;
+  enableTabs: boolean;
+
   sectEnable1: boolean;
+  sectButton1: string;
   sectBgImage1: string;
   sectBgColor1: string;
   sectHeight1: string;
   sectOpacity1: number;
   sectMargBot1: number;
   sectWPBack1: string;
+  sectWPPad1: string;
 
   sectEnable2: boolean;
+  sectButton2: string;
   sectBgImage2: string;
   sectBgColor2: string;
   sectHeight2: string;
   sectOpacity2: number;
   sectMargBot2: number;
   sectWPBack2: string;
+  sectWPPad2: string;
 
   sectEnable3: boolean;
+  sectButton3: string;
   sectBgImage3: string;
   sectBgColor3: string;
   sectHeight3: string;
   sectOpacity3: number;
   sectMargBot3: number;
   sectWPBack3: string;
+  sectWPPad3: string;
 
   sectEnable4: boolean;
+  sectButton4: string;
   sectBgImage4: string;
   sectBgColor4: string;
   sectHeight4: string;
   sectOpacity4: number;
   sectMargBot4: number;
   sectWPBack4: string;
+  sectWPPad4: string;
 
   sectEnable5: boolean;
+  sectButton5: string;
   sectBgImage5: string;
   sectBgColor5: string;
   sectHeight5: string;
   sectOpacity5: number;
   sectMargBot5: number;
   sectWPBack5: string;
+  sectWPPad5: string;
 
 }
