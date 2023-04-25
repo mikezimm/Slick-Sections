@@ -1,18 +1,22 @@
 
 import {
     PropertyPaneTextField,
-    PropertyPaneDropdown, IPropertyPaneDropdownProps,
+    PropertyPaneDropdown, 
+    // IPropertyPaneDropdownProps,
     PropertyPaneToggle,
     PropertyPaneSlider,
     IPropertyPaneGroup,
     IPropertyPaneField,
+    IPropertyPaneDropdownProps,
+    // IPropertyPaneDropdownOption,
   } from '@microsoft/sp-property-pane';
 
 import * as strings from 'FpsSlickSectionsWebPartStrings';
 
 import { IThisFPSWebPartClass } from '@mikezimm/fps-library-v2/lib/banner/FPSWebPartClass/IThisFPSWebPartClass';
 import { IFpsSlickSectionsWebPartProps } from '../IFpsSlickSectionsWebPartProps';
-import { IFPSSlickSectionWPProps } from '../components/IFpsSlickSectionsProps';
+import { FPSSlickButtonChoices } from '../components/IFpsSlickSectionsProps';
+// import { IFPSSlickSectionWPProps } from '../components/IFpsSlickSectionsProps';
 // import { PageEditorAudienceChoices } from '../fpsReferences';
 /**
  * FPSBanner3BasicGroup builds FPS Banner Basics Prop Pane Group: showBanner, bannerTitle, infoElementChoice, infoElementText,
@@ -67,15 +71,36 @@ export function FPSSlickSectionCommonProps( thisWPClass: IThisFPSWebPartClass ):
   );
 
   groupFields.push(
+    PropertyPaneDropdown('buttonShape', <IPropertyPaneDropdownProps>{
+      label: 'Button Shape',
+      options: FPSSlickButtonChoices,
+    }), );
+    
+
+  groupFields.push(
+    PropertyPaneTextField(`buttonStyle`, {
+      label: 'Default Button style - IT ONLY',
+      description: `React.CSS like:  'background': 'white','color': 'black'.  Is ignored if selected`,
+    })
+  );
+
+  groupFields.push(
+    PropertyPaneTextField(`buttonBgColor`, {
+      label: 'Button bar Background color - IT ONLY',
+      description: ``,
+    })
+  );
+
+  groupFields.push(
     PropertyPaneDropdown('scrollBehavior', {
       disabled: true,
       label: strings.ScrollBehaviorFieldLabel,
       options: [{
         key: 'auto',
-        text: strings.AutoScrollBehavior
+        text: strings.AutoScrollBehavior,
       }, {
         key: 'smooth',
-        text: strings.SmoothScrollBehavior
+        text: strings.SmoothScrollBehavior,
       }],
       selectedKey: scrollBehavior || 'auto'
     }),

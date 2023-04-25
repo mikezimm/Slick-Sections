@@ -76,6 +76,7 @@ import { PreConfiguredProps,  } from './CoreFPS/PreConfiguredSettings';
 
 import { PropertyPaneWebPartInformation } from '@pnp/spfx-property-controls/lib/PropertyPaneWebPartInformation';
 import { getAllDefaultFPSFeatureGroups } from '@mikezimm/fps-library-v2/lib/banner/propPane/AllDefaultFPSGroups';
+import { createStyleFromString } from '@mikezimm/fps-library-v2/lib/logic/Strings/reactCSS';
 
 import { WebPartInfoGroup, } from '@mikezimm/fps-library-v2/lib/banner/propPane/WebPartInfoGroup';
 import { exportIgnorePropsWP, importBlockPropsWP, WebPartAnalyticsChanges, WebPartPanelChanges,  } from './IFpsSlickSectionsWebPartProps';
@@ -140,6 +141,7 @@ export default class FpsSlickSectionsWebPart extends FPSBaseClass<IFpsSlickSecti
 
   public render(): void {
 
+    const { defaultSection, buttonStyle, buttonShape, scrollBehavior, enableTabs, buttonBgColor } = this.properties;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const bannerProps = runFPSWebPartRender( this as any, strings, WebPartAnalyticsChanges, WebPartPanelChanges, );
 
@@ -150,7 +152,9 @@ export default class FpsSlickSectionsWebPart extends FPSBaseClass<IFpsSlickSecti
     this._analyticsRun = saveViewAnalytics( `Render`, `Success`, bannerProps, this._analyticsRun, this._performance );
 
     const sectionCount: number = getSectionCount();
-    const defaultSection : number = this.properties.defaultSection && parseInt(this.properties.defaultSection ) ? parseInt(this.properties.defaultSection ) : sectionCount > 1 ? 2 : 1 ;
+
+    // https://github.com/mikezimm/Slick-Sections/issues/20
+    const useDefaultSection : number = defaultSection === '0' ? 0 : defaultSection && parseInt( defaultSection ) ? parseInt( defaultSection ) : sectionCount > 1 ? 2 : 1 ;
 
     const element: React.ReactElement<IFpsSlickSectionsProps> = React.createElement(
       FpsSlickSections,
@@ -163,10 +167,13 @@ export default class FpsSlickSectionsWebPart extends FPSBaseClass<IFpsSlickSecti
 
         performance: this._performance, //Alternatively, use this if available (like ALVFM): _fetchInfo.performance,
 
-        defaultSection: defaultSection ,
+        buttonStyle: createStyleFromString( buttonStyle, null, '', `FPS-SlickSections render ~ 167` ),
+        buttonShape: buttonShape,
+        buttonBgColor: buttonBgColor,
+        defaultSection: useDefaultSection , 
         sections: buildWPSectionArray( this as any, sectionCount ),
-        scrollBehavior: this.properties.scrollBehavior,
-        enableTabs: this.properties.enableTabs,
+        scrollBehavior: scrollBehavior,
+        enableTabs: enableTabs,
         errMessage: '',
         bannerProps: bannerProps,
       }

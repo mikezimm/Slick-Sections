@@ -5,9 +5,10 @@
  * 
  */
 import { IMinWPBannerProps } from '@mikezimm/fps-library-v2/lib/banner/interfaces/MinWP/IMinWPBannerProps';
+import { ISlickButtonShape } from './components/IFpsSlickSectionsProps';
 
 function createChangeSections(numb: number ) : string[] {
-  return [ `sectEnable${numb}`, `sectButton${numb}`, `sectBgImage${numb}`, `sectBgColor${numb}`, `sectHeight${numb}`, `sectOpacity${numb}`, `sectMargBot${numb}`, `sectWPBack${numb}`, `sectWPPad${numb}` ];
+  return [ `sectEnable${numb}`, `sectButton${numb}`, `sectBgImage${numb}`, `sectBgColor${numb}`, `sectHeight${numb}`, `sectOpacity${numb}`, `sectMargBot${numb}`, `sectWPBack${numb}`, `sectWPPad${numb}`, `sectForceWhite${numb}` ];
 }
 
 
@@ -67,6 +68,9 @@ export interface IFpsSlickSectionsWebPartProps extends IMinWPBannerProps {
   defaultWPPad: number;
   scrollBehavior: ScrollBehavior;
   enableTabs: boolean;
+  buttonShape: ISlickButtonShape;
+  buttonStyle: string;
+  buttonBgColor: string;
 
   sectEnable1: boolean;
   sectButton1: string;
@@ -76,6 +80,7 @@ export interface IFpsSlickSectionsWebPartProps extends IMinWPBannerProps {
   sectOpacity1: number;
   sectMargBot1: number;
   sectWPBack1: string;
+  sectForceWhite1: string;
   sectWPPad1: string;
 
   sectEnable2: boolean;
@@ -86,6 +91,7 @@ export interface IFpsSlickSectionsWebPartProps extends IMinWPBannerProps {
   sectOpacity2: number;
   sectMargBot2: number;
   sectWPBack2: string;
+  sectForceWhite2: string;
   sectWPPad2: string;
 
   sectEnable3: boolean;
@@ -96,6 +102,7 @@ export interface IFpsSlickSectionsWebPartProps extends IMinWPBannerProps {
   sectOpacity3: number;
   sectMargBot3: number;
   sectWPBack3: string;
+  sectForceWhite3: string;
   sectWPPad3: string;
 
   sectEnable4: boolean;
@@ -106,6 +113,7 @@ export interface IFpsSlickSectionsWebPartProps extends IMinWPBannerProps {
   sectOpacity4: number;
   sectMargBot4: number;
   sectWPBack4: string;
+  sectForceWhite4: string;
   sectWPPad4: string;
 
   sectEnable5: boolean;
@@ -116,6 +124,7 @@ export interface IFpsSlickSectionsWebPartProps extends IMinWPBannerProps {
   sectOpacity5: number;
   sectMargBot5: number;
   sectWPBack5: string;
+  sectForceWhite5: string;
   sectWPPad5: string;
 
 }

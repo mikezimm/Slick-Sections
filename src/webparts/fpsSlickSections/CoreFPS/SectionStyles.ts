@@ -113,6 +113,21 @@ export function updateSectionStyles (  op: string, thisWPClass: IThisFPSWebPartC
         });
       }
 
+      const WPWhite = webPartProps[ `sectForceWhite${ sectionNo + 1 }` ] === true ? true : false;
+
+      if ( WPWhite ) {
+
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const webparts: any[] = Array.from( thisDiv.querySelectorAll('.ControlZone'));
+        console.log( "CanvasControls.length: ", webparts.length );
+
+        webparts.map( ( thisWP, wpNumb ) => {
+          thisWP.classList.add( styles.forceWhiteText );
+          udpates ++;
+
+        });
+      }
+
     }
 
   });
