@@ -62,6 +62,10 @@ $themePrimary: '[theme:themePrimary, default:#0078d7]';
   }
 
   background: hsl(0deg 0% 100% / 76%);
+
+  .settingsArea {
+    background: hsl(0deg 0% 100% / 76%);
+  }
   // padding: 2em;
 
   .sectionRow {
@@ -86,6 +90,9 @@ $themePrimary: '[theme:themePrimary, default:#0078d7]';
     font-size: larger;
     font-weight: 600;
     color: default;
+    padding: 5px 10px;
+    background: hsl(0deg 0% 100% / 76%);
+    border-radius: 10px;
   }
 
   .scrollHide {
@@ -94,6 +101,9 @@ $themePrimary: '[theme:themePrimary, default:#0078d7]';
     // height: 0px;
     // overflow: hidden !important;
     color: transparent !important;
+    background: transparent !important;
+    padding: 0px;
+    width: 0px;
   }
 
   button {
@@ -122,6 +132,10 @@ $themePrimary: '[theme:themePrimary, default:#0078d7]';
     border-color: $ms-color-themePrimary;
     color: $ms-color-white;
     font-weight: bolder;
+  }
+
+  .pillShape {
+    border-radius: 50px;
   }
 
   button {
@@ -187,4 +201,61 @@ $themePrimary: '[theme:themePrimary, default:#0078d7]';
       color: var(--linkHovered); // note: CSS Custom Properties support is limited to modern browsers only
     }
   }
+}
+
+
+[data-automation-id="webPartHeader"] [role="heading"] {
+  color: null;
+}
+
+.forceWhiteText [data-automation-id="newsItem"] a {
+  color: white;
+}
+
+.forceWhiteText [data-automation-id="webPartHeader"] [role="heading"] {
+  color: white;
+}
+
+.forceWhiteText [data-automation-id="webPartHeader"] span {
+  color: white;
+}
+
+.forceWhiteText [data-automation-id="newsItemTitle"] {
+  color: white;
+}
+
+.forceWhiteText [data-automation-id="newsItemDescription"] {
+  color: white;
+}
+
+.forceWhiteText [data-automation-id="newsItem"] span {
+  color: white;
+}
+
+.forceWhiteText [data-automation-id="textBox"] p {
+  color: white;
+}
+
+.forceWhiteText [data-automation-id="textBox"] h2 {
+  color: white;
+}
+
+.forceWhiteText [data-automation-id="textBox"] h3 {
+  color: white;
+}
+
+.forceWhiteText [data-automation-id="textBox"] h4 {
+  color: white;
+}
+
+.forceWhiteText [data-automation-id="textBox"] a {
+  color: white;
+}
+
+.forceWhiteText [data-automation-id="quick-links-item-title"] {
+  color: white;
+}
+
+.forceWhiteText [data-automation-id="embedContainer"] div {
+  color: white;
 }

@@ -87,11 +87,12 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
   public constructor(props:IFpsSlickSectionsProps){
     super(props);
 
-    if ( this._performance === null ) { this._performance = this.props.performance;  }
-    this._firstSection = this.props.sections[ 0 ];
+    const { sections, defaultSection, performance, enableTabs, bannerProps } = this.props;
+    if ( this._performance === null ) { this._performance = performance;  }
+    this._firstSection = sections[ 0 ];
 
     this.state = {
-      pinState: this.props.bannerProps.fpsPinMenu.defPinState ? this.props.bannerProps.fpsPinMenu.defPinState : 'normal',
+      pinState: bannerProps.fpsPinMenu.defPinState ? bannerProps.fpsPinMenu.defPinState : 'normal',
       showDevHeader: false,
       lastStateChange: '', 
       analyticsWasExecuted: false,
@@ -99,9 +100,12 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
       debugMode: false,
       showSpinner: false,
 
-      showSettings: this.props.enableTabs !== true ? true : false,
+      showSettings: enableTabs !== true ? true : false,
       showThisWebpart: true,
-      selectedSection: this.props.sections[ this.props.defaultSection - 1 ],
+      // https://github.com/mikezimm/Slick-Sections/issues/20
+      selectedSection:  defaultSection === 0 ? AllSectionsConst : 
+        sections[ defaultSection >= sections.length ? sections.length - 1 : defaultSection - 1 ],
+
       scrollWarnCount: 0,
     };
   }
@@ -207,10 +211,13 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
     ];
 
     //Setting showTricks to false here ( skipping this line does not have any impact on bug #90 )
-    if ( this.props.bannerProps.beAUser === false ) {
-      farBannerElementsArray.push( 
-        <div title={'Show Debug Info'}><Icon iconName='TestAutoSolid' onClick={ this._showSettings.bind(this) } style={ this.debugCmdStyles }/></div>
-      );
+    // https://github.com/mikezimm/Slick-Sections/issues/18
+    if ( this.props.bannerProps.beAUser === false 
+        && this.props.bannerProps.FPSUser.simple !== 'Reader' 
+        && this.props.bannerProps.FPSUser.simple !== 'None' ) {
+            farBannerElementsArray.push( 
+              <div title={'Show Debug Info'}><Icon iconName='TestAutoSolid' onClick={ this._showSettings.bind(this) } style={ this.debugCmdStyles }/></div>
+            );
     }
 
     // const FPSUser : IFPSUser = this.props.bannerProps.FPSUser;
@@ -247,7 +254,7 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
     const showProps: JSX.Element[] = this._createThisSection( sections );
 
 
-    const SettingInfo = this.state.showSettings !== true ? undefined : <div style={{ padding: '1em'}}>
+    const SettingInfo = this.state.showSettings !== true ? undefined : <div className={ styles.settingsArea } style={{ padding: '1em'}}>
         <h2>FPS Slick Sections Web part properties</h2>
         {/* <div>Sample BgImage property:  {`url("https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE4wtd4?ver=a738")`} </div> */}
         <div className={ styles.slickSectionElements }>
@@ -256,15 +263,17 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
 
     const showButtons: JSX.Element[] = this._createThisButton( sections );
 
+    const showScrollWarn: boolean = this.state.selectedSection.number < 3 || this.state.scrollWarnCount > 5 ? false : true;
     const buttonArray: JSX.Element = showButtons.length === 0 ? undefined : <div className={ styles.sectionRow }>
       <div className={ styles.sectionButtons }>
         { showButtons }
       </div>
-      <div className={ [ styles.scrollMessage , this.state.selectedSection.number < 3 || this.state.scrollWarnCount > 5 ? styles.scrollHide : '' ].join( ' ' ) }>Tip: Scroll mouse to load web parts.</div>
+      <div className={ [ styles.scrollMessage , showScrollWarn === false ? styles.scrollHide : '' ].join( ' ' ) }>Tip: Scroll mouse to load web parts.</div>
     </div>
 
     return (
-      <section className={`${styles.fpsSlickSections} ${hasTeamsContext ? styles.teams : ''}`}>
+      <section className={`${styles.fpsSlickSections} ${hasTeamsContext ? styles.teams : ''}`}
+      style={{ background: this.props.buttonBgColor ? this.props.buttonBgColor : null }}>
         { devHeader }
         { Banner }
         { buttonArray }
@@ -308,14 +317,19 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
 
   private _createThisButton( sections: IFPSSlickSectionWPProps[], ) : JSX.Element[] {
 
-    if ( this.props.enableTabs !== true ) return [
+    const { enableTabs, buttonShape } = this.props;
+    const { selectedSection } = this.state;
+    const pillClass = buttonShape === 'Pill' ? styles.pillShape : '';
+
+    if ( enableTabs !== true ) return [
       <h2 key={ `79` } >Tabs are disabled in web part settings.
       </h2>
     ];
 
     const elements : JSX.Element[] = [
-      <button key={ `79` } className={ this.state.selectedSection.number === AllSectionsConst.number ? styles.isSelected : null }
-        onClick={ () => this._activateSection( AllSectionsConst ) } title={ `Show all sections` }>
+      <button key={ `79` } className={ [ selectedSection.number === AllSectionsConst.number ? styles.isSelected : null, pillClass ].join(' ') }
+        onClick={ () => this._activateSection( AllSectionsConst ) } title={ `Show all sections` }
+        style={ selectedSection.number === AllSectionsConst.number ? null : this.props.buttonStyle }>
         <Icon iconName='LineSpacing' className={ `` } style={{ fontSize: 'large' }}/>
       </button>
     ];
@@ -323,8 +337,9 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
     [ ...sections].map( ( section, index ) => {
       if ( index <= getSectionCount() ) {
         const ele = <div >
-          <button className={ this.state.selectedSection.number === section.number ? styles.isSelected : null }
-            onClick={ () => this._activateSection( section ) }>{ section.button }</button>
+          <button className={ [ selectedSection.number === section.number ? styles.isSelected : null, pillClass ].join(' ') }
+            onClick={ () => this._activateSection( section ) }
+            style={ selectedSection.number === section.number ? null : this.props.buttonStyle }>{ section.button }</button>
         </div>
 
         elements.push( ele );

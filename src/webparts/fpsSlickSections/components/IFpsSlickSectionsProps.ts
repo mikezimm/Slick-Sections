@@ -2,6 +2,10 @@ import { IFPSCoreReactComponentProps } from '@mikezimm/fps-library-v2/lib/banner
 import { IFPSCorePinMeReactComponentState } from '@mikezimm/fps-library-v2/lib/banner/mainReact/ReactComponentState';
 
 import { ILoadPerformance } from '../fpsReferences';
+import { IPropertyPaneDropdownOption } from '@microsoft/sp-property-pane';
+
+export const FPSSlickButtonChoices: IPropertyPaneDropdownOption[] = <IPropertyPaneDropdownOption[]>[`Pill`, `Rectangle`].map((key, idx) => { return { index: idx, key: key, text: key }; });
+export type ISlickButtonShape = `Pill` | `Rectangle` ;
 
 export type ISectionSpecial = `all` | `none` ;
 
@@ -15,6 +19,7 @@ export interface IFPSSlickSectionWPProps {
   BgColor?: string;
   WPBackground?: string;
   WPPadding?: number;
+  ForceWhiteText?: boolean;
   Height?: string;
   MarginBottom?: number;
   Opacity?: number;
@@ -30,6 +35,9 @@ export interface IFpsSlickSectionsProps  extends IFPSCoreReactComponentProps {
 
   performance: ILoadPerformance;
 
+  buttonShape: ISlickButtonShape;
+  buttonStyle: React.CSSProperties;
+  buttonBgColor: string;
   defaultSection: number;
   sections: IFPSSlickSectionWPProps[];
   scrollBehavior: ScrollBehavior;

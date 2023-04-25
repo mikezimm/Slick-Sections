@@ -51,6 +51,12 @@ export const WPPresetEverywhere : IPreConfigSettings = {
         showGoToParent: false,  //defaults to true
         homeParentGearAudience: 'Page Editors',
 
+        // buttonShape: ISlickButtonShape;
+        // buttonStyle: React.CSSProperties;
+
+        buttonShape: `Pill`,
+        buttonStyle: `'background': 'white','color': 'black'`,
+
         defaultWPBack: defWPBack,
         defaultWPPad: null,
         scrollBehavior: 'smooth',

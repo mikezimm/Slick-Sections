@@ -86,6 +86,13 @@ export function FPSSlickSectionProp(thisWPClass: IThisFPSWebPartClass, sectionNo
       disabled: enableValue !== true ? true : false,
     })
   );
+  
+  groupFields.push(
+    PropertyPaneToggle( `sectForceWhite${sectionNo}` , {
+      label: `Force web part text white`,
+      disabled: enableValue !== true ? true : false,
+      })
+  );
 
   groupFields.push(
     PropertyPaneSlider(`sectWPPad${sectionNo}`, {
@@ -169,6 +176,7 @@ export function GetSlickSectionProps( thisWPClass: IThisFPSWebPartClass, section
     BgImage: thisProps[ `sectBgImage${sectionNo}` ],
     BgColor: thisProps[ `sectBgColor${sectionNo}` ],
     WPBackground: thisProps[ `sectWPBack${sectionNo}` ] ? thisProps[ `sectWPBack${sectionNo}` ] : thisProps.defaultWPBack ,
+    ForceWhiteText: thisProps[ `sectForceWhite${sectionNo}` ] === true ? true : false ,
     WPPadding: thisProps[ `sectWPPad${sectionNo}` ] ? thisProps[ `sectWPPad${sectionNo}` ] : thisProps.defaultWPPad ,
     Height: thisProps[ `sectHeight${sectionNo}` ],
     Opacity: thisProps[ `sectOpacity${sectionNo}` ],
