@@ -89,8 +89,6 @@ export function getWebPartHelpElementCSSWarning (  ): JSX.Element {
       <div className={ 'fps-pph-topic' }>White Text:  Collapsible Section - NOT supported</div>
       <div>{`[data-automation-id="CollapsibleLayer-Button"]`}</div>
 
-
-
     </div>
   </PivotItem>;
 
