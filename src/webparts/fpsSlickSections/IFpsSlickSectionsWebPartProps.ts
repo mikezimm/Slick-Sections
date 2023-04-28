@@ -74,7 +74,7 @@ export interface IFpsSlickSectionsWebPartProps extends IMinWPBannerProps {
   defaultSection: string;
   defaultWPBack: string;
   defaultWPPad: number;
-  scrollBehavior: ScrollBehavior;
+  scrollBehavior: ScrollBehavior;  // NOT ENABLED YET.
   enableTabs: boolean;
   buttonShape: ISlickButtonShape;
   buttonStyle: string;
@@ -82,7 +82,7 @@ export interface IFpsSlickSectionsWebPartProps extends IMinWPBannerProps {
 
   // Used for full page background image
   fullPageImage: string;  // background url
-  fullPageScrollable: boolean;  // scrollable image - image goes from top of content to bottom - false is fixed image
+  fullPageScrollable: boolean;  // NOT ENABLED YET.  scrollable image - image goes from top of content to bottom - false is fixed image
   defaultWhiteText: boolean;  // default white text on all sections unless noted
 
   sectEnable1: boolean;

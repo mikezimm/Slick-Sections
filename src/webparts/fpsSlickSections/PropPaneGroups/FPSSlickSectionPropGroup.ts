@@ -65,7 +65,7 @@ export function FPSSlickSectionProp(thisWPClass: IThisFPSWebPartClass, sectionNo
 
   groupFields.push(
     PropertyPaneTextField(`sectBgImage${sectionNo}`, {
-      label: 'Background-Image css',
+      label: 'Section Background-Image css',
       description: '',
       disabled: enableValue !== true ? true : false,
     })
@@ -73,7 +73,7 @@ export function FPSSlickSectionProp(thisWPClass: IThisFPSWebPartClass, sectionNo
 
   groupFields.push(
     PropertyPaneTextField(`sectBgColor${sectionNo}`, {
-      label: 'Background-Color css',
+      label: 'Section Background-Color css',
       description: '',
       disabled: enableValue !== true ? true : false,
     })
@@ -129,17 +129,17 @@ export function FPSSlickSectionProp(thisWPClass: IThisFPSWebPartClass, sectionNo
     })
   );
 
-  groupFields.push(
-    PropertyPaneSlider(`sectOpacity${sectionNo}`, {
-      label: `Background Opacity`,
-      min: 0,
-      max: 1,
-      step: .1,
-      disabled: enableValue !== true ? true : false,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      value: thisProps[ `sectOpacity${sectionNo}` as any],
-    })
-  );
+  // groupFields.push(
+  //   PropertyPaneSlider(`sectOpacity${sectionNo}`, {
+  //     label: `Background Opacity`,
+  //     min: 0,
+  //     max: 1,
+  //     step: .1,
+  //     disabled: enableValue !== true ? true : false,
+  //     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  //     value: thisProps[ `sectOpacity${sectionNo}` as any],
+  //   })
+  // );
 
   const propGroup: IPropertyPaneGroup= {
     groupName: `FPS Slick Section ${sectionNo}`,

@@ -65,6 +65,7 @@ $themePrimary: '[theme:themePrimary, default:#0078d7]';
 
   .settingsArea {
     background: hsl(0deg 0% 100% / 76%);
+    color: black;
   }
   // padding: 2em;
 
@@ -213,6 +214,7 @@ $themePrimary: '[theme:themePrimary, default:#0078d7]';
   & span { color: white; }
 }
 
+// News webaprt
 .forceWhiteText [data-automation-id="newsItem"] {
   & span { color: white; }
   & a { color: white; }
@@ -226,6 +228,7 @@ $themePrimary: '[theme:themePrimary, default:#0078d7]';
   color: white;
 }
 
+// Image Webpart
 .forceWhiteText [data-automation-id="captionElement"] span {
   color: white;
 }

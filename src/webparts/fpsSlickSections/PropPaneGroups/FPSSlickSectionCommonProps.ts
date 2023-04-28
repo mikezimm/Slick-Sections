@@ -35,7 +35,7 @@ export function FPSSlickSectionCommonProps( thisWPClass: IThisFPSWebPartClass ):
   const groupFields: IPropertyPaneField<any>[] = [];
 
   const {
-    scrollBehavior,
+    scrollBehavior, enableTabs
   } = thisProps;
 
   groupFields.push(
@@ -49,6 +49,7 @@ export function FPSSlickSectionCommonProps( thisWPClass: IThisFPSWebPartClass ):
     PropertyPaneTextField(`defaultSection`, {
       label: 'Default section number',
       description: '1 is the first section on the page',
+      disabled: enableTabs === true ? false : true,
     })
   );
 
@@ -75,6 +76,7 @@ export function FPSSlickSectionCommonProps( thisWPClass: IThisFPSWebPartClass ):
     PropertyPaneDropdown('buttonShape', <IPropertyPaneDropdownProps>{
       label: 'Button Shape',
       options: FPSSlickButtonChoices,
+      disabled: enableTabs === true ? false : true,
     }), );
     
 
@@ -82,6 +84,7 @@ export function FPSSlickSectionCommonProps( thisWPClass: IThisFPSWebPartClass ):
     PropertyPaneTextField(`buttonStyle`, {
       label: 'Default Button style - IT ONLY',
       description: `React.CSS like:  'background': 'white','color': 'black'.  Is ignored if selected`,
+      disabled: enableTabs === true ? false : true,
     })
   );
 
@@ -89,23 +92,24 @@ export function FPSSlickSectionCommonProps( thisWPClass: IThisFPSWebPartClass ):
     PropertyPaneTextField(`buttonBgColor`, {
       label: 'Button bar Background color - IT ONLY',
       description: ``,
+      disabled: enableTabs === true ? false : true,
     })
   );
 
-  groupFields.push(
-    PropertyPaneDropdown('scrollBehavior', {
-      disabled: true,
-      label: strings.ScrollBehaviorFieldLabel,
-      options: [{
-        key: 'auto',
-        text: strings.AutoScrollBehavior,
-      }, {
-        key: 'smooth',
-        text: strings.SmoothScrollBehavior,
-      }],
-      selectedKey: scrollBehavior || 'auto'
-    }),
-  );
+  // groupFields.push(
+  //   PropertyPaneDropdown('scrollBehavior', {
+  //     disabled: true,
+  //     label: strings.ScrollBehaviorFieldLabel,
+  //     options: [{
+  //       key: 'auto',
+  //       text: strings.AutoScrollBehavior,
+  //     }, {
+  //       key: 'smooth',
+  //       text: strings.SmoothScrollBehavior,
+  //     }],
+  //     selectedKey: scrollBehavior || 'auto'
+  //   }),
+  // );
 
   groupFields.push(
     PropertyPaneTextField(`fullPageImage`, {
@@ -114,16 +118,18 @@ export function FPSSlickSectionCommonProps( thisWPClass: IThisFPSWebPartClass ):
     })
   );
 
-  groupFields.push(
-    PropertyPaneToggle( 'fullPageScrollable' , {
-      label: `Image scrolls with content - BIGGER image`,
-      // disabled: thisWPClass._forceBanner !== false ? true : false ,
-      })
-  );
+  // groupFields.push(
+  //   PropertyPaneToggle( 'fullPageScrollable' , {
+  //     label: `Image scrolls with content - BIGGER image`,
+  //     // disabled: thisWPClass._forceBanner !== false ? true : false ,
+  //     })
+  // );
 
   groupFields.push(
     PropertyPaneToggle( 'defaultWhiteText' , {
       label: `Default text color white`,
+      onText: `When fullPageImage is dark`,
+      offText: `Off`
       // disabled: thisWPClass._forceBanner !== false ? true : false ,
       })
   );
