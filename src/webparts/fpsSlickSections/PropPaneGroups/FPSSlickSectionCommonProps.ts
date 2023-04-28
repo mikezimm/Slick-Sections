@@ -51,6 +51,7 @@ export function FPSSlickSectionCommonProps( thisWPClass: IThisFPSWebPartClass ):
       description: '1 is the first section on the page',
     })
   );
+
   groupFields.push(
     PropertyPaneTextField(`defaultWPBack`, {
       label: 'Default Webparts Background-Color css',
@@ -106,6 +107,26 @@ export function FPSSlickSectionCommonProps( thisWPClass: IThisFPSWebPartClass ):
     }),
   );
 
+  groupFields.push(
+    PropertyPaneTextField(`fullPageImage`, {
+      label: 'Full Page Image url',
+      description: `Single picture spanning all sections`,
+    })
+  );
+
+  groupFields.push(
+    PropertyPaneToggle( 'fullPageScrollable' , {
+      label: `Image scrolls with content - BIGGER image`,
+      // disabled: thisWPClass._forceBanner !== false ? true : false ,
+      })
+  );
+
+  groupFields.push(
+    PropertyPaneToggle( 'defaultWhiteText' , {
+      label: `Default text color white`,
+      // disabled: thisWPClass._forceBanner !== false ? true : false ,
+      })
+  );
 
   const propGroup: IPropertyPaneGroup= {
     groupName: `FPS Slick Section Common props`,

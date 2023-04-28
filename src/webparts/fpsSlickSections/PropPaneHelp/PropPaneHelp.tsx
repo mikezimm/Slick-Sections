@@ -8,6 +8,14 @@ import {  PivotItem, } from 'office-ui-fabric-react/lib/Pivot';
 //   return <ReactJson src={ obj } name={ name } collapsed={ false } displayDataTypes={ false } displayObjectSize={ false } enableClipboard={ true } style={{ padding: '20px 0px' }} theme= { 'rjv-default' } indentWidth={ 2}/>;
 // }
 
+/**
+ * FPS Slick Sections Notes:
+ * 
+ * ForceWhite does NOT work on collapsible sections.... might at first but if you collapse then expand, no go because web part does not re-apply the classes to the web parts.
+ * @returns 
+ */
+
+
 export function getWebPartHelpElementBoxTiles (  ): JSX.Element {
 
   const WebPartHelpElement = <PivotItem headerText={ 'Table of Contents' } > 

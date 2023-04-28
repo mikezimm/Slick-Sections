@@ -11,8 +11,16 @@ function createChangeSections(numb: number ) : string[] {
   return [ `sectEnable${numb}`, `sectButton${numb}`, `sectBgImage${numb}`, `sectBgColor${numb}`, `sectHeight${numb}`, `sectOpacity${numb}`, `sectMargBot${numb}`, `sectWPBack${numb}`, `sectWPPad${numb}`, `sectForceWhite${numb}` ];
 }
 
+// defaultSection: string;
+// defaultWPBack: string;
+// defaultWPPad: number;
+// scrollBehavior: ScrollBehavior;
+// enableTabs: boolean;
+// buttonShape: ISlickButtonShape;
+// buttonStyle: string;
+// buttonBgColor: string;
 
-export const changeDefaults : string[] = [ `defaultSection`, `defaultWPBack`, `defaultWPPad`, ``, ``, ];
+export const changeDefaults : string[] = [ `defaultSection`, `defaultWPBack`, `defaultWPPad`, `scrollBehavior`, `enableTabs`, `buttonShape`, `buttonStyle`, `buttonBgColor`, `fullPageImage`, `fullPageScrollable`, `defaultWhiteText` ];
 
 export const changeSection1 : string[] = createChangeSections(1);
 export const changeSection2 : string[] = createChangeSections(2);
@@ -71,6 +79,11 @@ export interface IFpsSlickSectionsWebPartProps extends IMinWPBannerProps {
   buttonShape: ISlickButtonShape;
   buttonStyle: string;
   buttonBgColor: string;
+
+  // Used for full page background image
+  fullPageImage: string;  // background url
+  fullPageScrollable: boolean;  // scrollable image - image goes from top of content to bottom - false is fixed image
+  defaultWhiteText: boolean;  // default white text on all sections unless noted
 
   sectEnable1: boolean;
   sectButton1: string;

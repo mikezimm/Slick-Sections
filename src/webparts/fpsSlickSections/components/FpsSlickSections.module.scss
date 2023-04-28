@@ -175,7 +175,7 @@ $themePrimary: '[theme:themePrimary, default:#0078d7]';
 
 .visibleSlickSection {
   transition:all 0.3s ease;
-  opacity: 1;
+  opacity: 1 !important;
 }
 
 .hiddenSlickSection {
@@ -208,16 +208,14 @@ $themePrimary: '[theme:themePrimary, default:#0078d7]';
   color: null;
 }
 
-.forceWhiteText [data-automation-id="newsItem"] a {
-  color: white;
+.forceWhiteText [data-automation-id="webPartHeader"]  {
+  & [role="heading"] { color: white; }
+  & span { color: white; }
 }
 
-.forceWhiteText [data-automation-id="webPartHeader"] [role="heading"] {
-  color: white;
-}
-
-.forceWhiteText [data-automation-id="webPartHeader"] span {
-  color: white;
+.forceWhiteText [data-automation-id="newsItem"] {
+  & span { color: white; }
+  & a { color: white; }
 }
 
 .forceWhiteText [data-automation-id="newsItemTitle"] {
@@ -228,34 +226,123 @@ $themePrimary: '[theme:themePrimary, default:#0078d7]';
   color: white;
 }
 
-.forceWhiteText [data-automation-id="newsItem"] span {
+.forceWhiteText [data-automation-id="captionElement"] span {
   color: white;
 }
 
-.forceWhiteText [data-automation-id="textBox"] p {
-  color: white;
+
+.forceWhiteTextCmdButton [data-automation-id="visibleContent"] button {
+  transition:all 0.3s ease;
+  color: white !important;
+  & i { color: white !important; }
+  & span { background: transparent !important; }
 }
 
-.forceWhiteText [data-automation-id="textBox"] h2 {
-  color: white;
+.forceWhiteTextCmdButton [data-automation-id="visibleContent"] button:hover {
+  transition:all 0.3s ease;
+  background: rgba(255, 255, 255, .2);
 }
 
-.forceWhiteText [data-automation-id="textBox"] h3 {
-  color: white;
+.forceWhiteTextCmdButton [data-automation-id="CollapsibleLayer-Button"] {
+  color: white !important;
 }
 
-.forceWhiteText [data-automation-id="textBox"] h4 {
-  color: white;
-}
+// .forceWhiteTextCmdButton button span:hover {
+//   transition:all 0.3s ease;
+//   background: rgba(255, 255, 255, .2);
+// }
+// .forceWhiteText [data-automation-id="textBox"] p {
+//   color: white;
+// }
 
-.forceWhiteText [data-automation-id="textBox"] a {
-  color: white;
-}
+// .forceWhiteText [data-automation-id="textBox"] h2 {
+//   color: white;
+// }
+
+// .forceWhiteText [data-automation-id="textBox"] h3 {
+//   color: white;
+// }
+
+// .forceWhiteText [data-automation-id="textBox"] h4 {
+//   color: white;
+// }
+
+// .forceWhiteText [data-automation-id="textBox"] a {
+//   color: white;
+// }
+
+
+.forceWhiteText [data-automation-id="textBox"]{
+  // https://css-tricks.com/the-sass-ampersand/
+  & h2 { color: white; }
+  & h3 { color: white; }
+  & h4 { color: white; }
+  & p { color: white; }
+  & a { color: white; }
+} 
 
 .forceWhiteText [data-automation-id="quick-links-item-title"] {
   color: white;
 }
 
+.forceWhiteText [data-automation-id="tile-card"] {
+  transition:all 0.3s ease;
+  i { color: white !important ; }
+
+  [ role=img ],:nth-child(2) { background: transparent; }
+
+  [ role=img ]:hover,:nth-child(2):hover {
+    background: rgba(255, 255, 255, .2);
+  }
+
+  // [data-automation-id="quick-links-item-title"] {
+  //   color: black;
+  // }
+}
+
+.forceWhiteText [data-automation-id="button-card"] {
+  transition:all 0.3s ease;
+  background: transparent;
+  border-radius: 5px;
+  [data-automation-id="quick-links-item-title"],i {
+    color: white ;
+  }
+}
+
+.forceWhiteText [data-automation-id="button-card"]:hover {
+  transition:all 0.3s ease;
+  background: rgba(255, 255, 255, .2);
+
+}
+
+.forceWhiteText [data-automation-id="grid-layout"] a:hover {
+  transition:all 0.3s ease;
+  background: rgba(255, 255, 255, .2);
+}
+
+
+// This targets collapsible headings and the collapse arrow
+.forceWhiteText [data-automation-id="CollapsibleLayer-Button"] div {
+  color: white;
+}
+
 .forceWhiteText [data-automation-id="embedContainer"] div {
   color: white;
+}
+
+.slickSectionCanvasBG {
+  transition:all 0.3s ease;
+  position: fixed;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  opacity: 0;
+
+  .slickSectionCanvasBGImg {
+    object-fit: contain;
+    width: 100%;
+    background: no-repeat;
+  }
 }

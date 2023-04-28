@@ -82,11 +82,11 @@ export function FPSSlickSectionProp(thisWPClass: IThisFPSWebPartClass, sectionNo
   groupFields.push(
     PropertyPaneTextField(`sectWPBack${sectionNo}`, {
       label: 'Webparts Background-Color css',
-      description: '',
+      description: 'Defaults to transparent if using full page image',
       disabled: enableValue !== true ? true : false,
     })
   );
-  
+
   groupFields.push(
     PropertyPaneToggle( `sectForceWhite${sectionNo}` , {
       label: `Force web part text white`,
