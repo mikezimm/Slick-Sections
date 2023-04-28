@@ -141,7 +141,7 @@ export default class FpsSlickSectionsWebPart extends FPSBaseClass<IFpsSlickSecti
 
   public render(): void {
 
-    const { defaultSection, buttonStyle, buttonShape, scrollBehavior, enableTabs, buttonBgColor } = this.properties;
+    const { defaultSection, buttonStyle, buttonShape, scrollBehavior, enableTabs, buttonBgColor, fullPageImage, fullPageScrollable, defaultWhiteText } = this.properties;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const bannerProps = runFPSWebPartRender( this as any, strings, WebPartAnalyticsChanges, WebPartPanelChanges, );
 
@@ -166,6 +166,10 @@ export default class FpsSlickSectionsWebPart extends FPSBaseClass<IFpsSlickSecti
         userDisplayName: this.context.pageContext.user.displayName,
 
         performance: this._performance, //Alternatively, use this if available (like ALVFM): _fetchInfo.performance,
+
+        fullPageImage: fullPageImage,
+        fullPageScrollable: fullPageScrollable,
+        defaultWhiteText: defaultWhiteText,
 
         buttonStyle: createStyleFromString( buttonStyle, null, '', `FPS-SlickSections render ~ 167` ),
         buttonShape: buttonShape,

@@ -35,6 +35,11 @@ export interface IFpsSlickSectionsProps  extends IFPSCoreReactComponentProps {
 
   performance: ILoadPerformance;
 
+  // Used for full page background image
+  fullPageImage: string;  // background url
+  fullPageScrollable: boolean;  // scrollable image - image goes from top of content to bottom - false is fixed image
+  defaultWhiteText: boolean;  // default white text on all sections unless noted
+
   buttonShape: ISlickButtonShape;
   buttonStyle: React.CSSProperties;
   buttonBgColor: string;

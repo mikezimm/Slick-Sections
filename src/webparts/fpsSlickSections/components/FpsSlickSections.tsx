@@ -12,13 +12,19 @@ import FetchBannerX from '@mikezimm/fps-library-v2/lib/banner/bannerX/FetchBanne
 // import { createSpecialElement } from '@mikezimm/fps-library-v2/lib/banner/components/SpecialBanner/component';
 // import { ISpecialMessage, } from '@mikezimm/fps-library-v2/lib/banner/components/SpecialBanner/interface';
 
-import { getWebPartHelpElementBoxTiles } from '../PropPaneHelp/PropPaneHelp';
+
 import { getBannerPages, } from './HelpPanel/AllContent';
 import { check4Gulp, IBannerPages, IPinMeState } from "../fpsReferences";
 
 import { ILoadPerformance, startPerformOp, updatePerformanceEnd } from "../fpsReferences";
 
 import { ISiteThemes } from "@mikezimm/fps-library-v2/lib/common/commandStyles/ISiteThemeChoices";
+
+import { getWebPartHelpElementCommon } from '../PropPaneHelp/Common';
+import { getWebPartHelpElementCSSWarning } from '../PropPaneHelp/CSSWarning';
+import { getWebPartHelpElementSections } from '../PropPaneHelp/Sections';
+import { getWebPartHelpElementCSSPerformance } from '../PropPaneHelp/CSSPerformance';
+
 const SiteThemes: ISiteThemes = { dark: styles.fpsSiteThemeDark, light: styles.fpsSiteThemeLight, primary: styles.fpsSiteThemePrimary };
 
 
@@ -28,7 +34,10 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
   private _performance: ILoadPerformance = null;
 
   private _webPartHelpElement = [
-    getWebPartHelpElementBoxTiles( ),
+    getWebPartHelpElementCSSWarning( ),
+    getWebPartHelpElementCSSPerformance( ),
+    getWebPartHelpElementCommon( ),
+    getWebPartHelpElementSections( ),
   ];
 
   private _contentPages : IBannerPages = getBannerPages( this.props.bannerProps );
