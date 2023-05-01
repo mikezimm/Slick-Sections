@@ -59,6 +59,12 @@ export const WPPresetEverywhere : IPreConfigSettings = {
 
         defaultWPBack: defWPBack,
         defaultWPPad: null,
+
+        // https://github.com/mikezimm/Slick-Sections/issues/40
+        fullPageOverlayOpacity: 0,
+        fullPageOverlayColor: 'Black',
+        fullPageImageFilter: '',
+
         scrollBehavior: 'smooth',
         enableTabs: true,
 

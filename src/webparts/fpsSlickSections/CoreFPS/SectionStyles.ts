@@ -175,9 +175,16 @@ export function addPreCanvasComponent( webPartProps: IFpsSlickSectionsWebPartPro
     return updates;
   }
 
+  const fullPageImageFilter = webPartProps.fullPageImageFilter ? `style= "filter:${webPartProps.fullPageImageFilter}"` : ``;
+  // https://github.com/mikezimm/Slick-Sections/issues/40
   const divHTML = `<div class="${ styles.slickSectionCanvasBG }">
-    <img class="${ styles.slickSectionCanvasBGImg }" src="${ webPartProps.fullPageImage }">
+    <img class="${ styles.slickSectionCanvasBGImg }" src="${ webPartProps.fullPageImage }" ${fullPageImageFilter}>
+    <div class="${ styles.slickSectionCanvasBGOverlay }" style="
+        background: ${ webPartProps.fullPageOverlayColor };
+        opacity: ${ webPartProps.fullPageOverlayOpacity };
+    "></div>
   </div>`;
+
 
   const slickCanvasBG: any[] = Array.from( document.getElementsByClassName( styles.slickSectionCanvasBG ) );
 
@@ -205,7 +212,6 @@ export function addPreCanvasComponent( webPartProps: IFpsSlickSectionsWebPartPro
     updates ++;
   }
 
-
   //Only apply white to command bar if there is an image && you force white default
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const cmdBar: any[] = Array.from( document.getElementsByClassName( `mainContent` ) );
@@ -216,6 +222,28 @@ export function addPreCanvasComponent( webPartProps: IFpsSlickSectionsWebPartPro
       cmdBar[0].classList.remove( styles.forceWhiteTextCmdButton );
     }
   }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const siteHeader: any = document.querySelector( `[data-automationid="SiteHeader"]` );
+  if ( siteHeader ) {
+    if ( webPartProps.defaultWhiteText === true ) {
+      siteHeader.classList.add( styles.forceWhiteTextSiteHeader );
+    } else {
+      siteHeader.classList.remove( styles.forceWhiteTextSiteHeader );
+    }
+  }
+
+  // data-automation-id="pageHeader"
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const pageHeader: any = document.querySelector( `[data-automation-id="pageHeader"]` );
+  if ( pageHeader ) {
+    if ( webPartProps.defaultWhiteText === true ) {
+      pageHeader.classList.add( styles.forceWhiteTextPageHeader );
+    } else {
+      pageHeader.classList.remove( styles.forceWhiteTextPageHeader );
+    }
+  }
+
 
   return updates;
 }

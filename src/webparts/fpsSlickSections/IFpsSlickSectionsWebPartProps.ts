@@ -8,7 +8,8 @@ import { IMinWPBannerProps } from '@mikezimm/fps-library-v2/lib/banner/interface
 import { ISlickButtonShape } from './components/IFpsSlickSectionsProps';
 
 function createChangeSections(numb: number ) : string[] {
-  return [ `sectEnable${numb}`, `sectButton${numb}`, `sectBgImage${numb}`, `sectBgColor${numb}`, `sectHeight${numb}`, `sectOpacity${numb}`, `sectMargBot${numb}`, `sectWPBack${numb}`, `sectWPPad${numb}`, `sectForceWhite${numb}` ];
+  return [ `sectEnable${numb}`, `sectButton${numb}`, `sectBgImage${numb}`, `sectBgColor${numb}`, `sectHeight${numb}`, `sectOpacity${numb}`, `sectMargBot${numb}`, `sectWPBack${numb}`, 
+  `sectWPPad${numb}`, `sectForceWhite${numb}` ];
 }
 
 // defaultSection: string;
@@ -19,8 +20,11 @@ function createChangeSections(numb: number ) : string[] {
 // buttonShape: ISlickButtonShape;
 // buttonStyle: string;
 // buttonBgColor: string;
+// fullPageOverlayOpacity: number;
+// fullPageOverlayColor: 'Black' | 'White';
 
-export const changeDefaults : string[] = [ `defaultSection`, `defaultWPBack`, `defaultWPPad`, `scrollBehavior`, `enableTabs`, `buttonShape`, `buttonStyle`, `buttonBgColor`, `fullPageImage`, `fullPageScrollable`, `defaultWhiteText` ];
+export const changeDefaults : string[] = [ `defaultSection`, `defaultWPBack`, `defaultWPPad`, `scrollBehavior`, `enableTabs`, `buttonShape`, `buttonStyle`, `buttonBgColor`, `fullPageImage`, 
+`fullPageScrollable`, `defaultWhiteText`, `fullPageOverlayOpacity`, `fullPageOverlayColor`, `fullPageImageFilter` ];
 
 export const changeSection1 : string[] = createChangeSections(1);
 export const changeSection2 : string[] = createChangeSections(2);
@@ -82,8 +86,11 @@ export interface IFpsSlickSectionsWebPartProps extends IMinWPBannerProps {
 
   // Used for full page background image
   fullPageImage: string;  // background url
+  fullPageImageFilter: string;  // background url filter css
   fullPageScrollable: boolean;  // NOT ENABLED YET.  scrollable image - image goes from top of content to bottom - false is fixed image
   defaultWhiteText: boolean;  // default white text on all sections unless noted
+  fullPageOverlayOpacity: number;  // https://github.com/mikezimm/Slick-Sections/issues/40
+  fullPageOverlayColor: 'Black' | 'White';  // https://github.com/mikezimm/Slick-Sections/issues/40
 
   sectEnable1: boolean;
   sectButton1: string;

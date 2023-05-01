@@ -8,14 +8,18 @@ import {
     IPropertyPaneGroup,
     IPropertyPaneField,
     IPropertyPaneDropdownProps,
+    IPropertyPaneDropdownOption,
     // IPropertyPaneDropdownOption,
   } from '@microsoft/sp-property-pane';
 
-import * as strings from 'FpsSlickSectionsWebPartStrings';
+// import * as strings from 'FpsSlickSectionsWebPartStrings';
 
 import { IThisFPSWebPartClass } from '@mikezimm/fps-library-v2/lib/banner/FPSWebPartClass/IThisFPSWebPartClass';
 import { IFpsSlickSectionsWebPartProps } from '../IFpsSlickSectionsWebPartProps';
 import { FPSSlickButtonChoices } from '../components/IFpsSlickSectionsProps';
+
+const FPSSlickFullPageOverlayColorChoices: IPropertyPaneDropdownOption[] = <IPropertyPaneDropdownOption[]>[`Black`, `White`].map((key, idx) => { return { index: idx, key: key, text: key }; });
+
 // import { IFPSSlickSectionWPProps } from '../components/IFpsSlickSectionsProps';
 // import { PageEditorAudienceChoices } from '../fpsReferences';
 /**
@@ -111,6 +115,8 @@ export function FPSSlickSectionCommonProps( thisWPClass: IThisFPSWebPartClass ):
   //   }),
   // );
 
+  const hasFullCanvasBG = thisProps.fullPageImage ? true : false;
+
   groupFields.push(
     PropertyPaneTextField(`fullPageImage`, {
       label: 'Full Page Image url',
@@ -133,6 +139,33 @@ export function FPSSlickSectionCommonProps( thisWPClass: IThisFPSWebPartClass ):
       // disabled: thisWPClass._forceBanner !== false ? true : false ,
       })
   );
+
+  groupFields.push(
+    PropertyPaneSlider(`fullPageOverlayOpacity`, {
+      label: `Default Webparts padding (in px)`,
+      min: 0,
+      max: 1,
+      step: .1,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      value: thisProps[ `fullPageOverlayOpacity` as any],
+    })
+  );
+
+  groupFields.push(
+    PropertyPaneDropdown('fullPageOverlayColor', <IPropertyPaneDropdownProps>{
+      label: 'Button Shape',
+      options: FPSSlickFullPageOverlayColorChoices,
+      disabled: enableTabs === true ? false : true,
+    }), );
+
+  groupFields.push(
+    PropertyPaneTextField(`fullPageImageFilter`, {
+      label: 'CSS Image Filter - for Full Page Image',
+      description: `example:  blur(5px) sepia(100%) - will both blur and colorize`,
+      disabled: hasFullCanvasBG === true ? false : true,
+    })
+  );
+
 
   const propGroup: IPropertyPaneGroup= {
     groupName: `FPS Slick Section Common props`,

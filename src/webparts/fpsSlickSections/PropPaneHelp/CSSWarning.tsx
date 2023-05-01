@@ -57,6 +57,19 @@ export function getWebPartHelpElementCSSWarning (  ): JSX.Element {
       <div className={ 'fps-pph-topic' }>Specific dependancies for styling White Text</div>
       <div>scss class:  forceWhiteText - Code: <a href='https://github.com/mikezimm/Slick-Sections/blob/ab202b0aec3b42f24d34ce35be07e50ae2595842/src/webparts/fpsSlickSections/components/FpsSlickSections.module.scss#L207'>Link to scss file for White Text</a></div>
 
+      <div className={ 'fps-pph-topic' }>White Text:  Site Header: Title, Following, Share buttons</div>
+      <div>{ `document.querySelector('`}<b>{`[data-automationid="SiteHeader"]`}</b>{`')`}</div>
+      <div>Apply <b>.forceWhiteTextSiteHeader</b> to <b>SiteHeader</b></div>
+      <div><b><mark>NOTE:</mark> datautomationid</b> is ONE WORD without a hyphen for this data element</div>
+      <div>{`data-automationid="SiteHeaderTitle" a ( attribute - link which Title is )`}</div>
+      <div>Also targets all buttons and button icons</div>
+
+      <div className={ 'fps-pph-topic' }>White Text:  Page Title</div>
+      <div>{ `document.querySelector('`}<b>`{`[data-automation-id="pageHeader"]`}`</b>{`')`}</div>
+      <div>Apply <b>.forceWhiteTextPageHeader</b> to <b>pageHeader</b></div>
+      <div>{`[data-automation-id="TitleTextId"]`}</div>
+      <div>{`[data-automation-id="personaDetails"]`}</div>
+
       <div className={ 'fps-pph-topic' }>White Text:  Used for Command Bar Div</div>
       <div>{ `document.getElementsByClassName('`}<b>mainContent</b>{`')`}</div>
       <div>Apply <b>.forceWhiteTextCmdButton</b> to <b>mainContent</b></div>
