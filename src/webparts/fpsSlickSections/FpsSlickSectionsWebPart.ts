@@ -93,6 +93,7 @@ import { IPerformanceOp } from './fpsReferences';
 import { saveViewAnalytics } from './CoreFPS/Analytics';
 import { FPSSlickSectionCommonProps } from './PropPaneGroups/FPSSlickSectionCommonProps';
 import { panelVersionNumber } from './components/HelpPanel/About';
+import { FPSSlickBackgroundProps } from './PropPaneGroups/FPSSlickBackgroundProps';
 
 
 export default class FpsSlickSectionsWebPart extends FPSBaseClass<IFpsSlickSectionsWebPartProps> {
@@ -141,7 +142,7 @@ export default class FpsSlickSectionsWebPart extends FPSBaseClass<IFpsSlickSecti
 
   public render(): void {
 
-    const { defaultSection, buttonStyle, buttonShape, scrollBehavior, enableTabs, buttonBgColor, fullPageImage, fullPageScrollable, defaultWhiteText } = this.properties;
+    const { defaultSection, buttonStyle, buttonShape, scrollBehavior, enableTabs, buttonBgColor, fullPageImage, fullPageScrollable, defaultWhiteText, whiteRefreshTip } = this.properties;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const bannerProps = runFPSWebPartRender( this as any, strings, WebPartAnalyticsChanges, WebPartPanelChanges, );
 
@@ -170,6 +171,7 @@ export default class FpsSlickSectionsWebPart extends FPSBaseClass<IFpsSlickSecti
         fullPageImage: fullPageImage,
         fullPageScrollable: fullPageScrollable,
         defaultWhiteText: defaultWhiteText,
+        whiteRefreshTip: whiteRefreshTip,
 
         buttonStyle: createStyleFromString( buttonStyle, null, '', `FPS-SlickSections render ~ 167` ),
         buttonShape: buttonShape,
@@ -178,12 +180,19 @@ export default class FpsSlickSectionsWebPart extends FPSBaseClass<IFpsSlickSecti
         sections: buildWPSectionArray( this as any, sectionCount ),
         scrollBehavior: scrollBehavior,
         enableTabs: enableTabs,
+
+        refreshStyles: this._refreshStyles.bind(this),
         errMessage: '',
         bannerProps: bannerProps,
       }
     );
 
     ReactDom.render(element, this.domElement);
+  }
+
+  private _refreshStyles(): void {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    this._performance.ops.process2 = updateSectionStyles( 'stylesR', this as any );
   }
 
   private _getEnvironmentMessage(): string {
@@ -257,7 +266,7 @@ export default class FpsSlickSectionsWebPart extends FPSBaseClass<IFpsSlickSecti
     const FPSGroups: IPropertyPaneGroup[] = getAllDefaultFPSFeatureGroups ( thisAsAny );
 
     const SlickGroups = createSectionGroups( thisAsAny, getSectionCount() );
-    groups = [ ...groups, FPSSlickSectionCommonProps( thisAsAny ), ...SlickGroups, ...FPSGroups ];
+    groups = [ ...groups, FPSSlickBackgroundProps( thisAsAny ), FPSSlickSectionCommonProps( thisAsAny ), ...SlickGroups, ...FPSGroups ];
 
 
     return {

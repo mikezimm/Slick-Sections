@@ -89,6 +89,7 @@ export interface IFpsSlickSectionsWebPartProps extends IMinWPBannerProps {
   fullPageImageFilter: string;  // background url filter css
   fullPageScrollable: boolean;  // NOT ENABLED YET.  scrollable image - image goes from top of content to bottom - false is fixed image
   defaultWhiteText: boolean;  // default white text on all sections unless noted
+  whiteRefreshTip: string;
   fullPageOverlayOpacity: number;  // https://github.com/mikezimm/Slick-Sections/issues/40
   fullPageOverlayColor: 'Black' | 'White';  // https://github.com/mikezimm/Slick-Sections/issues/40
 

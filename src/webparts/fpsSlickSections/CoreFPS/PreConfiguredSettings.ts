@@ -65,6 +65,8 @@ export const WPPresetEverywhere : IPreConfigSettings = {
         fullPageOverlayColor: 'Black',
         fullPageImageFilter: '',
 
+        whiteRefreshTip: '',
+
         scrollBehavior: 'smooth',
         enableTabs: true,
 

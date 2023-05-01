@@ -82,15 +82,6 @@ export function FPSSlickSectionCommonProps( thisWPClass: IThisFPSWebPartClass ):
       options: FPSSlickButtonChoices,
       disabled: enableTabs === true ? false : true,
     }), );
-    
-
-  groupFields.push(
-    PropertyPaneTextField(`buttonStyle`, {
-      label: 'Default Button style - IT ONLY',
-      description: `React.CSS like:  'background': 'white','color': 'black'.  Is ignored if selected`,
-      disabled: enableTabs === true ? false : true,
-    })
-  );
 
   groupFields.push(
     PropertyPaneTextField(`buttonBgColor`, {
@@ -100,69 +91,11 @@ export function FPSSlickSectionCommonProps( thisWPClass: IThisFPSWebPartClass ):
     })
   );
 
-  // groupFields.push(
-  //   PropertyPaneDropdown('scrollBehavior', {
-  //     disabled: true,
-  //     label: strings.ScrollBehaviorFieldLabel,
-  //     options: [{
-  //       key: 'auto',
-  //       text: strings.AutoScrollBehavior,
-  //     }, {
-  //       key: 'smooth',
-  //       text: strings.SmoothScrollBehavior,
-  //     }],
-  //     selectedKey: scrollBehavior || 'auto'
-  //   }),
-  // );
-
-  const hasFullCanvasBG = thisProps.fullPageImage ? true : false;
-
   groupFields.push(
-    PropertyPaneTextField(`fullPageImage`, {
-      label: 'Full Page Image url',
-      description: `Single picture spanning all sections`,
-    })
-  );
-
-  // groupFields.push(
-  //   PropertyPaneToggle( 'fullPageScrollable' , {
-  //     label: `Image scrolls with content - BIGGER image`,
-  //     // disabled: thisWPClass._forceBanner !== false ? true : false ,
-  //     })
-  // );
-
-  groupFields.push(
-    PropertyPaneToggle( 'defaultWhiteText' , {
-      label: `Default text color white`,
-      onText: `When fullPageImage is dark`,
-      offText: `Off`
-      // disabled: thisWPClass._forceBanner !== false ? true : false ,
-      })
-  );
-
-  groupFields.push(
-    PropertyPaneSlider(`fullPageOverlayOpacity`, {
-      label: `Default Webparts padding (in px)`,
-      min: 0,
-      max: 1,
-      step: .1,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      value: thisProps[ `fullPageOverlayOpacity` as any],
-    })
-  );
-
-  groupFields.push(
-    PropertyPaneDropdown('fullPageOverlayColor', <IPropertyPaneDropdownProps>{
-      label: 'Button Shape',
-      options: FPSSlickFullPageOverlayColorChoices,
+    PropertyPaneTextField(`buttonStyle`, {
+      label: 'Default Button style - IT ONLY',
+      description: `React.CSS like:  'background': 'white','color': 'black'.  Is ignored if selected`,
       disabled: enableTabs === true ? false : true,
-    }), );
-
-  groupFields.push(
-    PropertyPaneTextField(`fullPageImageFilter`, {
-      label: 'CSS Image Filter - for Full Page Image',
-      description: `example:  blur(5px) sepia(100%) - will both blur and colorize`,
-      disabled: hasFullCanvasBG === true ? false : true,
     })
   );
 
