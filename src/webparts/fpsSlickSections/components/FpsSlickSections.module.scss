@@ -87,7 +87,7 @@ $themePrimary: '[theme:themePrimary, default:#0078d7]';
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    cursor: none;
+    cursor: default;
     font-size: larger;
     font-weight: 600;
     color: default;
@@ -326,11 +326,41 @@ $themePrimary: '[theme:themePrimary, default:#0078d7]';
 
 // This targets collapsible headings and the collapse arrow
 .forceWhiteText [data-automation-id="CollapsibleLayer-Button"] div {
+  transition:all 0.3s ease;
   color: white;
 }
 
 .forceWhiteText [data-automation-id="embedContainer"] div {
+  transition:all 0.3s ease;
   color: white;
+}
+
+.forceWhiteTextPageHeader [data-automation-id="TitleTextId"] {
+  transition:all 0.3s ease;
+  color: white;
+}
+
+.forceWhiteTextPageHeader [data-automation-id="personaDetails"] div {
+  transition:all 0.3s ease;
+  color: white;
+}
+
+.forceWhiteTextSiteHeader [ data-automationid="SiteHeaderTitle" ] a {
+  transition:all 0.3s ease;
+  color: white;
+}
+
+.forceWhiteTextSiteHeader button {
+  transition:all 0.3s ease;
+  color: white !important;
+  i {
+    color: white !important;
+  }
+}
+
+.forceWhiteTextSiteHeader button:hover {
+  transition:all 0.3s ease;
+  background: rgba(255, 255, 255, .2);
 }
 
 .slickSectionCanvasBG {
@@ -347,5 +377,15 @@ $themePrimary: '[theme:themePrimary, default:#0078d7]';
     object-fit: contain;
     width: 100%;
     background: no-repeat;
+  }
+
+  // https://github.com/mikezimm/Slick-Sections/issues/40
+  .slickSectionCanvasBGOverlay {
+    // background: black;
+    height: 100%;
+    width: 100%;
+    top: 0px;
+    // opacity: .5;
+    position: absolute;
   }
 }
