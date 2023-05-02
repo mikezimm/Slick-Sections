@@ -15,6 +15,7 @@ import {  PivotItem, } from 'office-ui-fabric-react/lib/Pivot';
  * @returns 
  */
 // White text refresh label
+const LinkStyles: React.CSSProperties = { padding: '8px 15px', marginBottom: '12px', color: 'darkblue', cursor: 'pointer' };
 
 export function getWebPartHelpElementFullImage (  ): JSX.Element {
 
@@ -44,6 +45,22 @@ export function getWebPartHelpElementFullImage (  ): JSX.Element {
       <div>You can add text to left of that icon you want to tell people what it is.</div>
       <div>Note that the message should be very short and may crash into a longer web part title to {`it's`} left.</div>
 
+      <div className={ 'fps-pph-topic' }>Image Fit</div>
+      <div>Unfortunately the Background image will not fill entire page in all screen sizes.</div>
+      <div>We recommend you test the page by stretching to different sizes from wide-screen monitors to phone sizes in portrait mode.</div>
+      <div>Sometimes you may see white bars on the top-bottom or side.</div>
+      <div>If this causes an issue, you can try changing this setting, then save the page and completely refresh.</div>
+      <div>To temporarily test each layout, click on these links which will open this page in new windows.</div>
+      <div>
+        <a style={ LinkStyles } onClick={() => { window.open( `${window.location.href}?fullPageFit=Original`, '_blank' )}}>?fullPageFit=Original</a>
+        <a style={ LinkStyles } onClick={() => { window.open( `${window.location.href}?fullPageFit=Layout2`, '_blank' )}}>?fullPageFit=Layout2</a>
+      </div>
+
+
+      <div><mark>NOTE:</mark> If you are forcing white text, white bars may prevent you from finding the edit button.</div>
+      <div>The work-around is to add this paramter to your page url and reload:  
+        <a style={ LinkStyles } onClick={() => { window.open( `${window.location.href}?defaultNormalColor=true`, '_blank' )}}>?defaultNormalColor=true</a>
+        .</div>
     </div>
   </PivotItem>;
 

@@ -2,11 +2,12 @@ import { IThisFPSWebPartClass } from "@mikezimm/fps-library-v2/lib/banner/FPSWeb
 import { findParentElementLikeThis } from "@mikezimm/fps-library-v2/lib/logic/DOM/Search/domSearch";
 
 import { IFpsSlickSectionsWebPartProps } from "../IFpsSlickSectionsWebPartProps";
-import { IPerformanceOp } from "../fpsReferences";
+import { IPerformanceOp, check4This } from "../fpsReferences";
 import { startPerformOpV2, updatePerformanceEndV2 } from "@mikezimm/fps-library-v2/lib/components/molecules/Performance/functions";
 import { IStartPerformOp } from "@mikezimm/fps-library-v2/lib/components/molecules/Performance/IPerformanceSettings";
 
 import styles from '../components/FpsSlickSections.module.scss';
+import { IFPSFullPageImageFit } from "../PropPaneGroups/FPSSlickBackgroundProps";
 
 export function updateSectionStyles (  op: string, thisWPClass: IThisFPSWebPartClass ): IPerformanceOp  {
   const performanceSettings: IStartPerformOp = {  label: op, updateMiliseconds: true, includeMsStr: true, op: op  } as IStartPerformOp;
@@ -155,11 +156,21 @@ export function updateSectionStyles (  op: string, thisWPClass: IThisFPSWebPartC
 
 export function addPreCanvasComponent( webPartProps: IFpsSlickSectionsWebPartProps, updates: number, ): number {
 
+  // Added due to https://github.com/mikezimm/Slick-Sections/issues/51
+  const defaultWhiteText : boolean = check4This(`defaultNormalColor=true` ) === true ? false : webPartProps.defaultWhiteText;
+
+  let fullPageImageFit : IFPSFullPageImageFit = webPartProps.fullPageImageFit;
+  if ( check4This( `fullPageFit=Original` ) === true ) { fullPageImageFit = `Original`; }
+  else if ( check4This( `fullPageFit=Layout2` ) === true ) { fullPageImageFit = `Layout2`; }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let slickCanvasBG: any[] = Array.from( document.getElementsByClassName( styles.slickSectionCanvasBG ) );
+  if ( slickCanvasBG.length === 0 ) slickCanvasBG = Array.from( document.getElementsByClassName( styles.slickSectionCanvasBG2 ) );
+
   if ( !webPartProps.fullPageImage ) { 
     // if the fps canvas element exists already, just remove the visibleSlickSection className and return
-    const divs: any[] = Array.from( document.getElementsByClassName( `${styles.slickSectionCanvasBG}` ));
-    if ( divs.length > 0 ) {
-      divs[0].classList.remove( styles.visibleSlickSection );
+    if ( slickCanvasBG.length > 0 ) {
+      slickCanvasBG[0].classList.remove( styles.visibleSlickSection );
     }
 
     return updates;
@@ -167,18 +178,21 @@ export function addPreCanvasComponent( webPartProps: IFpsSlickSectionsWebPartPro
   }
 
   // https://developer.mozilla.org/en-US/docs/Web/API/Element/getElementsByClassName
-  const divs: any[] = Array.from( document.getElementsByClassName( `CanvasComponent` ) );
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const divsCanvas: any[] = Array.from( document.getElementsByClassName( `CanvasComponent` ) );
 
-  if ( divs.length === 0 ) {
+  if ( divsCanvas.length === 0 ) {
     // If there are no CanvasComponent elements, then I don't have an element to prepend the background to
     console.log( `FPS Slick Sections addPreCanvasComponent - NO CanvasComponent found` );
     return updates;
   }
 
   const fullPageImageFilter = webPartProps.fullPageImageFilter ? `style= "filter:${webPartProps.fullPageImageFilter}"` : ``;
+  const canvasClass = fullPageImageFit === 'Layout2' ? styles.slickSectionCanvasBG2 : styles.slickSectionCanvasBG ;
+  const imgClass = fullPageImageFit === 'Layout2' ? styles.slickSectionCanvasBGImg2 : styles.slickSectionCanvasBGImg ;
   // https://github.com/mikezimm/Slick-Sections/issues/40
-  const divHTML = `<div class="${ styles.slickSectionCanvasBG }">
-    <img class="${ styles.slickSectionCanvasBGImg }" src="${ webPartProps.fullPageImage }" ${fullPageImageFilter}>
+  const divHTML = `<div class="${ canvasClass }">
+    <img class="${ imgClass }" src="${ webPartProps.fullPageImage }" ${fullPageImageFilter}>
     <div class="${ styles.slickSectionCanvasBGOverlay }" style="
         background: ${ webPartProps.fullPageOverlayColor };
         opacity: ${ webPartProps.fullPageOverlayOpacity };
@@ -186,7 +200,6 @@ export function addPreCanvasComponent( webPartProps: IFpsSlickSectionsWebPartPro
   </div>`;
 
 
-  const slickCanvasBG: any[] = Array.from( document.getElementsByClassName( styles.slickSectionCanvasBG ) );
 
   if ( slickCanvasBG.length > 0 ) {
 
@@ -203,7 +216,7 @@ export function addPreCanvasComponent( webPartProps: IFpsSlickSectionsWebPartPro
     const tempDiv = document.createElement( "div" );
 
     // https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentElement
-    divs[0].insertAdjacentElement( "beforebegin", tempDiv );
+    divsCanvas[0].insertAdjacentElement( "beforebegin", tempDiv );
 
     tempDiv.outerHTML = divHTML;
 
@@ -216,7 +229,7 @@ export function addPreCanvasComponent( webPartProps: IFpsSlickSectionsWebPartPro
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const cmdBar: any[] = Array.from( document.getElementsByClassName( `mainContent` ) );
   if ( cmdBar && cmdBar.length > 0 ) {
-    if ( webPartProps.defaultWhiteText === true ) {
+    if ( defaultWhiteText === true ) {
       cmdBar[0].classList.add( styles.forceWhiteTextCmdButton );
     } else {
       cmdBar[0].classList.remove( styles.forceWhiteTextCmdButton );
@@ -226,7 +239,7 @@ export function addPreCanvasComponent( webPartProps: IFpsSlickSectionsWebPartPro
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const siteHeader: any = document.querySelector( `[data-automationid="SiteHeader"]` );
   if ( siteHeader ) {
-    if ( webPartProps.defaultWhiteText === true ) {
+    if ( defaultWhiteText === true ) {
       siteHeader.classList.add( styles.forceWhiteTextSiteHeader );
     } else {
       siteHeader.classList.remove( styles.forceWhiteTextSiteHeader );
@@ -237,7 +250,7 @@ export function addPreCanvasComponent( webPartProps: IFpsSlickSectionsWebPartPro
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const pageHeader: any = document.querySelector( `[data-automation-id="pageHeader"]` );
   if ( pageHeader ) {
-    if ( webPartProps.defaultWhiteText === true ) {
+    if ( defaultWhiteText === true ) {
       pageHeader.classList.add( styles.forceWhiteTextPageHeader );
     } else {
       pageHeader.classList.remove( styles.forceWhiteTextPageHeader );
@@ -358,7 +371,10 @@ export function addWebPartPadding( webPartProps: any, sectionNo: number, CanvasZ
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function forceWhiteText( webPartProps: any, sectionNo: number, CanvasZone: Element, updates: number ): number {
 
-  const WPWhite = webPartProps[ `sectForceWhite${ sectionNo + 1 }` ] === true || webPartProps.defaultWhiteText === true ? true : false;
+  // Added due to https://github.com/mikezimm/Slick-Sections/issues/51
+  const defaultWhiteText : boolean = check4This(`defaultNormalColor=true` ) === true ? false : webPartProps.defaultWhiteText;
+
+  const WPWhite = webPartProps[ `sectForceWhite${ sectionNo + 1 }` ] === true || defaultWhiteText === true ? true : false;
 
   if ( WPWhite ) {
 

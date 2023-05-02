@@ -64,6 +64,7 @@ export const WPPresetEverywhere : IPreConfigSettings = {
         fullPageOverlayOpacity: 0,
         fullPageOverlayColor: 'Black',
         fullPageImageFilter: '',
+        fullPageImageFit: 'Original',
 
         whiteRefreshTip: '',
 

@@ -16,9 +16,13 @@ import {
 
 import { IThisFPSWebPartClass } from '@mikezimm/fps-library-v2/lib/banner/FPSWebPartClass/IThisFPSWebPartClass';
 import { IFpsSlickSectionsWebPartProps } from '../IFpsSlickSectionsWebPartProps';
-import { FPSSlickButtonChoices } from '../components/IFpsSlickSectionsProps';
 
 const FPSSlickFullPageOverlayColorChoices: IPropertyPaneDropdownOption[] = <IPropertyPaneDropdownOption[]>[`Black`, `White`].map((key, idx) => { return { index: idx, key: key, text: key }; });
+
+export type IFPSFullPageImageFit = 'Original' | 'Layout2';
+export const FullPageImageFitStrings: IFPSFullPageImageFit[] = [ `Original`, `Layout2` ]
+
+const FPSSlickFullPageImageFitChoices: IPropertyPaneDropdownOption[] = <IPropertyPaneDropdownOption[]>FullPageImageFitStrings.map((key, idx) => { return { index: idx, key: key, text: key }; });
 
 // import { IFPSSlickSectionWPProps } from '../components/IFpsSlickSectionsProps';
 // import { PageEditorAudienceChoices } from '../fpsReferences';
@@ -103,6 +107,15 @@ export function FPSSlickBackgroundProps( thisWPClass: IThisFPSWebPartClass ): IP
       disabled: thisProps.defaultWhiteText === true ? false : true,
     })
   );
+
+
+  groupFields.push(
+    PropertyPaneDropdown('fullPageImageFit', <IPropertyPaneDropdownProps>{
+      label: 'Image fit',
+      options: FPSSlickFullPageImageFitChoices,
+      disabled: hasFullCanvasBG === true ? false : true,
+    }), );
+
 
   const propGroup: IPropertyPaneGroup= {
     groupName: `FPS Full Page Background Props`,
