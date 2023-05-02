@@ -3,6 +3,7 @@ import { IFPSCorePinMeReactComponentState } from '@mikezimm/fps-library-v2/lib/b
 
 import { ILoadPerformance } from '../fpsReferences';
 import { IPropertyPaneDropdownOption } from '@microsoft/sp-property-pane';
+import { IFPSPageBGWPProps } from '../IFPSPageBGWPProps';
 
 export const FPSSlickButtonChoices: IPropertyPaneDropdownOption[] = <IPropertyPaneDropdownOption[]>[`Pill`, `Rectangle`].map((key, idx) => { return { index: idx, key: key, text: key }; });
 export type ISlickButtonShape = `Pill` | `Rectangle` ;
@@ -26,6 +27,16 @@ export interface IFPSSlickSectionWPProps {
   domElement?: HTMLElement;
 }
 
+export interface IFPSSlickCommonWPProps {
+  buttonShape: ISlickButtonShape;
+  buttonStyle: React.CSSProperties;
+  buttonBgColor: string;
+  defaultSection: number;
+
+  scrollBehavior: ScrollBehavior;
+  enableTabs: boolean;
+}
+
 export interface IFpsSlickSectionsProps  extends IFPSCoreReactComponentProps {
   description: string;
   isDarkTheme: boolean;
@@ -37,20 +48,16 @@ export interface IFpsSlickSectionsProps  extends IFPSCoreReactComponentProps {
 
   refreshStyles(): void;
 
-
-  // Used for full page background image
-  fullPageImage: string;  // background url
-  fullPageScrollable: boolean;  // scrollable image - image goes from top of content to bottom - false is fixed image
-  defaultWhiteText: boolean;  // default white text on all sections unless noted
-  whiteRefreshTip: string;
-  
-  buttonShape: ISlickButtonShape;
-  buttonStyle: React.CSSProperties;
-  buttonBgColor: string;
-  defaultSection: number;
+  fpsPageBGWPProps: IFPSPageBGWPProps;
+  slickCommonProps: IFPSSlickCommonWPProps;
   sections: IFPSSlickSectionWPProps[];
-  scrollBehavior: ScrollBehavior;
-  enableTabs: boolean;
+  
+  // // Used for full page background image
+  // fullPageImage: string;  // background url
+  // fullPageScrollable: boolean;  // scrollable image - image goes from top of content to bottom - false is fixed image
+  // defaultWhiteText: boolean;  // default white text on all sections unless noted
+  // whiteRefreshTip: string;
+
 
   // section1: IFPSSlickSectionWPProps;
   // section2: IFPSSlickSectionWPProps;

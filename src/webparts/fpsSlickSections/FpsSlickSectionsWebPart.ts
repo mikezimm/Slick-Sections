@@ -88,12 +88,13 @@ import { onFPSPropPaneCHanged } from '@mikezimm/fps-library-v2/lib/banner/FPSWeb
 import { FPSBaseClass } from '@mikezimm/fps-library-v2/lib/banner/FPSWebPartClass/FPSBaseClass';
 import { IThisFPSWebPartClass } from '@mikezimm/fps-library-v2/lib/banner/FPSWebPartClass/IThisFPSWebPartClass';
 import { buildWPSectionArray, createSectionGroups, } from './PropPaneGroups/FPSSlickSectionPropGroup';
-import { getSectionCount, updateSectionStyles } from './CoreFPS/SectionStyles';
+import { updateSectionStyles } from './CoreFPS/SectionStyles';
+import { getSectionCount } from "./CoreFPS/updateSectionCSS";
 import { IPerformanceOp } from './fpsReferences';
 import { saveViewAnalytics } from './CoreFPS/Analytics';
 import { FPSSlickSectionCommonProps } from './PropPaneGroups/FPSSlickSectionCommonProps';
 import { panelVersionNumber } from './components/HelpPanel/About';
-import { FPSSlickBackgroundProps } from './PropPaneGroups/FPSSlickBackgroundProps';
+import { FPSSlickBackgroundProps } from './FullPageBackGround/PropPane/FPSSlickBackgroundProps';
 
 
 export default class FpsSlickSectionsWebPart extends FPSBaseClass<IFpsSlickSectionsWebPartProps> {
@@ -142,7 +143,9 @@ export default class FpsSlickSectionsWebPart extends FPSBaseClass<IFpsSlickSecti
 
   public render(): void {
 
-    const { defaultSection, buttonStyle, buttonShape, scrollBehavior, enableTabs, buttonBgColor, fullPageImage, fullPageScrollable, defaultWhiteText, whiteRefreshTip } = this.properties;
+    const { defaultSection, buttonStyle, buttonShape, scrollBehavior, enableTabs, buttonBgColor, fullPageImage, fullPageScrollable, 
+      defaultWhiteText, whiteRefreshTip,
+      fullPageImageFilter, fullPageOverlayOpacity, fullPageOverlayColor, fullPageImageFit } = this.properties;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const bannerProps = runFPSWebPartRender( this as any, strings, WebPartAnalyticsChanges, WebPartPanelChanges, );
 
@@ -168,21 +171,34 @@ export default class FpsSlickSectionsWebPart extends FPSBaseClass<IFpsSlickSecti
 
         performance: this._performance, //Alternatively, use this if available (like ALVFM): _fetchInfo.performance,
 
-        fullPageImage: fullPageImage,
-        fullPageScrollable: fullPageScrollable,
-        defaultWhiteText: defaultWhiteText,
-        whiteRefreshTip: whiteRefreshTip,
+        fpsPageBGWPProps: {
+          fullPageImage: fullPageImage,
+          fullPageImageFilter: fullPageImageFilter,
+          fullPageScrollable: fullPageScrollable,
+          defaultWhiteText: defaultWhiteText,
+          whiteRefreshTip: whiteRefreshTip,
+          fullPageOverlayOpacity: fullPageOverlayOpacity,
+          fullPageOverlayColor: fullPageOverlayColor,
+          fullPageImageFit: fullPageImageFit,
 
-        buttonStyle: createStyleFromString( buttonStyle, null, '', `FPS-SlickSections render ~ 167` ),
-        buttonShape: buttonShape,
-        buttonBgColor: buttonBgColor,
-        defaultSection: useDefaultSection , 
+        },
+
+        slickCommonProps: {
+          buttonStyle: createStyleFromString( buttonStyle, null, '', `FPS-SlickSections render ~ 167` ),
+          buttonShape: buttonShape,
+          buttonBgColor: buttonBgColor,
+          defaultSection: useDefaultSection , 
+
+          scrollBehavior: scrollBehavior,
+          enableTabs: enableTabs,
+        },
+
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         sections: buildWPSectionArray( this as any, sectionCount ),
-        scrollBehavior: scrollBehavior,
-        enableTabs: enableTabs,
 
         refreshStyles: this._refreshStyles.bind(this),
         errMessage: '',
+
         bannerProps: bannerProps,
       }
     );

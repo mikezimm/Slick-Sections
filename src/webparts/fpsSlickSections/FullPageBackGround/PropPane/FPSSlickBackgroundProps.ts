@@ -14,13 +14,11 @@ import {
 
 // import * as strings from 'FpsSlickSectionsWebPartStrings';
 
-import { IThisFPSWebPartClass } from '@mikezimm/fps-library-v2/lib/banner/FPSWebPartClass/IThisFPSWebPartClass';
-import { IFpsSlickSectionsWebPartProps } from '../IFpsSlickSectionsWebPartProps';
+// import { IThisFPSWebPartClass } from '@mikezimm/fps-library-v2/lib/banner/FPSWebPartClass/IThisFPSWebPartClass';
+// import { IFpsSlickSectionsWebPartProps } from '../IFpsSlickSectionsWebPartProps';
+import { FullPageImageFitStrings, FullPageOverlayColors, IFPSPageBGWPProps, } from '../../IFPSPageBGWPProps';
 
-const FPSSlickFullPageOverlayColorChoices: IPropertyPaneDropdownOption[] = <IPropertyPaneDropdownOption[]>[`Black`, `White`].map((key, idx) => { return { index: idx, key: key, text: key }; });
-
-export type IFPSFullPageImageFit = 'Original' | 'Layout2';
-export const FullPageImageFitStrings: IFPSFullPageImageFit[] = [ `Original`, `Layout2` ]
+const FPSSlickFullPageOverlayColorChoices: IPropertyPaneDropdownOption[] = <IPropertyPaneDropdownOption[]>FullPageOverlayColors.map((key, idx) => { return { index: idx, key: key, text: key }; });
 
 const FPSSlickFullPageImageFitChoices: IPropertyPaneDropdownOption[] = <IPropertyPaneDropdownOption[]>FullPageImageFitStrings.map((key, idx) => { return { index: idx, key: key, text: key }; });
 
@@ -35,16 +33,17 @@ const FPSSlickFullPageImageFitChoices: IPropertyPaneDropdownOption[] = <IPropert
  * @returns
  */
 
-export function FPSSlickBackgroundProps( thisWPClass: IThisFPSWebPartClass ): IPropertyPaneGroup {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function FPSSlickBackgroundProps( thisWPClass: any ): IPropertyPaneGroup {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const thisProps: any = thisWPClass.properties as IFpsSlickSectionsWebPartProps;
+  const thisProps: any = thisWPClass.properties as IFPSPageBGWPProps;
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const groupFields: IPropertyPaneField<any>[] = [];
 
   const { fullPageImage, fullPageOverlayOpacity } = thisProps;
 
- 
   const hasFullCanvasBG = fullPageImage ? true : false;
 
   groupFields.push(
@@ -53,13 +52,6 @@ export function FPSSlickBackgroundProps( thisWPClass: IThisFPSWebPartClass ): IP
       description: `Single picture spanning all sections`,
     })
   );
-
-  // groupFields.push(
-  //   PropertyPaneToggle( 'fullPageScrollable' , {
-  //     label: `Image scrolls with content - BIGGER image`,
-  //     // disabled: thisWPClass._forceBanner !== false ? true : false ,
-  //     })
-  // );
 
   groupFields.push(
     PropertyPaneSlider(`fullPageOverlayOpacity`, {
@@ -96,7 +88,6 @@ export function FPSSlickBackgroundProps( thisWPClass: IThisFPSWebPartClass ): IP
       label: `Force default text color to White`,
       onText: `When fullPageImage is dark`,
       offText: `Off`
-      // disabled: thisWPClass._forceBanner !== false ? true : false ,
       })
   );
 

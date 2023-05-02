@@ -1,0 +1,152 @@
+
+[data-automation-id="webPartHeader"] [role="heading"] {
+  color: null;
+}
+
+.forceWhiteText [data-automation-id="webPartHeader"] [role="heading"] { 
+  color: white;
+}
+
+.forceWhiteText [data-automation-id="webPartHeader"] span { 
+  color: white;
+}
+
+/* News webaprt */
+.forceWhiteText [data-automation-id="newsItem"] span {
+  color: white;
+}
+
+.forceWhiteText [data-automation-id="newsItem"] a {
+  color: white;
+}
+
+.forceWhiteText [data-automation-id="newsItemTitle"] {
+  color: white;
+}
+
+.forceWhiteText [data-automation-id="newsItemDescription"] {
+  color: white;
+}
+
+/* Image Webpart */
+.forceWhiteText [data-automation-id="captionElement"] span {
+  color: white;
+}
+
+
+.forceWhiteTextCmdButton [data-automation-id="visibleContent"] button {
+  transition:all 0.3s ease;
+  color: white !important;
+}
+
+.forceWhiteTextCmdButton [data-automation-id="visibleContent"] button i {
+  color: white !important;
+}
+
+.forceWhiteTextCmdButton [data-automation-id="visibleContent"] button span {
+  background: transparent !important;
+}
+
+.forceWhiteTextCmdButton [data-automation-id="visibleContent"] button:hover {
+  transition:all 0.3s ease;
+  background: rgba(255, 255, 255, .2);
+}
+
+.forceWhiteTextCmdButton [data-automation-id="CollapsibleLayer-Button"] {
+  color: white !important;
+}
+
+.forceWhiteText [data-automation-id="textBox"] h2 { color: white; }
+.forceWhiteText [data-automation-id="textBox"] h3 { color: white; }
+.forceWhiteText [data-automation-id="textBox"] h4 { color: white; }
+.forceWhiteText [data-automation-id="textBox"] p { color: white; }
+.forceWhiteText [data-automation-id="textBox"] a { color: white; }
+
+
+.forceWhiteText [data-automation-id="quick-links-item-title"] {
+  color: white;
+}
+
+.forceWhiteText [data-automation-id="tile-card"] {
+  transition:all 0.3s ease;
+
+}
+
+.forceWhiteText [data-automation-id="tile-card"] i { color: white !important ; }
+
+.forceWhiteText [data-automation-id="tile-card"] [ role=img ] { background: transparent; }
+.forceWhiteText [data-automation-id="tile-card"] :nth-child(2) { background: transparent; }
+
+.forceWhiteText [data-automation-id="tile-card"] [ role=img ]:hover {
+  background: rgba(255, 255, 255, .2);
+}
+
+.forceWhiteText [data-automation-id="tile-card"] :nth-child(2):hover {
+  background: rgba(255, 255, 255, .2);
+}
+
+.forceWhiteText [data-automation-id="button-card"] {
+  transition:all 0.3s ease;
+  background: transparent;
+  border-radius: 5px;
+}
+
+.forceWhiteText [data-automation-id="button-card"] [data-automation-id="quick-links-item-title"] {
+  color: white ;
+}
+
+.forceWhiteText [data-automation-id="button-card"] i {
+  color: white ;
+}
+
+.forceWhiteText [data-automation-id="button-card"]:hover {
+  transition:all 0.3s ease;
+  background: rgba(255, 255, 255, .2);
+
+}
+
+.forceWhiteText [data-automation-id="grid-layout"] a:hover {
+  transition:all 0.3s ease;
+  background: rgba(255, 255, 255, .2);
+}
+
+
+/* This targets collapsible headings and the collapse arrow */
+.forceWhiteText [data-automation-id="CollapsibleLayer-Button"] div {
+  transition:all 0.3s ease;
+  color: white;
+}
+
+.forceWhiteText [data-automation-id="embedContainer"] div {
+  transition:all 0.3s ease;
+  color: white;
+}
+
+.forceWhiteTextPageHeader [data-automation-id="TitleTextId"] {
+  transition:all 0.3s ease;
+  color: white;
+}
+
+.forceWhiteTextPageHeader [data-automation-id="personaDetails"] div {
+  transition:all 0.3s ease;
+  color: white;
+}
+
+.forceWhiteTextSiteHeader [ data-automationid="SiteHeaderTitle" ] a {
+  transition:all 0.3s ease;
+  color: white;
+}
+
+.forceWhiteTextSiteHeader button {
+  transition:all 0.3s ease;
+  color: white !important;
+}
+
+.forceWhiteTextSiteHeader button i {
+  color: white !important;
+}
+
+.forceWhiteTextSiteHeader button:hover {
+  transition:all 0.3s ease;
+  background: rgba(255, 255, 255, .2);
+}

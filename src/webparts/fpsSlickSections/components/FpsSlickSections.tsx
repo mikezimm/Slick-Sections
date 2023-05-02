@@ -1,11 +1,11 @@
 import * as React from 'react';
 import styles from './FpsSlickSections.module.scss';
 import { AllSectionsConst, IFPSSlickSectionWPProps, IFpsSlickSectionsProps, IFpsSlickSectionsState } from './IFpsSlickSectionsProps';
-import { escape } from '@microsoft/sp-lodash-subset';
+// import { escape } from '@microsoft/sp-lodash-subset';
 import { DisplayMode } from '@microsoft/sp-core-library';
-import { getSectionCount } from '../CoreFPS/SectionStyles';
+import { getSectionCount } from "../CoreFPS/updateSectionCSS";
 import { Icon,} from 'office-ui-fabric-react/lib/Icon';
-import { saveViewAnalytics } from '../CoreFPS/Analytics';
+// import { saveViewAnalytics } from '../CoreFPS/Analytics';
 
 // import FetchBanner from '../CoreFPS/FetchBannerElement';
 import FetchBannerX from '@mikezimm/fps-library-v2/lib/banner/bannerX/FetchBannerX';
@@ -21,14 +21,12 @@ import { ILoadPerformance, startPerformOp, updatePerformanceEnd } from "../fpsRe
 import { ISiteThemes } from "@mikezimm/fps-library-v2/lib/common/commandStyles/ISiteThemeChoices";
 
 import { getWebPartHelpElementCommon } from '../PropPaneHelp/Common';
-import { getWebPartHelpElementCSSWarning } from '../PropPaneHelp/CSSWarning';
 import { getWebPartHelpElementSections } from '../PropPaneHelp/Sections';
-import { getWebPartHelpElementCSSPerformance } from '../PropPaneHelp/CSSPerformance';
-import { getWebPartHelpElementFullImage } from '../PropPaneHelp/FullImage';
+import { getWebPartHelpElementCSSWarning } from '../FullPageBackGround/PropHelp/CSSWarning';
+import { getWebPartHelpElementCSSPerformance } from '../FullPageBackGround/PropHelp/CSSPerformance';
+import { getWebPartHelpElementFullImage } from '../FullPageBackGround/PropHelp/FullImage';
 
 const SiteThemes: ISiteThemes = { dark: styles.fpsSiteThemeDark, light: styles.fpsSiteThemeLight, primary: styles.fpsSiteThemePrimary };
-
-
 
 export default class FpsSlickSections extends React.Component<IFpsSlickSectionsProps, IFpsSlickSectionsState> {
 
@@ -98,7 +96,9 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
   public constructor(props:IFpsSlickSectionsProps){
     super(props);
 
-    const { sections, defaultSection, performance, enableTabs, bannerProps } = this.props;
+    const { sections, performance, bannerProps, slickCommonProps } = this.props;
+    const { defaultSection, enableTabs, } = slickCommonProps;
+
     if ( this._performance === null ) { this._performance = performance;  }
     this._firstSection = sections[ 0 ];
 
@@ -195,12 +195,14 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
   public render(): React.ReactElement<IFpsSlickSectionsProps> {
     const {
       hasTeamsContext,
-      enableTabs,
       bannerProps,
       sections,
+      slickCommonProps,
     } = this.props;
 
-    if ( enableTabs !== true && bannerProps.displayMode === DisplayMode.Read ) return <div/>;
+    const { buttonBgColor, } = slickCommonProps;
+
+    if ( this.props.slickCommonProps.enableTabs !== true && bannerProps.displayMode === DisplayMode.Read ) return <div/>;
 
     console.log( `RenderState:`, this.state );
     const devHeader = this.state.showDevHeader === true ? <div><b>Props: </b> { `this.props.lastPropChange , this.props.lastPropDetailChange` } - <b>State: lastStateChange: </b> { this.state.lastStateChange  } </div> : null ;
@@ -220,16 +222,16 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
     const farBannerElementsArray = [...this._farBannerElements, ];
 
     // https://github.com/mikezimm/Slick-Sections/issues/18
-    if ( this.props.defaultWhiteText === true ) {
+    if ( this.props.fpsPageBGWPProps.defaultWhiteText === true ) {
       farBannerElementsArray.push( 
         //https://github.com/mikezimm/Slick-Sections/issues/49
-        this.props.whiteRefreshTip ? 
+        this.props.fpsPageBGWPProps.whiteRefreshTip ? 
         <div title={'Refresh Font colors - re-whitens them after scrolling down'} onClick={ this.props.refreshStyles } 
           style={{ flexWrap: 'nowrap',
             justifyContent: 'start',
             alignItems: 'center',
             display: 'flex', cursor: 'pointer' }}>
-              <div>{ this.props.whiteRefreshTip}</div>
+              <div>{ this.props.fpsPageBGWPProps.whiteRefreshTip}</div>
               <Icon iconName={ 'SyncStatusSolid' } style={ bannerProps.bannerCmdReactCSS }/></div>:
         <div title={'Refresh Font colors - re-whitens them after scrolling down'}><Icon iconName={ 'SyncStatusSolid' } onClick={ this.props.refreshStyles } style={ bannerProps.bannerCmdReactCSS }/></div>
       );
@@ -237,15 +239,15 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
 
     //Setting showTricks to false here ( skipping this line does not have any impact on bug #90 )
     // https://github.com/mikezimm/Slick-Sections/issues/18
-    if ( this.props.bannerProps.beAUser === false 
-        && this.props.bannerProps.FPSUser.simple !== 'Reader' 
-        && this.props.bannerProps.FPSUser.simple !== 'None' ) {
+    if ( bannerProps.beAUser === false 
+        && bannerProps.FPSUser.simple !== 'Reader' 
+        && bannerProps.FPSUser.simple !== 'None' ) {
             farBannerElementsArray.push( 
               <div title={'Show Debug Info'}><Icon iconName='TestAutoSolid' onClick={ this._showSettings.bind(this) } style={ this.debugCmdStyles }/></div>
             );
     }
 
-    // const FPSUser : IFPSUser = this.props.bannerProps.FPSUser;
+    // const FPSUser : IFPSUser = bannerProps.FPSUser;
     // const showSpecial = FPSUser.manageWeb === true || FPSUser.managePermissions === true || FPSUser.manageLists === true ? true : false;
     // const Special : ISpecialMessage = showSpecial === true ? specialUpgrade( 'warn', '/sites/TheSharePointHub/SitePages/DrillDown-WebPart-Upgrade---v2.aspx', ) : undefined;
     // Special.style = { color: 'black', background: 'limegreen' };
@@ -259,7 +261,7 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
       // bonusHTML2={ <div>BonusHTML2 Div</div> }
       siteThemes = { SiteThemes }
 
-      bannerProps={ this.props.bannerProps }
+      bannerProps={ bannerProps }
       parentState={ this.state }
 
       nearBannerElementsArray={ [] }
@@ -298,7 +300,7 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
 
     return (
       <section className={`${styles.fpsSlickSections} ${hasTeamsContext ? styles.teams : ''}`}
-      style={{ background: this.props.buttonBgColor ? this.props.buttonBgColor : null }}>
+      style={{ background: buttonBgColor ? buttonBgColor : null }}>
         { devHeader }
         { Banner }
         { buttonArray }
@@ -313,7 +315,7 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
       <div key={ 79 }className={ styles.sectionProps }>
         <h3>Defaults</h3>
         <ul>
-          <li>Default Section: <b>{ this.props.defaultSection }</b></li>
+          <li>Default Section: <b>{ this.props.slickCommonProps.defaultSection }</b></li>
         </ul>
       </div>
     ];
@@ -342,7 +344,7 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
 
   private _createThisButton( sections: IFPSSlickSectionWPProps[], ) : JSX.Element[] {
 
-    const { enableTabs, buttonShape } = this.props;
+    const { enableTabs, buttonShape, buttonStyle } = this.props.slickCommonProps;
     const { selectedSection } = this.state;
     const pillClass = buttonShape === 'Pill' ? styles.pillShape : '';
 
@@ -354,7 +356,7 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
     const elements : JSX.Element[] = [
       <button key={ `79` } className={ [ selectedSection.number === AllSectionsConst.number ? styles.isSelected : null, pillClass ].join(' ') }
         onClick={ () => this._activateSection( AllSectionsConst ) } title={ `Show all sections` }
-        style={ selectedSection.number === AllSectionsConst.number ? null : this.props.buttonStyle }>
+        style={ selectedSection.number === AllSectionsConst.number ? null : buttonStyle }>
         <Icon iconName='LineSpacing' className={ `` } style={{ fontSize: 'large' }}/>
       </button>
     ];
@@ -364,7 +366,7 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
         const ele = <div >
           <button className={ [ selectedSection.number === section.number ? styles.isSelected : null, pillClass ].join(' ') }
             onClick={ () => this._activateSection( section ) }
-            style={ selectedSection.number === section.number ? null : this.props.buttonStyle }>{ section.button }</button>
+            style={ selectedSection.number === section.number ? null : buttonStyle }>{ section.button }</button>
         </div>
 
         elements.push( ele );
@@ -401,7 +403,7 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
 
   private _updateSectionStyles ( selectedSection: IFPSSlickSectionWPProps ): void {
 
-    if ( this.props.enableTabs !== true ) return;
+    if ( this.props.slickCommonProps.enableTabs !== true ) return;
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const divs: any[] = Array.from( document.querySelectorAll('.CanvasZone'));

@@ -6,26 +6,15 @@
  */
 import { IMinWPBannerProps } from '@mikezimm/fps-library-v2/lib/banner/interfaces/MinWP/IMinWPBannerProps';
 import { ISlickButtonShape } from './components/IFpsSlickSectionsProps';
-import { IFPSFullPageImageFit } from './PropPaneGroups/FPSSlickBackgroundProps';
+import { changeFullBackground, IFPSPageBGWPProps } from './IFPSPageBGWPProps';
+
+export const changeSlickCommon : string[] = [ `defaultSection`, `defaultWPBack`, `defaultWPPad`, `scrollBehavior`, 
+  `enableTabs`, `buttonShape`, `buttonStyle`, `buttonBgColor`,  ];
 
 function createChangeSections(numb: number ) : string[] {
   return [ `sectEnable${numb}`, `sectButton${numb}`, `sectBgImage${numb}`, `sectBgColor${numb}`, `sectHeight${numb}`, `sectOpacity${numb}`, `sectMargBot${numb}`, `sectWPBack${numb}`, 
   `sectWPPad${numb}`, `sectForceWhite${numb}` ];
 }
-
-// defaultSection: string;
-// defaultWPBack: string;
-// defaultWPPad: number;
-// scrollBehavior: ScrollBehavior;
-// enableTabs: boolean;
-// buttonShape: ISlickButtonShape;
-// buttonStyle: string;
-// buttonBgColor: string;
-// fullPageOverlayOpacity: number;
-// fullPageOverlayColor: 'Black' | 'White';
-
-export const changeDefaults : string[] = [ `defaultSection`, `defaultWPBack`, `defaultWPPad`, `scrollBehavior`, `enableTabs`, `buttonShape`, `buttonStyle`, `buttonBgColor`, `fullPageImage`, 
-`fullPageScrollable`, `defaultWhiteText`, `fullPageOverlayOpacity`, `fullPageOverlayColor`, `fullPageImageFilter`, `fullPageImageFit` ];
 
 export const changeSection1 : string[] = createChangeSections(1);
 export const changeSection2 : string[] = createChangeSections(2);
@@ -38,7 +27,8 @@ export const changeSection5 : string[] = createChangeSections(5);
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const WebPartAnalyticsChanges : any = {
-  Defaults: changeDefaults,
+  Background: changeFullBackground,
+  SlickCommon: changeSlickCommon,
   Section1: changeSection1,
   Section2: changeSection2,
   Section3: changeSection3,
@@ -65,14 +55,12 @@ export const exportIgnorePropsWP : string[] = [ ];
 //Specific for this web part
 export const importBlockPropsWP : string[] = [ 'showSomeProps' ];
 
-
-
 // export interface IFpsSlickSectionsWebPartProps extends IMinWPBannerProps {
   /**
    * Extend with portions of FPS Props that are needed
    * 
    */
-export interface IFpsSlickSectionsWebPartProps extends IMinWPBannerProps {
+export interface IFpsSlickSectionsWebPartProps extends IFPSPageBGWPProps, IMinWPBannerProps {
 
   description: string;
 
@@ -84,16 +72,6 @@ export interface IFpsSlickSectionsWebPartProps extends IMinWPBannerProps {
   buttonShape: ISlickButtonShape;
   buttonStyle: string;
   buttonBgColor: string;
-
-  // Used for full page background image
-  fullPageImage: string;  // background url
-  fullPageImageFilter: string;  // background url filter css
-  fullPageScrollable: boolean;  // NOT ENABLED YET.  scrollable image - image goes from top of content to bottom - false is fixed image
-  defaultWhiteText: boolean;  // default white text on all sections unless noted
-  whiteRefreshTip: string;
-  fullPageOverlayOpacity: number;  // https://github.com/mikezimm/Slick-Sections/issues/40
-  fullPageOverlayColor: 'Black' | 'White';  // https://github.com/mikezimm/Slick-Sections/issues/40
-  fullPageImageFit: IFPSFullPageImageFit;
 
   sectEnable1: boolean;
   sectButton1: string;
