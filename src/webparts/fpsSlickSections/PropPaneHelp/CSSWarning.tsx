@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {  } from 'office-ui-fabric-react/lib/Icon';
+import { Icon } from 'office-ui-fabric-react/lib/Icon';
 // import ReactJson from "react-json-view";
 import {  PivotItem, } from 'office-ui-fabric-react/lib/Pivot';
 
@@ -28,14 +28,19 @@ export function getWebPartHelpElementCSSWarning (  ): JSX.Element {
       <div>If you notice any changes, please report to your SharePoint team as soon as possible.</div>
       <div><b>DO NOT rely on any style changes as means for restricting access!</b> Use proper permission strategies instead.</div>
 
-      <h4>Lag and performance</h4>
+      <h4>Perceived Lag with styles changing</h4>
       <div>See next tab regarding performance of style changes.</div>
 
       <div className={ 'fps-pph-topic' }>Incompatibilities - avoid these conditions</div>
       <h4>Collapsable sections</h4>
       <div>Styling updates to web parts only happen when the page is first loaded.  Due to how SharePoint builds the page, collapsible section styles get reset when expanding.</div>
 
-      <h4>Styles do not get updated on all web parts</h4>
+      <div className={ 'fps-pph-topic' }>Forced White Font color returns to black</div>
+      <div>If you scroll far down a page, SharePoint unloads some content like Site and Page Titles.</div>
+      <div>When you scroll back up, SharePoint recreates them from scratch which this web part can not detect.</div>
+      <div>If this happens, just press the Refresh Icon in the web part bar: <Icon style={{ fontSize: 'larger' }} iconName="SyncStatusSolid"/></div>
+
+      <div className={ 'fps-pph-topic' }>Styles do not get updated on all web parts</div>
       <div>Do to the vast and every changing variety of web parts, only the most common have been tested.</div>
       <div>These include</div>
       <ul>

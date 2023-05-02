@@ -24,6 +24,7 @@ import { getWebPartHelpElementCommon } from '../PropPaneHelp/Common';
 import { getWebPartHelpElementCSSWarning } from '../PropPaneHelp/CSSWarning';
 import { getWebPartHelpElementSections } from '../PropPaneHelp/Sections';
 import { getWebPartHelpElementCSSPerformance } from '../PropPaneHelp/CSSPerformance';
+import { getWebPartHelpElementFullImage } from '../PropPaneHelp/FullImage';
 
 const SiteThemes: ISiteThemes = { dark: styles.fpsSiteThemeDark, light: styles.fpsSiteThemeLight, primary: styles.fpsSiteThemePrimary };
 
@@ -36,6 +37,7 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
   private _webPartHelpElement = [
     getWebPartHelpElementCSSWarning( ),
     getWebPartHelpElementCSSPerformance( ),
+    getWebPartHelpElementFullImage( ),
     getWebPartHelpElementCommon( ),
     getWebPartHelpElementSections( ),
   ];
@@ -215,9 +217,23 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
      */
 
     // initiate array for adding more buttons here.  If not needed, can be commented out
-    const farBannerElementsArray = [...this._farBannerElements,
-      //  ...[<div title={'Show Code Details'}><Icon iconName={ 'Code' } onClick={ this.toggleDebugMode.bind(this) } style={ bannerProps.bannerCmdReactCSS }></Icon></div>],
-    ];
+    const farBannerElementsArray = [...this._farBannerElements, ];
+
+    // https://github.com/mikezimm/Slick-Sections/issues/18
+    if ( this.props.defaultWhiteText === true ) {
+      farBannerElementsArray.push( 
+        //https://github.com/mikezimm/Slick-Sections/issues/49
+        this.props.whiteRefreshTip ? 
+        <div title={'Refresh Font colors - re-whitens them after scrolling down'} onClick={ this.props.refreshStyles } 
+          style={{ flexWrap: 'nowrap',
+            justifyContent: 'start',
+            alignItems: 'center',
+            display: 'flex', cursor: 'pointer' }}>
+              <div>{ this.props.whiteRefreshTip}</div>
+              <Icon iconName={ 'SyncStatusSolid' } style={ bannerProps.bannerCmdReactCSS }/></div>:
+        <div title={'Refresh Font colors - re-whitens them after scrolling down'}><Icon iconName={ 'SyncStatusSolid' } onClick={ this.props.refreshStyles } style={ bannerProps.bannerCmdReactCSS }/></div>
+      );
+    }
 
     //Setting showTricks to false here ( skipping this line does not have any impact on bug #90 )
     // https://github.com/mikezimm/Slick-Sections/issues/18

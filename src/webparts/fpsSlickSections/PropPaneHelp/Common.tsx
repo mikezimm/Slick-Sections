@@ -14,7 +14,7 @@ import {  PivotItem, } from 'office-ui-fabric-react/lib/Pivot';
  * ForceWhite does NOT work on collapsible sections.... might at first but if you collapse then expand, no go because web part does not re-apply the classes to the web parts.
  * @returns 
  */
-
+// White text refresh label
 
 export function getWebPartHelpElementCommon (  ): JSX.Element {
 
@@ -42,17 +42,14 @@ export function getWebPartHelpElementCommon (  ): JSX.Element {
         <li><b>rgba(255, 255, 255, .2)</b>:  mostly-transparent white you can see through</li>
       </ul>
 
-      <div className={ 'fps-pph-topic' }>Default Button Style, Button background color</div>
+      <div className={ 'fps-pph-topic' }>Button bar background color</div>
+      <div>Type in html color to set the background color of the web part.</div>
+
+      <div className={ 'fps-pph-topic' }>Default Button Style</div>
+      <div>Used to customize the Section Buttons.</div>
       <div>Unsupported - React.CSS properties with quotes around attributes.  Not supported for regular users.</div>
 
-      <div className={ 'fps-pph-topic' }>Full Page Image url</div>
-      <div>If you want a single image as the page background, paste full link to image here</div>
-      <div>When you scroll, the page scrolls but image is fixed.</div>
 
-      <div className={ 'fps-pph-topic' }>Default text color white</div>
-      <div><b>Toggle on</b> if you are using a <b>dark color full page image</b>.</div>
-      <div>Makes certain <b>web backgrounds transparent with white text</b></div>
-      <div><mark>Text color may also be white while Editing the page when background image is not visible</mark></div>
     </div>
   </PivotItem>;
 
