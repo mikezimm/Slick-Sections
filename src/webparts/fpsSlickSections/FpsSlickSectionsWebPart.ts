@@ -213,7 +213,7 @@ export default class FpsSlickSectionsWebPart extends FPSBaseClass<IFpsSlickSecti
     this._performance.ops.process2 = updateSectionStyles( 'stylesR', this as any );
   }
 
-  private _addParamToUrl( newParamStr: string, reRender: boolean = true ): void {
+  private _addParamToUrl( newParamStr: string, reRender: boolean = true, newTab: boolean = false ): void {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const url = new URL( window.location.href ); // .href includes search params
     const search_params: URLSearchParams = url.searchParams;
@@ -223,9 +223,11 @@ export default class FpsSlickSectionsWebPart extends FPSBaseClass<IFpsSlickSecti
     const nextState = { additionalInformation: `Added new paramter to Url and refreshed the page: ${newParam}` };
 
     console.log( `oldWindow`, window.location );
-    window.history.pushState(nextState, nextTitle, `${window.location.pathname}?${ newParamStr === `clearAllParams=true` ? '' : search_params.toString()}`);
+    const newUrl: string = `${window.location.pathname}?${ newParamStr === `clearAllParams=true` ? '' : search_params.toString()}`;
+    window.history.pushState(nextState, nextTitle, newUrl);
     console.log( `newWindow`, window.location );
     if ( reRender === true ) this.render();
+    if ( newTab === true ) window.open( newUrl, '_blank' );
   }
 
   private _getEnvironmentMessage(): string {

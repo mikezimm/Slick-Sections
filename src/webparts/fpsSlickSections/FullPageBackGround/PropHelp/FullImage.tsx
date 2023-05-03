@@ -2,7 +2,8 @@ import * as React from 'react';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
 // import ReactJson from "react-json-view";
 import {  PivotItem, } from 'office-ui-fabric-react/lib/Pivot';
-import { PageFitOriginal, PageFitLayout2, SetNormalColor, SetWhiteColor } from './FullImageLayoutLinks';
+import { PageFitLayout2, PageFitOriginal, SetNormalColor, SetWhiteColor } from "../FullPageBGParams";
+import { ICallbackAddParamToUrl } from '../../components/IFpsSlickSectionsProps';
 
 // export function putObjectIntoJSON ( obj: any, name: string = null ): JSX.Element {
 //   // return <ReactJson src={ obj } name={ 'panelItem' } collapsed={ true } displayDataTypes={ true } displayObjectSize={ true } enableClipboard={ true } style={{ padding: '20px 0px' }}/>;
@@ -18,7 +19,7 @@ import { PageFitOriginal, PageFitLayout2, SetNormalColor, SetWhiteColor } from '
 // White text refresh label
 export const LinkStyles: React.CSSProperties = { padding: '8px 15px', marginBottom: '12px', color: 'darkblue', cursor: 'pointer' };
 
-export function getWebPartHelpElementFullImage (  ): JSX.Element {
+export function getWebPartHelpElementFullImage ( onClick: ICallbackAddParamToUrl ): JSX.Element {
 
   const WebPartHelpElement = <PivotItem headerText={ 'Background' } > 
     <div className={ 'fps-pph-content' }>
@@ -56,8 +57,6 @@ export function getWebPartHelpElementFullImage (  ): JSX.Element {
         { PageFitOriginal }
         { PageFitLayout2 }
       </div>
-
-
       <div><mark>NOTE:</mark> If you are forcing white text, white bars may prevent you from finding the edit button.</div>
       <div>The work-around is to add this paramter to your page url and reload:  
         { SetNormalColor } OR 

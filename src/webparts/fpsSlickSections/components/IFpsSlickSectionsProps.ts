@@ -37,6 +37,8 @@ export interface IFPSSlickCommonWPProps {
   enableTabs: boolean;
 }
 
+export type ICallbackAddParamToUrl = ( newParamStr: string, reRender: boolean, newTab: boolean ) => void;
+
 export interface IFpsSlickSectionsProps  extends IFPSCoreReactComponentProps {
   description: string;
   isDarkTheme: boolean;
@@ -47,7 +49,7 @@ export interface IFpsSlickSectionsProps  extends IFPSCoreReactComponentProps {
   performance: ILoadPerformance;
 
   refreshStyles(): void;
-  addParamToUrl( param: string ): void;
+  addParamToUrl: ICallbackAddParamToUrl;
 
   fpsPageBGWPProps: IFPSPageBGWPProps;
   slickCommonProps: IFPSSlickCommonWPProps;

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styles from './FpsSlickSections.module.scss';
-import { AllSectionsConst, IFPSSlickSectionWPProps, IFpsSlickSectionsProps, IFpsSlickSectionsState } from './IFpsSlickSectionsProps';
+import { AllSectionsConst, ICallbackAddParamToUrl, IFPSSlickSectionWPProps, IFpsSlickSectionsProps, IFpsSlickSectionsState } from './IFpsSlickSectionsProps';
 // import { escape } from '@microsoft/sp-lodash-subset';
 import { DisplayMode } from '@microsoft/sp-core-library';
 import { getSectionCount } from "../CoreFPS/updateSectionCSS";
@@ -25,6 +25,8 @@ import { getWebPartHelpElementSections } from '../PropPaneHelp/Sections';
 import { getWebPartHelpElementCSSWarning } from '../FullPageBackGround/PropHelp/CSSWarning';
 import { getWebPartHelpElementCSSPerformance } from '../FullPageBackGround/PropHelp/CSSPerformance';
 import { getWebPartHelpElementFullImage } from '../FullPageBackGround/PropHelp/FullImage';
+import { paramLinks } from '../FullPageBackGround/callBackLinks';
+import { FullPageBGParams } from "../FullPageBackGround/FullPageBGParams";
 
 const SiteThemes: ISiteThemes = { dark: styles.fpsSiteThemeDark, light: styles.fpsSiteThemeLight, primary: styles.fpsSiteThemePrimary };
 
@@ -35,7 +37,7 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
   private _webPartHelpElement = [
     getWebPartHelpElementCSSWarning( ),
     getWebPartHelpElementCSSPerformance( ),
-    getWebPartHelpElementFullImage( ),
+    getWebPartHelpElementFullImage( this.props.addParamToUrl ),
     getWebPartHelpElementCommon( ),
     getWebPartHelpElementSections( ),
   ];
@@ -92,7 +94,6 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
 *                                                                                                  
 */
 
-
   public constructor(props:IFpsSlickSectionsProps){
     super(props);
 
@@ -120,36 +121,6 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
       scrollWarnCount: 0,
     };
   }
-
-  private LinkStyles: React.CSSProperties = { padding: '3px 0px', margin: '5px 15px', color: 'darkblue', cursor: 'pointer', whiteSpace: 'nowrap' };
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private _createParamLink( param: string, onClick: any ): JSX.Element {
-    const iconName: string = window.location.search.toLowerCase().indexOf( param.toLowerCase() ) > -1 ? 'CheckboxComposite' : 'Checkbox' ;
-    const linky: JSX.Element = <a style={this.LinkStyles} onClick={() => { onClick( param ); }}><Icon style={{ paddingRight: '5px'}} iconName={ iconName } />?{param}</a>;
-    return linky;
-  }
-
-  private _paramLinks(): JSX.Element {
-
-    const PageFitOriginal: JSX.Element = this._createParamLink( `fullPageFit=Original`, this.props.addParamToUrl );
-    const PageFitLayout2: JSX.Element = this._createParamLink( `fullPageFit=Layout2`, this.props.addParamToUrl );
-    const SetNormalColor: JSX.Element = this._createParamLink( `defaultFontColor=default`, this.props.addParamToUrl );
-    const SetWhiteColor: JSX.Element = this._createParamLink( `defaultFontColor=white`, this.props.addParamToUrl );
-    const ClearAllParams: JSX.Element = this._createParamLink( `clearAllParams=true`, this.props.addParamToUrl );
-
-    const paramLinks: JSX.Element = <div>
-        { PageFitOriginal }
-        { PageFitLayout2 }
-        { SetNormalColor }
-        { SetWhiteColor }
-        { ClearAllParams }
-    </div>;
-
-    return paramLinks;
-
-  }
-
 
   public componentDidMount(): void {
       if ( check4Gulp() === true )  console.log( `${``} ~ componentDidMount` );
@@ -312,12 +283,13 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
 
 
     const SettingInfo = this.state.showSettings !== true ? undefined : <div className={ styles.settingsArea } style={{ padding: '1em'}}>
-        { this._paramLinks() }
+        { paramLinks( FullPageBGParams, this.props.addParamToUrl ) }
         <h2 style={{ marginBottom: '0px' }}>FPS Slick Sections Web part properties</h2>
         {/* <div>Sample BgImage property:  {`url("https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE4wtd4?ver=a738")`} </div> */}
         <div className={ styles.slickSectionElements }>
           { showProps }
-      </div></div>;
+        </div>
+      </div>;
 
     const showButtons: JSX.Element[] = this._createThisButton( sections );
 
@@ -351,7 +323,7 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
           <li>Default BG CSS: <b>{ this.props.slickCommonProps.buttonBgColor }</b></li>
           <li>Button Shape: <b>{ this.props.slickCommonProps.buttonShape }</b></li>
           <li>Button Color: <b>{ this.props.slickCommonProps.buttonBgColor }</b></li>
-          <li>Button Style: <b>{ this.props.slickCommonProps.buttonStyle }</b></li>
+          <li>Button Style: <b>{ JSON.stringify(this.props.slickCommonProps.buttonStyle) }</b></li>
         </ul>
       </div>
     ];
