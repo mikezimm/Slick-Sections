@@ -121,6 +121,36 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
     };
   }
 
+  private LinkStyles: React.CSSProperties = { padding: '3px 0px', margin: '5px 15px', color: 'darkblue', cursor: 'pointer', whiteSpace: 'nowrap' };
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private _createParamLink( param: string, onClick: any ): JSX.Element {
+    const iconName: string = window.location.search.toLowerCase().indexOf( param.toLowerCase() ) > -1 ? 'CheckboxComposite' : 'Checkbox' ;
+    const linky: JSX.Element = <a style={this.LinkStyles} onClick={() => { onClick( param ); }}><Icon style={{ paddingRight: '5px'}} iconName={ iconName } />?{param}</a>;
+    return linky;
+  }
+
+  private _paramLinks(): JSX.Element {
+
+    const PageFitOriginal: JSX.Element = this._createParamLink( `fullPageFit=Original`, this.props.addParamToUrl );
+    const PageFitLayout2: JSX.Element = this._createParamLink( `fullPageFit=Layout2`, this.props.addParamToUrl );
+    const SetNormalColor: JSX.Element = this._createParamLink( `defaultFontColor=default`, this.props.addParamToUrl );
+    const SetWhiteColor: JSX.Element = this._createParamLink( `defaultFontColor=white`, this.props.addParamToUrl );
+    const ClearAllParams: JSX.Element = this._createParamLink( `clearAllParams=true`, this.props.addParamToUrl );
+
+    const paramLinks: JSX.Element = <div>
+        { PageFitOriginal }
+        { PageFitLayout2 }
+        { SetNormalColor }
+        { SetWhiteColor }
+        { ClearAllParams }
+    </div>;
+
+    return paramLinks;
+
+  }
+
+
   public componentDidMount(): void {
       if ( check4Gulp() === true )  console.log( `${``} ~ componentDidMount` );
 
@@ -282,7 +312,8 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
 
 
     const SettingInfo = this.state.showSettings !== true ? undefined : <div className={ styles.settingsArea } style={{ padding: '1em'}}>
-        <h2>FPS Slick Sections Web part properties</h2>
+        { this._paramLinks() }
+        <h2 style={{ marginBottom: '0px' }}>FPS Slick Sections Web part properties</h2>
         {/* <div>Sample BgImage property:  {`url("https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE4wtd4?ver=a738")`} </div> */}
         <div className={ styles.slickSectionElements }>
           { showProps }
@@ -315,7 +346,12 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
       <div key={ 79 }className={ styles.sectionProps }>
         <h3>Defaults</h3>
         <ul>
+          <li>Enable Tabs: <b>{ this.props.slickCommonProps.enableTabs === true ? 'true' : 'false' }</b></li>
           <li>Default Section: <b>{ this.props.slickCommonProps.defaultSection }</b></li>
+          <li>Default BG CSS: <b>{ this.props.slickCommonProps.buttonBgColor }</b></li>
+          <li>Button Shape: <b>{ this.props.slickCommonProps.buttonShape }</b></li>
+          <li>Button Color: <b>{ this.props.slickCommonProps.buttonBgColor }</b></li>
+          <li>Button Style: <b>{ this.props.slickCommonProps.buttonStyle }</b></li>
         </ul>
       </div>
     ];

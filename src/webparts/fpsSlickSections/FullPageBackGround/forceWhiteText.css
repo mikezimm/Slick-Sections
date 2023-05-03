@@ -122,6 +122,7 @@
   color: white;
 }
 
+/* This is the actual Title text for Page or Site depending on context */
 .forceWhiteTextPageHeader [data-automation-id="TitleTextId"] {
   transition:all 0.3s ease;
   color: white;
@@ -132,15 +133,42 @@
   color: white;
 }
 
-.forceWhiteTextSiteHeader [ data-automationid="SiteHeaderTitle" ] a {
+.forceWhiteTextSiteHeader a {
   transition:all 0.3s ease;
   color: white;
 }
 
+.forceWhiteTextSiteHeader span {
+  transition:all 0.3s ease;
+  color: white;
+}
+
+.forceWhiteTextSiteHeader a span:hover {
+  transition:all 0.3s ease;
+  color: #5fc2ff;
+}
+
+/* Added this specifically for hovering over site title which is link  */
+.forceWhiteTextSiteHeader span a:hover {
+  transition:all 0.3s ease;
+  color: #5fc2ff;
+}
 .forceWhiteTextSiteHeader button {
   transition:all 0.3s ease;
   color: white !important;
 }
+
+/* https://github.com/mikezimm/Slick-Sections/issues/53 */
+.forceWhiteTextSiteHeader .ms-HorizontalNavItem-linkText.is-selected {
+  transition:all 0.3s ease;
+  border-bottom: 2px solid white;
+}
+
+/* https://github.com/mikezimm/Slick-Sections/issues/53 */
+/* .forceWhiteTextSiteHeader .ms-HorizontalNavItem-linkText.is-selected {
+  transition:all 0.3s ease;
+  border-bottom: 2px solid white;
+} */
 
 .forceWhiteTextSiteHeader button i {
   color: white !important;

@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
 // import ReactJson from "react-json-view";
 import {  PivotItem, } from 'office-ui-fabric-react/lib/Pivot';
+import { PageFitOriginal, PageFitLayout2, SetNormalColor, SetWhiteColor } from './FullImageLayoutLinks';
 
 // export function putObjectIntoJSON ( obj: any, name: string = null ): JSX.Element {
 //   // return <ReactJson src={ obj } name={ 'panelItem' } collapsed={ true } displayDataTypes={ true } displayObjectSize={ true } enableClipboard={ true } style={{ padding: '20px 0px' }}/>;
@@ -15,7 +16,7 @@ import {  PivotItem, } from 'office-ui-fabric-react/lib/Pivot';
  * @returns 
  */
 // White text refresh label
-const LinkStyles: React.CSSProperties = { padding: '8px 15px', marginBottom: '12px', color: 'darkblue', cursor: 'pointer' };
+export const LinkStyles: React.CSSProperties = { padding: '8px 15px', marginBottom: '12px', color: 'darkblue', cursor: 'pointer' };
 
 export function getWebPartHelpElementFullImage (  ): JSX.Element {
 
@@ -52,15 +53,15 @@ export function getWebPartHelpElementFullImage (  ): JSX.Element {
       <div>If this causes an issue, you can try changing this setting, then save the page and completely refresh.</div>
       <div>To temporarily test each layout, click on these links which will open this page in new windows.</div>
       <div>
-        <a style={ LinkStyles } onClick={() => { window.open( `${window.location.href}?fullPageFit=Original`, '_blank' )}}>?fullPageFit=Original</a>
-        <a style={ LinkStyles } onClick={() => { window.open( `${window.location.href}?fullPageFit=Layout2`, '_blank' )}}>?fullPageFit=Layout2</a>
+        { PageFitOriginal }
+        { PageFitLayout2 }
       </div>
 
 
       <div><mark>NOTE:</mark> If you are forcing white text, white bars may prevent you from finding the edit button.</div>
       <div>The work-around is to add this paramter to your page url and reload:  
-        <a style={ LinkStyles } onClick={() => { window.open( `${window.location.href}?defaultNormalColor=true`, '_blank' )}}>?defaultNormalColor=true</a>
-        .</div>
+        { SetNormalColor } OR 
+        { SetWhiteColor }</div>
     </div>
   </PivotItem>;
 

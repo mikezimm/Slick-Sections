@@ -66,6 +66,9 @@ export function getWebPartHelpElementCSSWarning (  ): JSX.Element {
       <div>{ `document.querySelector('`}<b>{`[data-automationid="SiteHeader"]`}</b>{`')`}</div>
       <div>Apply <b>.forceWhiteTextSiteHeader</b> to <b>SiteHeader</b></div>
       <div><b><mark>NOTE:</mark> datautomationid</b> is ONE WORD without a hyphen for this data element</div>
+      <div>{`a,span ( attribute - link text and spans inside attributes )`}</div>
+      <div>{`a span:hover ( attribute - link text and spans inside attributes )`}</div>
+      <div>{`.ms-HorizontalNavItem-linkText.is-selected ( Add selected link underline bottom-border )`}</div>
       <div>{`data-automationid="SiteHeaderTitle" a ( attribute - link which Title is )`}</div>
       <div>Also targets all buttons and button icons</div>
 

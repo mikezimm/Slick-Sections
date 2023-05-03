@@ -9,7 +9,7 @@ import { IFPSFullPageImageFit, IFPSPageBGWPProps } from "../IFPSPageBGWPProps";
 export function addCanvasBGImageComponent(webPartProps: IFPSPageBGWPProps, updates: number): number {
 
   // Added due to https://github.com/mikezimm/Slick-Sections/issues/51
-  const defaultWhiteText: boolean = check4This(`defaultNormalColor=true`) === true ? false : webPartProps.defaultWhiteText;
+  const defaultWhiteText: boolean = check4This(`defaultFontColor=default`) === true ? false : check4This(`defaultFontColor=white`) === true ? true : webPartProps.defaultWhiteText;
 
   let fullPageImageFit: IFPSFullPageImageFit = webPartProps.fullPageImageFit;
   if (check4This(`fullPageFit=Original`) === true) { fullPageImageFit = `Original`; }
@@ -60,7 +60,7 @@ export function addCanvasBGImageComponent(webPartProps: IFPSPageBGWPProps, updat
     slickCanvasBG[0].classList.add(`visibleSlickSection`);
 
     // Then update the src
-    const img = slickCanvasBG[0].getElementsByClassName(`slickSectionCanvasBGImg`);
+    const img = slickCanvasBG[0].getElementsByClassName( imgClass );
     if (img && img.src !== webPartProps.fullPageImage)
       img.src = webPartProps.fullPageImage;
     updates++;
@@ -97,6 +97,20 @@ export function addCanvasBGImageComponent(webPartProps: IFPSPageBGWPProps, updat
       siteHeader.classList.add(`forceWhiteTextSiteHeader`);
     } else {
       siteHeader.classList.remove(`forceWhiteTextSiteHeader`);
+    }
+  }
+
+  // Added this for horizontal nav https://github.com/mikezimm/Slick-Sections/issues/53
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const horizontalNav: any[] = Array.from(document.getElementsByClassName(`ms-HorizontalNav`));
+  if (horizontalNav && horizontalNav.length > 0) {
+    // Added targetIdx because first ms-HorizontalNav might be Hub Nav which does not have background
+    // Then also get parentElement so it can target both the HorizontalName AND actionsWrapper class
+    const targetIdx = horizontalNav.length -1;
+    if (defaultWhiteText === true) {
+      horizontalNav[targetIdx].parentElement.classList.add(`forceWhiteTextSiteHeader`);
+    } else {
+      horizontalNav[targetIdx].parentElement.classList.remove(`forceWhiteTextSiteHeader`);
     }
   }
 

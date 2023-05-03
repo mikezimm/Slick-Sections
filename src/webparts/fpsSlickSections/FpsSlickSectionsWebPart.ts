@@ -196,7 +196,8 @@ export default class FpsSlickSectionsWebPart extends FPSBaseClass<IFpsSlickSecti
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         sections: buildWPSectionArray( this as any, sectionCount ),
 
-        refreshStyles: this._refreshStyles.bind(this),
+        refreshStyles: this._refreshStyles.bind( this ),
+        addParamToUrl: this._addParamToUrl.bind( this ),
         errMessage: '',
 
         bannerProps: bannerProps,
@@ -208,7 +209,23 @@ export default class FpsSlickSectionsWebPart extends FPSBaseClass<IFpsSlickSecti
 
   private _refreshStyles(): void {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    
     this._performance.ops.process2 = updateSectionStyles( 'stylesR', this as any );
+  }
+
+  private _addParamToUrl( newParamStr: string, reRender: boolean = true ): void {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const url = new URL( window.location.href ); // .href includes search params
+    const search_params: URLSearchParams = url.searchParams;
+    const newParam: string[] = newParamStr.split( '=' );
+    search_params.set( newParam[0], newParam[1] );
+    const nextTitle = 'Slick Sections -Try Style';
+    const nextState = { additionalInformation: `Added new paramter to Url and refreshed the page: ${newParam}` };
+
+    console.log( `oldWindow`, window.location );
+    window.history.pushState(nextState, nextTitle, `${window.location.pathname}?${ newParamStr === `clearAllParams=true` ? '' : search_params.toString()}`);
+    console.log( `newWindow`, window.location );
+    if ( reRender === true ) this.render();
   }
 
   private _getEnvironmentMessage(): string {

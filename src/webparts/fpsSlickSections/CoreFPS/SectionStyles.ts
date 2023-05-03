@@ -167,7 +167,7 @@ export function addWebPartPadding( webPartProps: any, sectionNo: number, CanvasZ
 export function forceWhiteText( webPartProps: any, sectionNo: number, CanvasZone: Element, updates: number ): number {
 
   // Added due to https://github.com/mikezimm/Slick-Sections/issues/51
-  const defaultWhiteText : boolean = check4This(`defaultNormalColor=true` ) === true ? false : webPartProps.defaultWhiteText;
+  const defaultWhiteText : boolean = check4This(`defaultFontColor=default` ) === true ? false : check4This(`defaultFontColor=white`) === true ? true :  webPartProps.defaultWhiteText;
 
   const WPWhite = webPartProps[ `sectForceWhite${ sectionNo + 1 }` ] === true || defaultWhiteText === true ? true : false;
 
