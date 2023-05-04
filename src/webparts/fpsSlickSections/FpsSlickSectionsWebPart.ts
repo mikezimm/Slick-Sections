@@ -144,9 +144,7 @@ export default class FpsSlickSectionsWebPart extends FPSBaseClass<IFpsSlickSecti
 
   public render(): void {
 
-    const { defaultSection, buttonStyle, buttonShape, scrollBehavior, enableTabs, buttonBgColor, fullPageImage, fullPageScrollable, 
-      defaultWhiteText, whiteRefreshTip,
-      fullPageImageFilter, fullPageOverlayOpacity, fullPageOverlayColor, fullPageImageFit } = this.properties;
+    const { defaultSection, buttonStyle, buttonShape, scrollBehavior, enableTabs, buttonBgColor,  } = this.properties;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const bannerProps = runFPSWebPartRender( this as any, strings, WebPartAnalyticsChanges, WebPartPanelChanges, );
 
