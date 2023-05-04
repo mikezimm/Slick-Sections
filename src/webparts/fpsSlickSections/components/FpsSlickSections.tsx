@@ -283,7 +283,6 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
 
     const showProps: JSX.Element[] = this._createThisSection( sections );
 
-
     const SettingInfo = this.state.showSettings !== true ? undefined : <div className={ styles.settingsArea } style={{ padding: '1em'}}>
         { paramLinks( FullPageBGParams, bannerProps.addParamToUrl ) }
         <h2 style={{ marginBottom: '0px' }}>FPS Slick Sections Web part properties</h2>
