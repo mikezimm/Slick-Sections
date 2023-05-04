@@ -22,11 +22,13 @@ import { ISiteThemes } from "@mikezimm/fps-library-v2/lib/common/commandStyles/I
 
 import { getWebPartHelpElementCommon } from '../PropPaneHelp/Common';
 import { getWebPartHelpElementSections } from '../PropPaneHelp/Sections';
-import { getWebPartHelpElementCSSWarning } from '../FullPageBackGround/PropHelp/CSSWarning';
-import { getWebPartHelpElementCSSPerformance } from '../FullPageBackGround/PropHelp/CSSPerformance';
-import { getWebPartHelpElementFullImage } from '../FullPageBackGround/PropHelp/FullImage';
-import { paramLinks } from '../FullPageBackGround/callBackLinks';
-import { FullPageBGParams } from "../FullPageBackGround/FullPageBGParams";
+//src\components\molecules\FullPageBackGround\PropHelp
+
+import { getWebPartHelpElementCSSWarning } from '@mikezimm/fps-library-v2/lib/components/molecules/FullPageBackGround/PropHelp/CSSWarning';
+import { getWebPartHelpElementCSSPerformance } from '@mikezimm/fps-library-v2/lib/components/molecules/FullPageBackGround/PropHelp/CSSPerformance';
+import { getFullBackgroundHelp } from '@mikezimm/fps-library-v2/lib/components/molecules/FullPageBackGround/PropHelp/FullImage';
+import { paramLinks } from '@mikezimm/fps-library-v2/lib/components/atoms/Links/CallBackLinks';
+import { FullPageBGParams } from "@mikezimm/fps-library-v2/lib/components/molecules/FullPageBackGround/FullPageBGParams";
 
 const SiteThemes: ISiteThemes = { dark: styles.fpsSiteThemeDark, light: styles.fpsSiteThemeLight, primary: styles.fpsSiteThemePrimary };
 
@@ -37,7 +39,7 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
   private _webPartHelpElement = [
     getWebPartHelpElementCSSWarning( ),
     getWebPartHelpElementCSSPerformance( ),
-    getWebPartHelpElementFullImage( this.props.addParamToUrl ),
+    getFullBackgroundHelp( this.props.bannerProps.addParamToUrl ),
     getWebPartHelpElementCommon( ),
     getWebPartHelpElementSections( ),
   ];
@@ -223,16 +225,16 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
     const farBannerElementsArray = [...this._farBannerElements, ];
 
     // https://github.com/mikezimm/Slick-Sections/issues/18
-    if ( this.props.fpsPageBGWPProps.defaultWhiteText === true ) {
+    if ( this.props.bannerProps.fpsPageBGWPProps.defaultWhiteText === true ) {
       farBannerElementsArray.push( 
         //https://github.com/mikezimm/Slick-Sections/issues/49
-        this.props.fpsPageBGWPProps.whiteRefreshTip ? 
+        this.props.bannerProps.fpsPageBGWPProps.whiteRefreshTip ? 
         <div title={'Refresh Font colors - re-whitens them after scrolling down'} onClick={ this.props.refreshStyles } 
           style={{ flexWrap: 'nowrap',
             justifyContent: 'start',
             alignItems: 'center',
             display: 'flex', cursor: 'pointer' }}>
-              <div>{ this.props.fpsPageBGWPProps.whiteRefreshTip}</div>
+              <div>{ this.props.bannerProps.fpsPageBGWPProps.whiteRefreshTip}</div>
               <Icon iconName={ 'SyncStatusSolid' } style={ bannerProps.bannerCmdReactCSS }/></div>:
         <div title={'Refresh Font colors - re-whitens them after scrolling down'}><Icon iconName={ 'SyncStatusSolid' } onClick={ this.props.refreshStyles } style={ bannerProps.bannerCmdReactCSS }/></div>
       );
@@ -283,7 +285,7 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
 
 
     const SettingInfo = this.state.showSettings !== true ? undefined : <div className={ styles.settingsArea } style={{ padding: '1em'}}>
-        { paramLinks( FullPageBGParams, this.props.addParamToUrl ) }
+        { paramLinks( FullPageBGParams, bannerProps.addParamToUrl ) }
         <h2 style={{ marginBottom: '0px' }}>FPS Slick Sections Web part properties</h2>
         {/* <div>Sample BgImage property:  {`url("https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE4wtd4?ver=a738")`} </div> */}
         <div className={ styles.slickSectionElements }>

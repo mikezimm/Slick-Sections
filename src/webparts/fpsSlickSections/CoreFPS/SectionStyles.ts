@@ -7,10 +7,10 @@ import { startPerformOpV2, updatePerformanceEndV2 } from "@mikezimm/fps-library-
 import { IStartPerformOp } from "@mikezimm/fps-library-v2/lib/components/molecules/Performance/IPerformanceSettings";
 
 import styles from '../components/FpsSlickSections.module.scss';
-import { addCanvasBGImageComponent } from "../FullPageBackGround/addCanvasBGImageComponent";
+import { addCanvasBGImageComponent } from "@mikezimm/fps-library-v2/lib/components/molecules/FullPageBackGround/addCanvasBGImageComponent";
 import { updateSectionCSS } from "./updateSectionCSS";
-import { forceWebpartWhiteText } from "../FullPageBackGround/forceWebpartWhiteText";
-// import { IFPSFullPageImageFit } from "../PropPaneGroups/FPSSlickBackgroundProps";
+import { forceWebpartWhiteText } from "@mikezimm/fps-library-v2/lib/components/molecules/FullPageBackGround/forceWebpartWhiteText";
+// import { IFPSFullPageImageFit } from "../PropPaneGroups/FPSSlickBackgroundGroup";
 
 export function updateSectionStyles (  op: string, thisWPClass: IThisFPSWebPartClass ): IPerformanceOp  {
   const performanceSettings: IStartPerformOp = {  label: op, updateMiliseconds: true, includeMsStr: true, op: op  } as IStartPerformOp;

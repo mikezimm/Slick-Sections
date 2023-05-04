@@ -94,7 +94,7 @@ import { IPerformanceOp } from './fpsReferences';
 import { saveViewAnalytics } from './CoreFPS/Analytics';
 import { FPSSlickSectionCommonProps } from './PropPaneGroups/FPSSlickSectionCommonProps';
 import { panelVersionNumber } from './components/HelpPanel/About';
-import { FPSSlickBackgroundProps } from './FullPageBackGround/PropPane/FPSSlickBackgroundProps';
+import { FPSSlickBackgroundGroup } from '@mikezimm/fps-library-v2/lib/components/molecules/FullPageBackGround/PropPane/FPSSlickBackgroundGroup';
 
 
 export default class FpsSlickSectionsWebPart extends FPSBaseClass<IFpsSlickSectionsWebPartProps> {
@@ -111,6 +111,7 @@ export default class FpsSlickSectionsWebPart extends FPSBaseClass<IFpsSlickSecti
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this._initPerf = updateSectionStyles( 'stylesI', this as any );
     this._allowPandoramic = false;
+    this._allowFullPageBG = 'Partial';
 
     this._repoLink = gitRepoSlickSections; //Set as any but will get created in FPSSuperOnOnit
     this._panelVersion = panelVersionNumber;
@@ -171,17 +172,17 @@ export default class FpsSlickSectionsWebPart extends FPSBaseClass<IFpsSlickSecti
 
         performance: this._performance, //Alternatively, use this if available (like ALVFM): _fetchInfo.performance,
 
-        fpsPageBGWPProps: {
-          fullPageImage: fullPageImage,
-          fullPageImageFilter: fullPageImageFilter,
-          fullPageScrollable: fullPageScrollable,
-          defaultWhiteText: defaultWhiteText,
-          whiteRefreshTip: whiteRefreshTip,
-          fullPageOverlayOpacity: fullPageOverlayOpacity,
-          fullPageOverlayColor: fullPageOverlayColor,
-          fullPageImageFit: fullPageImageFit,
+        // fpsPageBGWPProps: {
+        //   fullPageImage: fullPageImage,
+        //   fullPageImageFilter: fullPageImageFilter,
+        //   fullPageScrollable: fullPageScrollable,
+        //   defaultWhiteText: defaultWhiteText,
+        //   whiteRefreshTip: whiteRefreshTip,
+        //   fullPageOverlayOpacity: fullPageOverlayOpacity,
+        //   fullPageOverlayColor: fullPageOverlayColor,
+        //   fullPageImageFit: fullPageImageFit,
 
-        },
+        // },
 
         slickCommonProps: {
           buttonStyle: createStyleFromString( buttonStyle, null, '', `FPS-SlickSections render ~ 167` ),
@@ -197,7 +198,7 @@ export default class FpsSlickSectionsWebPart extends FPSBaseClass<IFpsSlickSecti
         sections: buildWPSectionArray( this as any, sectionCount ),
 
         refreshStyles: this._refreshStyles.bind( this ),
-        addParamToUrl: this._addParamToUrl.bind( this ),
+        // addParamToUrl: this._addParamToUrl.bind( this ),
         errMessage: '',
 
         bannerProps: bannerProps,
@@ -213,22 +214,22 @@ export default class FpsSlickSectionsWebPart extends FPSBaseClass<IFpsSlickSecti
     this._performance.ops.process2 = updateSectionStyles( 'stylesR', this as any );
   }
 
-  private _addParamToUrl( newParamStr: string, reRender: boolean = true, newTab: boolean = false ): void {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const url = new URL( window.location.href ); // .href includes search params
-    const search_params: URLSearchParams = url.searchParams;
-    const newParam: string[] = newParamStr.split( '=' );
-    search_params.set( newParam[0], newParam[1] );
-    const nextTitle = 'Slick Sections -Try Style';
-    const nextState = { additionalInformation: `Added new paramter to Url and refreshed the page: ${newParam}` };
+  // private _addParamToUrl( newParamStr: string, reRender: boolean = true, newTab: boolean = false ): void {
+  //   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  //   const url = new URL( window.location.href ); // .href includes search params
+  //   const search_params: URLSearchParams = url.searchParams;
+  //   const newParam: string[] = newParamStr.split( '=' );
+  //   search_params.set( newParam[0], newParam[1] );
+  //   const nextTitle = 'Slick Sections -Try Style';
+  //   const nextState = { additionalInformation: `Added new paramter to Url and refreshed the page: ${newParam}` };
 
-    console.log( `oldWindow`, window.location );
-    const newUrl: string = `${window.location.pathname}?${ newParamStr === `clearAllParams=true` ? '' : search_params.toString()}`;
-    window.history.pushState(nextState, nextTitle, newUrl);
-    console.log( `newWindow`, window.location );
-    if ( reRender === true ) this.render();
-    if ( newTab === true ) window.open( newUrl, '_blank' );
-  }
+  //   console.log( `oldWindow`, window.location );
+  //   const newUrl: string = `${window.location.pathname}?${ newParamStr === `clearAllParams=true` ? '' : search_params.toString()}`;
+  //   window.history.pushState(nextState, nextTitle, newUrl);
+  //   console.log( `newWindow`, window.location );
+  //   if ( reRender === true ) this.render();
+  //   if ( newTab === true ) window.open( newUrl, '_blank' );
+  // }
 
   private _getEnvironmentMessage(): string {
     if (!!this.context.sdks.microsoftTeams) { // running in Teams
@@ -301,7 +302,7 @@ export default class FpsSlickSectionsWebPart extends FPSBaseClass<IFpsSlickSecti
     const FPSGroups: IPropertyPaneGroup[] = getAllDefaultFPSFeatureGroups ( thisAsAny );
 
     const SlickGroups = createSectionGroups( thisAsAny, getSectionCount() );
-    groups = [ ...groups, FPSSlickBackgroundProps( thisAsAny ), FPSSlickSectionCommonProps( thisAsAny ), ...SlickGroups, ...FPSGroups ];
+    groups = [ ...groups, FPSSlickBackgroundGroup( thisAsAny ), FPSSlickSectionCommonProps( thisAsAny ), ...SlickGroups, ...FPSGroups ];
 
 
     return {

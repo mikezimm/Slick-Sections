@@ -1,18 +1,26 @@
 
-require( './forceWhiteText.css' );
+// require( './forceWhiteText.css' );
 
-export function forceWebpartWhiteText(CanvasZone: Element, updates: number): number {
+// /**
+//  * NOTE:  To get CanvasZones, do this:  
+//  *    const divs: any[] = Array.from( document.querySelectorAll('.CanvasZone'));
+//  * 
+//  * @param CanvasZone 
+//  * @param updates 
+//  * @returns 
+//  */
+// export function forceWebpartWhiteText(CanvasZone: Element, updates: number): number {
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const webparts: any[] = Array.from(CanvasZone.querySelectorAll('.ControlZone'));
-  console.log("CanvasControls.length: ", webparts.length);
+//   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+//   const webparts: any[] = Array.from(CanvasZone.querySelectorAll('.ControlZone'));
+//   console.log("CanvasControls.length: ", webparts.length);
 
-  webparts.map((thisWP, wpNumb) => {
-    thisWP.classList.add('forceWhiteText');
-    updates++;
+//   webparts.map((thisWP, wpNumb) => {
+//     thisWP.classList.add('forceWhiteText');
+//     updates++;
 
-  });
+//   });
 
-  return updates;
+//   return updates;
 
-}
+// }

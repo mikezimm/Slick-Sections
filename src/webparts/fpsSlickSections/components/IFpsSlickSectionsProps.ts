@@ -49,9 +49,9 @@ export interface IFpsSlickSectionsProps  extends IFPSCoreReactComponentProps {
   performance: ILoadPerformance;
 
   refreshStyles(): void;
-  addParamToUrl: ICallbackAddParamToUrl;
+  // addParamToUrl: ICallbackAddParamToUrl;
 
-  fpsPageBGWPProps: IFPSPageBGWPProps;
+  // fpsPageBGWPProps: IFPSPageBGWPProps;
   slickCommonProps: IFPSSlickCommonWPProps;
   sections: IFPSSlickSectionWPProps[];
   
