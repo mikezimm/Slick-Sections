@@ -25,7 +25,7 @@
     "group": { "default": "Advanced" },
     "title": { "default": "FPS Slick Sections" },
     "description": { "default": "FPS Slick Sections description" },
-    "officeFabricIconFontName": "Page",
+    "officeFabricIconFontName": "EditPhoto",
     "properties": {
       "description": "FPS Slick Sections"
     }

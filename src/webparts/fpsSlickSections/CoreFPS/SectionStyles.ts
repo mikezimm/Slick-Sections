@@ -12,6 +12,8 @@ import { updateSectionCSS } from "./updateSectionCSS";
 import { forceWebpartWhiteText } from "@mikezimm/fps-library-v2/lib/components/molecules/FullPageBackGround/forceWebpartWhiteText";
 // import { IFPSFullPageImageFit } from "../PropPaneGroups/FPSSlickBackgroundGroup";
 
+// require ('./quickLaunchStyles.css');
+
 export function updateSectionStyles (  op: string, thisWPClass: IThisFPSWebPartClass ): IPerformanceOp  {
   const performanceSettings: IStartPerformOp = {  label: op, updateMiliseconds: true, includeMsStr: true, op: op  } as IStartPerformOp;
   let performanceOp = startPerformOpV2( performanceSettings );
@@ -20,6 +22,8 @@ export function updateSectionStyles (  op: string, thisWPClass: IThisFPSWebPartC
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const webPartProps: any = thisWPClass.properties as IFpsSlickSectionsWebPartProps;
+
+  // updates = setQuickLaunchTransp( webPartProps, updates );
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const divs: any[] = Array.from( document.querySelectorAll('.CanvasZone'));
@@ -177,3 +181,25 @@ export function forceWhiteText( webPartProps: any, sectionNo: number, CanvasZone
 
 }
 
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// export function setQuickLaunchTransp( webPartProps: any, updates: number ) : number {
+
+//   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+//   const testEle: any = document.getElementById('spLeftNav');
+
+//   if ( testEle ) {
+//     testEle.classList.add( 'forceQuickTransp' );
+//     updates ++;
+//     // Added due to https://github.com/mikezimm/Slick-Sections/issues/51
+//     const defaultWhiteText : boolean = check4This( `defaultFontColor=default` ) === true ? false : check4This( `defaultFontColor=white` ) === true ? true :  webPartProps.defaultWhiteText;
+//     if ( defaultWhiteText === true ) {
+//       testEle.classList.add( 'forceWhiteText' );
+//     } else {
+//       testEle.classList.remove( 'forceWhiteText' );
+//     }
+//     updates ++;
+//   }
+//   return updates;
+
+// }

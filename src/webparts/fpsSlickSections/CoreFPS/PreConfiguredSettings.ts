@@ -54,6 +54,8 @@ export const WPPresetEverywhere : IPreConfigSettings = {
         // buttonShape: ISlickButtonShape;
         // buttonStyle: React.CSSProperties;
 
+        bannerAudience: 'Page Editors',
+
         buttonShape: `Pill`,
         buttonStyle: `'background': 'white','color': 'black'`,
 
@@ -125,17 +127,17 @@ export const PresetSomeRandomSite : IPreConfigSettings = {
 
 export const ForceSomeRandomSite : IPreConfigSettings = {
     source: 'ForceSomeRandomSite',
-    location: '/sites/FPS/'.toLowerCase(),
+    location: '/sites/SP_GlobalItsFpsSlickSectionsWebpart'.toLowerCase(),
     props: {
-        // homeParentGearAudience: 'Some Test Value',
-        // requireDocumentation: false,
-        // requireContacts: true,
-        // bannerStyleChoice: 'redDark',
-        // bannerStyle: createBannerStyleStr( 'redDark', 'banner'),
-        // bannerCmdStyle: createBannerStyleStr( 'redDark', 'cmd'),
+      EasyPageTabsC: 'Shortcuts; Demo; Import; Home; Contents; Admin',
+      // homeParentGearAudience: 'Some Test Value',
+      // requireDocumentation: false,
+      // requireContacts: true,
+      // bannerStyleChoice: 'redDark',
+      // bannerStyle: createBannerStyleStr( 'redDark', 'banner'),
+      // bannerCmdStyle: createBannerStyleStr( 'redDark', 'cmd'),
     }
 };
-
 
 export const PreConfiguredProps : IAllPreConfigSettings = {
     //Forced over-ride presets.

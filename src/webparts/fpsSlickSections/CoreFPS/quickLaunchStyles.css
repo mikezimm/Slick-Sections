@@ -1,0 +1,37 @@
+
+/* This sets entire quick launch  */
+.forceQuickTransp {
+  transition:all 0.3s ease;
+  background-color: transparent;
+  border-color: transparent;
+}
+
+/* This sets top border of quick launch  */
+.forceQuickTransp .ms-Nav-group {
+  border-top: transparent;
+}
+
+.forceQuickTransp .ms-Nav-navItem:hover {
+  transition:all 0.3s ease;
+  background-color: #ffffff2c;
+}
+
+
+.forceQuickTransp .ms-Nav-compositeLink {
+  transition:all 0.3s ease;
+  background-color: transparent;
+}
+
+/* This is for the edit nav link  */
+.forceQuickTransp .ms-Nav-compositeLink:hover a {
+  transition:all 0.3s ease;
+  background-color: #ffffff2c;
+}
+
+.forceWhiteText .ms-Nav-linkText {
+  color: white;
+}
+
+.forceWhiteText [data-automationid="navEditLink"] {
+  color: lightskyblue;
+}
