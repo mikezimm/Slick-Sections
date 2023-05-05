@@ -3,7 +3,7 @@ import { IFPSCorePinMeReactComponentState } from '@mikezimm/fps-library-v2/lib/b
 
 import { ILoadPerformance } from '../fpsReferences';
 import { IPropertyPaneDropdownOption } from '@microsoft/sp-property-pane';
-import { IFPSPageBGWPProps } from '../IFPSPageBGWPProps';
+import { IPageEditorAudience } from '@mikezimm/fps-library-v2/lib/banner/propPane/Audiences/Interfaces';
 
 export const FPSSlickButtonChoices: IPropertyPaneDropdownOption[] = <IPropertyPaneDropdownOption[]>[`Pill`, `Rectangle`].map((key, idx) => { return { index: idx, key: key, text: key }; });
 export type ISlickButtonShape = `Pill` | `Rectangle` ;
@@ -28,13 +28,17 @@ export interface IFPSSlickSectionWPProps {
 }
 
 export interface IFPSSlickCommonWPProps {
+
+  enableTabs: boolean;
+  bannerAudience: IPageEditorAudience;
+  forceShowBanner: boolean;  // Set in main render based on Url Params, or permisions/audience combo
+
+  buttonBgColor: string;
   buttonShape: ISlickButtonShape;
   buttonStyle: React.CSSProperties;
-  buttonBgColor: string;
   defaultSection: number;
 
   scrollBehavior: ScrollBehavior;
-  enableTabs: boolean;
 }
 
 export type ICallbackAddParamToUrl = ( newParamStr: string, reRender: boolean, newTab: boolean ) => void;

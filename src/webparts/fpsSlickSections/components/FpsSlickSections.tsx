@@ -29,6 +29,7 @@ import { getWebPartHelpElementCSSPerformance } from '@mikezimm/fps-library-v2/li
 import { getFullBackgroundHelp } from '@mikezimm/fps-library-v2/lib/components/molecules/FullPageBackGround/PropHelp/FullImage';
 import { paramLinks } from '@mikezimm/fps-library-v2/lib/components/atoms/Links/CallBackLinks';
 import { FullPageBGParams } from "@mikezimm/fps-library-v2/lib/components/molecules/FullPageBackGround/FullPageBGParams";
+import { ForceHideBannerParam } from '../IFpsSlickSectionsWebPartProps';
 
 const SiteThemes: ISiteThemes = { dark: styles.fpsSiteThemeDark, light: styles.fpsSiteThemeLight, primary: styles.fpsSiteThemePrimary };
 
@@ -114,7 +115,7 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
       debugMode: false,
       showSpinner: false,
 
-      showSettings: enableTabs !== true ? true : false,
+      showSettings: false,
       showThisWebpart: true,
       // https://github.com/mikezimm/Slick-Sections/issues/20
       selectedSection:  defaultSection === 0 ? AllSectionsConst : 
@@ -203,9 +204,9 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
       slickCommonProps,
     } = this.props;
 
-    const { buttonBgColor, } = slickCommonProps;
+    const { buttonBgColor, forceShowBanner, enableTabs } = slickCommonProps;
 
-    if ( this.props.slickCommonProps.enableTabs !== true && bannerProps.displayMode === DisplayMode.Read ) return <div/>;
+    if ( forceShowBanner !== true && enableTabs !== true && bannerProps.displayMode === DisplayMode.Read ) return <div/>;
 
     console.log( `RenderState:`, this.state );
     const devHeader = this.state.showDevHeader === true ? <div><b>Props: </b> { `this.props.lastPropChange , this.props.lastPropDetailChange` } - <b>State: lastStateChange: </b> { this.state.lastStateChange  } </div> : null ;
@@ -282,10 +283,12 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
 
 
     const showProps: JSX.Element[] = this._createThisSection( sections );
-
+    const ShowParmaLinks: string[] =  [...FullPageBGParams ];
+    if ( enableTabs === false ) ShowParmaLinks.push( ForceHideBannerParam );
     const SettingInfo = this.state.showSettings !== true ? undefined : <div className={ styles.settingsArea } style={{ padding: '1em'}}>
-        { paramLinks( FullPageBGParams, bannerProps.addParamToUrl ) }
+        { paramLinks( ShowParmaLinks, bannerProps.addParamToUrl ) }
         <h2 style={{ marginBottom: '0px' }}>FPS Slick Sections Web part properties</h2>
+        { enableTabs !== true ? <h3 key={ `79` } style={{ marginBottom: '0px' }}>Tabs are disabled in web part settings.</h3> : undefined  }
         {/* <div>Sample BgImage property:  {`url("https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE4wtd4?ver=a738")`} </div> */}
         <div className={ styles.slickSectionElements }>
           { showProps }
@@ -295,7 +298,7 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
     const showButtons: JSX.Element[] = this._createThisButton( sections );
 
     const showScrollWarn: boolean = this.state.selectedSection.number < 3 || this.state.scrollWarnCount > 5 ? false : true;
-    const buttonArray: JSX.Element = showButtons.length === 0 ? undefined : <div className={ styles.sectionRow }>
+    const buttonArray: JSX.Element = enableTabs === false || showButtons.length === 0  ? undefined : <div className={ styles.sectionRow }>
       <div className={ styles.sectionButtons }>
         { showButtons }
       </div>
@@ -315,9 +318,11 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
 
   private _createThisSection( sections: IFPSSlickSectionWPProps[], ) : JSX.Element[] {
 
+    // const tabsMessage = this.props.slickCommonProps.enableTabs !== true ? <h2 key={ `79` } >Tabs are disabled in web part settings.</h2> : undefined 
     const elements : JSX.Element[] = [
       <div key={ 79 }className={ styles.sectionProps }>
         <h3>Defaults</h3>
+
         <ul>
           <li>Enable Tabs: <b>{ this.props.slickCommonProps.enableTabs === true ? 'true' : 'false' }</b></li>
           <li>Default Section: <b>{ this.props.slickCommonProps.defaultSection }</b></li>
@@ -357,10 +362,12 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
     const { selectedSection } = this.state;
     const pillClass = buttonShape === 'Pill' ? styles.pillShape : '';
 
-    if ( enableTabs !== true ) return [
-      <h2 key={ `79` } >Tabs are disabled in web part settings.
-      </h2>
-    ];
+    if ( enableTabs !== true ) return [ undefined ];
+
+    // if ( enableTabs !== true ) return [
+    //   <h2 key={ `79` } >Tabs are disabled in web part settings.
+    //   </h2>
+    // ];
 
     const elements : JSX.Element[] = [
       <button key={ `79` } className={ [ selectedSection.number === AllSectionsConst.number ? styles.isSelected : null, pillClass ].join(' ') }

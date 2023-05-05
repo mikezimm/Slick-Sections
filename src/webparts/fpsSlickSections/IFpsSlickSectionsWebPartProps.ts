@@ -6,7 +6,10 @@
  */
 import { IMinWPBannerProps } from '@mikezimm/fps-library-v2/lib/banner/interfaces/MinWP/IMinWPBannerProps';
 import { ISlickButtonShape } from './components/IFpsSlickSectionsProps';
-import { changeFullBackground, IFPSPageBGWPProps } from './IFPSPageBGWPProps';
+import { changeFullBackground, IFPSPageBGWPProps } from '@mikezimm/fps-library-v2/lib/components/molecules/FullPageBackGround/IFPSPageBGWPProps';
+import { IPageEditorAudience } from '@mikezimm/fps-library-v2/lib/banner/propPane/Audiences/Interfaces';
+
+export const ForceHideBannerParam = 'forceHideBanner=true';
 
 export const changeSlickCommon : string[] = [ `defaultSection`, `defaultWPBack`, `defaultWPPad`, `scrollBehavior`, 
   `enableTabs`, `buttonShape`, `buttonStyle`, `buttonBgColor`,  ];
@@ -64,11 +67,12 @@ export interface IFpsSlickSectionsWebPartProps extends IFPSPageBGWPProps, IMinWP
 
   description: string;
 
+  enableTabs: boolean;
+  bannerAudience: IPageEditorAudience;
   defaultSection: string;
   defaultWPBack: string;
   defaultWPPad: number;
   scrollBehavior: ScrollBehavior;  // NOT ENABLED YET.
-  enableTabs: boolean;
   buttonShape: ISlickButtonShape;
   buttonStyle: string;
   buttonBgColor: string;

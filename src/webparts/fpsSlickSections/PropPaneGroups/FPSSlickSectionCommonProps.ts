@@ -8,7 +8,6 @@ import {
     IPropertyPaneGroup,
     IPropertyPaneField,
     IPropertyPaneDropdownProps,
-    IPropertyPaneDropdownOption,
     // IPropertyPaneDropdownOption,
   } from '@microsoft/sp-property-pane';
 
@@ -17,8 +16,7 @@ import {
 import { IThisFPSWebPartClass } from '@mikezimm/fps-library-v2/lib/banner/FPSWebPartClass/IThisFPSWebPartClass';
 import { IFpsSlickSectionsWebPartProps } from '../IFpsSlickSectionsWebPartProps';
 import { FPSSlickButtonChoices } from '../components/IFpsSlickSectionsProps';
-
-const FPSSlickFullPageOverlayColorChoices: IPropertyPaneDropdownOption[] = <IPropertyPaneDropdownOption[]>[`Black`, `White`].map((key, idx) => { return { index: idx, key: key, text: key }; });
+import { PageEditorAudienceChoices } from '../fpsReferences';
 
 // import { IFPSSlickSectionWPProps } from '../components/IFpsSlickSectionsProps';
 // import { PageEditorAudienceChoices } from '../fpsReferences';
@@ -38,9 +36,7 @@ export function FPSSlickSectionCommonProps( thisWPClass: IThisFPSWebPartClass ):
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const groupFields: IPropertyPaneField<any>[] = [];
 
-  const {
-    scrollBehavior, enableTabs
-  } = thisProps;
+  const { enableTabs } = thisProps;
 
   groupFields.push(
     PropertyPaneToggle( 'enableTabs' , {
@@ -48,6 +44,13 @@ export function FPSSlickSectionCommonProps( thisWPClass: IThisFPSWebPartClass ):
       // disabled: thisWPClass._forceBanner !== false ? true : false ,
       })
   );
+
+  groupFields.push(
+    PropertyPaneDropdown('bannerAudience', <IPropertyPaneDropdownProps>{
+      label: 'Banner bar audience - always visible',
+      options: PageEditorAudienceChoices,
+      disabled: enableTabs === true ? true : false,
+  }) );
 
   groupFields.push(
     PropertyPaneTextField(`defaultSection`, {

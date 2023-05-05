@@ -12,7 +12,7 @@
 
 import * as React from 'react';
 import * as ReactDom from 'react-dom';
-import { Version } from '@microsoft/sp-core-library';
+import { DisplayMode, Version } from '@microsoft/sp-core-library';
 import {
   IPropertyPaneConfiguration,
   IPropertyPaneGroup
@@ -37,7 +37,7 @@ import { SPPermission, } from '@microsoft/sp-page-context';
 import * as strings from 'FpsSlickSectionsWebPartStrings';
 import FpsSlickSections from './components/FpsSlickSections';
 import { IFpsSlickSectionsProps } from './components/IFpsSlickSectionsProps';
-import { IFpsSlickSectionsWebPartProps } from './IFpsSlickSectionsWebPartProps';
+import { ForceHideBannerParam, IFpsSlickSectionsWebPartProps } from './IFpsSlickSectionsWebPartProps';
 
 
  /***
@@ -79,6 +79,9 @@ import { getAllDefaultFPSFeatureGroups } from '@mikezimm/fps-library-v2/lib/bann
 import { createStyleFromString } from '@mikezimm/fps-library-v2/lib/logic/Strings/reactCSS';
 
 import { WebPartInfoGroup, } from '@mikezimm/fps-library-v2/lib/banner/propPane/WebPartInfoGroup';
+import { verifyAudienceVsUser, } from '@mikezimm/fps-library-v2/lib/logic/Users/CheckPermissions';
+
+
 import { exportIgnorePropsWP, importBlockPropsWP, WebPartAnalyticsChanges, WebPartPanelChanges,  } from './IFpsSlickSectionsWebPartProps';
 import { gitRepoSlickSections } from '@mikezimm/fps-library-v2/lib/components/atoms/Links/LinksRepos';
 //  import { IFpsOldVsNewWebPartProps } from './IFpsOldVsNewWebPartProps';
@@ -90,7 +93,7 @@ import { IThisFPSWebPartClass } from '@mikezimm/fps-library-v2/lib/banner/FPSWeb
 import { buildWPSectionArray, createSectionGroups, } from './PropPaneGroups/FPSSlickSectionPropGroup';
 import { updateSectionStyles } from './CoreFPS/SectionStyles';
 import { getSectionCount } from "./CoreFPS/updateSectionCSS";
-import { IPerformanceOp } from './fpsReferences';
+import { check4This, IPerformanceOp } from './fpsReferences';
 import { saveViewAnalytics } from './CoreFPS/Analytics';
 import { FPSSlickSectionCommonProps } from './PropPaneGroups/FPSSlickSectionCommonProps';
 import { panelVersionNumber } from './components/HelpPanel/About';
@@ -144,9 +147,22 @@ export default class FpsSlickSectionsWebPart extends FPSBaseClass<IFpsSlickSecti
 
   public render(): void {
 
-    const { defaultSection, buttonStyle, buttonShape, scrollBehavior, enableTabs, buttonBgColor,  } = this.properties;
+    const { defaultSection, buttonStyle, buttonShape, scrollBehavior, enableTabs, buttonBgColor, bannerAudience } = this.properties;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const bannerProps = runFPSWebPartRender( this as any, strings, WebPartAnalyticsChanges, WebPartPanelChanges, );
+
+    let forceShowBanner = false;
+    if ( enableTabs === true ) {
+      // Do nothing
+    } else if ( this.displayMode === DisplayMode.Edit ) { // Always show banner if editing the page.
+      forceShowBanner = true;
+      bannerProps.title = `Viewable when Editing or by ${this.properties.bannerAudience} and above`;
+    } else if ( check4This( ForceHideBannerParam ) === true ) { // Else if forced via param, then go by settings
+      forceShowBanner = false;
+    } else if ( bannerProps.beAUser === false ) { // Else go by audience targetting
+      forceShowBanner = verifyAudienceVsUser( this._FPSUser, bannerProps.showTricks, this.properties.bannerAudience , null, bannerProps.beAUser );
+      if ( forceShowBanner === true ) bannerProps.title = `Only viewable by ${this.properties.bannerAudience} and above`;
+    }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this._performance.ops.process1 = updateSectionStyles( 'stylesR', this as any );
@@ -183,13 +199,15 @@ export default class FpsSlickSectionsWebPart extends FPSBaseClass<IFpsSlickSecti
         // },
 
         slickCommonProps: {
+          bannerAudience: bannerAudience,
+          forceShowBanner: forceShowBanner,
+          enableTabs: enableTabs,
           buttonStyle: createStyleFromString( buttonStyle, null, '', `FPS-SlickSections render ~ 167` ),
           buttonShape: buttonShape,
           buttonBgColor: buttonBgColor,
           defaultSection: useDefaultSection , 
 
           scrollBehavior: scrollBehavior,
-          enableTabs: enableTabs,
         },
 
         // eslint-disable-next-line @typescript-eslint/no-explicit-any

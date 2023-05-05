@@ -24,6 +24,10 @@ export function getWebPartHelpElementCommon (  ): JSX.Element {
       <div className={ 'fps-pph-topic' }>Enable section tabs</div>
       <div>{ `"On"` } will make tabs-buttons visible to users while reading the page</div>
 
+      <div className={ 'fps-pph-topic' }>Banner bar audience</div>
+      <div>Selet minimum permission level that will always see the bar and ultility functions.</div>
+      <div>This option is disabled if you Enable section tabs because the bar will be visible anyway.</div>
+
       <div className={ 'fps-pph-topic' }>Default section number</div>
       <div>Section number to expand by default</div>
       <div><b>Set to 0</b> to expand all sections by default.</div>
