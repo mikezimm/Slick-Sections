@@ -1,5 +1,4 @@
 import { IThisFPSWebPartClass } from "@mikezimm/fps-library-v2/lib/banner/FPSWebPartClass/IThisFPSWebPartClass";
-import { findParentElementLikeThis } from "@mikezimm/fps-library-v2/lib/logic/DOM/Search/domSearch";
 
 import { IFpsSlickSectionsWebPartProps } from "../IFpsSlickSectionsWebPartProps";
 import { IPerformanceOp, check4This } from "../fpsReferences";
@@ -68,7 +67,8 @@ export function updateSectionStyles (  op: string, thisWPClass: IThisFPSWebPartC
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function addWebPartBackground( webPartProps: any, sectionNo: number, CanvasZone: Element, updates: number, context: any ): number {
 
-  const WPBG = webPartProps[ `sectWPBack${ sectionNo + 1 }` ] ? webPartProps[ `sectWPBack${ sectionNo + 1 }` ] : 
+  // Added check if sectionNo < 0 it will always add the default
+  const WPBG = sectionNo > -1 && webPartProps[ `sectWPBack${ sectionNo + 1 }` ] ? webPartProps[ `sectWPBack${ sectionNo + 1 }` ] : 
   webPartProps.defaultWPBack ? webPartProps.defaultWPBack : ``;
 
   if ( WPBG ) { 
@@ -79,7 +79,8 @@ export function addWebPartBackground( webPartProps: any, sectionNo: number, Canv
 
     webparts.map( ( thisWP, wpNumb ) => {
 
-      const isCurrentWebPart = context._instanceId === thisWP.id ? true : false;
+      // Added check if !context it will always assume it's not the current web part
+      const isCurrentWebPart = context && context._instanceId === thisWP.id ? true : false;
 
       if ( isCurrentWebPart === true && webPartProps.enableTabs === false ) {
         // Added this to remove any padding and margin from this web part if tabs are not enabled
