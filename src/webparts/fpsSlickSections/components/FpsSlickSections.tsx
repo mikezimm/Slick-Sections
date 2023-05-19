@@ -1,9 +1,9 @@
 import * as React from 'react';
 import styles from './FpsSlickSections.module.scss';
-import { AllSectionsConst, ICallbackAddParamToUrl, IFPSSlickSectionWPProps, IFpsSlickSectionsProps, IFpsSlickSectionsState } from './IFpsSlickSectionsProps';
+import { AllSectionsConst, IFPSSlickSectionWPProps, IFpsSlickSectionsProps, IFpsSlickSectionsState } from './IFpsSlickSectionsProps';
 // import { escape } from '@microsoft/sp-lodash-subset';
 import { DisplayMode } from '@microsoft/sp-core-library';
-import { getSectionCount } from "../CoreFPS/updateSectionCSS";
+import { getSectionCount } from "@mikezimm/fps-library-v2/lib/components/molecules/FullPageBackGround/updateSectionCSS";
 import { Icon,} from 'office-ui-fabric-react/lib/Icon';
 // import { saveViewAnalytics } from '../CoreFPS/Analytics';
 
