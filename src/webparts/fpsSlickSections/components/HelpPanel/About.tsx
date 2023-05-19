@@ -4,7 +4,7 @@ import { IHelpTable, } from '@mikezimm/fps-library-v2/lib/banner/components/Sing
 import { createAboutRow } from '@mikezimm/fps-library-v2/lib/banner/components/Panel/createAboutRow';
 import { IWebpartBannerProps } from '@mikezimm/fps-library-v2/lib/banner/mainReact/IWebpartBannerProps';
 
-export const panelVersionNumber = '2023-05-04 - 1.0.0.09'; //Added to show in panel
+export const panelVersionNumber = '2023-05-19 - 1.0.0.10'; //Added to show in panel
 
 export function aboutTable( bannerProps: IWebpartBannerProps ): { table: IHelpTable } {
 
@@ -28,7 +28,10 @@ export function aboutTable( bannerProps: IWebpartBannerProps ): { table: IHelpTa
      */
     const { showRepoLinks, gitHubRepo } = bannerProps;
 
-    table.rows.push( createAboutRow('2023-05-04',"1.0.0.09","#56, #57, #61, #63", showRepoLinks === true ? gitHubRepo : null ) );
+    table.rows.push( createAboutRow('2023-05-19',"1.0.0.10","", showRepoLinks === true ? gitHubRepo : null ) );
+
+
+    table.rows.push( createAboutRow('2023-05-16',"1.0.0.09","#56, #57, #61, #63", showRepoLinks === true ? gitHubRepo : null ) );
 
     table.rows.push( createAboutRow('2023-05-03',"1.0.0.08","#47, #53, #54, #55 - Refactor FullPage into library", showRepoLinks === true ? gitHubRepo : null ) );
     table.rows.push( createAboutRow('2023-05-02',"1.0.0.07","#43, #44, #45, #46, #49, #51", showRepoLinks === true ? gitHubRepo : null ) );

@@ -13,7 +13,7 @@ import { DisplayMode, } from '@microsoft/sp-core-library';
  *          
  */
 
- import { IFpsSlickSectionsProps } from '../components/IFpsSlickSectionsProps';
+//  import { IFpsSlickSectionsProps } from '../components/IFpsSlickSectionsProps';
  import { check4Gulp, ILoadPerformance, IWebpartBannerProps, } from '../fpsReferences';
  import { saveAnalytics3, getMinPerformanceString } from '@mikezimm/fps-library-v2/lib/pnpjs/Logging/saveAnalytics';
  import { IZLoadAnalytics, IZSentAnalytics, } from '@mikezimm/fps-library-v2/lib/pnpjs/Logging/interfaces';
