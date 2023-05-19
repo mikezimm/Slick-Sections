@@ -159,18 +159,19 @@ $themePrimary: '[theme:themePrimary, default:#0078d7]';
   margin: 0px 20px;
 }
 
-.baseSlickBackground {
-  transition:all 0.3s ease;
-  background-position: center center;
-  // background-position: relative; // WHY THIS????
-  background-repeat: no-repeat;
-  background-size: cover;
-}
+// Migrated to fps-styles in 1.0.27
+// .baseSlickBackground {
+//   transition:all 0.3s ease;
+//   background-position: center center;
+//   // background-position: relative; // WHY THIS????
+//   background-repeat: no-repeat;
+//   background-size: cover;
+// }
 
-.targetedSlickSection {
-  transition:all 0.3s ease;
-  // position: absolute;
-}
+// .targetedSlickSection {
+//   transition:all 0.3s ease;
+//   // position: absolute;
+// }
 
 // Should be identical to src\webparts\fpsSlickSections\FullPageBackGround\fullPageBackground.css 
 .visibleSlickSection {

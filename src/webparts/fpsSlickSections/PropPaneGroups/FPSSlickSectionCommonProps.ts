@@ -60,14 +60,16 @@ export function FPSSlickSectionCommonProps( thisWPClass: IThisFPSWebPartClass ):
     })
   );
 
-  groupFields.push(
-    PropertyPaneTextField(`defaultWPBack`, {
-      label: 'Default Webparts Background-Color css',
-      description: 'Applies to all sections except where you specify differently',
-    })
-  );
+  // Show defaultWPBack in this section ONLY when on SlickSections web part _allowFullPageBG === 'Partial'
+  if ( thisWPClass._allowFullPageBG === 'Partial' ) {
+    groupFields.push(
+      PropertyPaneTextField(`defaultWPBack`, {
+        label: 'Default Webparts Background-Color css',
+        description: 'Applies to all sections except where you specify differently',
+      })
+    );
+  }
 
-  
   groupFields.push(
     PropertyPaneSlider(`defaultWPPad`, {
       label: `Default Webparts padding (in px)`,
