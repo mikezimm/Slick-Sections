@@ -91,9 +91,9 @@ import { onFPSPropPaneCHanged } from '@mikezimm/fps-library-v2/lib/banner/FPSWeb
 import { FPSBaseClass } from '@mikezimm/fps-library-v2/lib/banner/FPSWebPartClass/FPSBaseClass';
 import { IThisFPSWebPartClass } from '@mikezimm/fps-library-v2/lib/banner/FPSWebPartClass/IThisFPSWebPartClass';
 import { buildWPSectionArray, createSectionGroups, } from './PropPaneGroups/FPSSlickSectionPropGroup';
-import { updateSectionStyles } from "@mikezimm/fps-library-v2/lib/components/molecules/FullPageBackGround/SectionStyles";
+import { updateSectionBGStyles } from "@mikezimm/fps-library-v2/lib/components/molecules/FullPageBackGround/SectionStyles";
 import { getSectionCount } from "@mikezimm/fps-library-v2/lib/components/molecules/FullPageBackGround/updateSectionCSS";
-import { check4This, IPerformanceOp } from './fpsReferences';
+import { check4This, } from './fpsReferences';
 import { saveViewAnalytics } from './CoreFPS/Analytics';
 import { FPSSlickSectionCommonProps } from './PropPaneGroups/FPSSlickSectionCommonProps';
 import { panelVersionNumber } from './components/HelpPanel/About';
@@ -107,12 +107,12 @@ export default class FpsSlickSectionsWebPart extends FPSBaseClass<IFpsSlickSecti
 
   private _analyticsRun = false;
 
-  private _initPerf : IPerformanceOp = null;
+  // private _initPerf : IPerformanceOp = null;
   protected async onInit(): Promise<void> {
     this._environmentMessage = this._getEnvironmentMessage();
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    this._initPerf = updateSectionStyles( 'stylesI', this as any );
+    // this._initPerf = updateSectionStyles( 'stylesI', this as any );
     this._allowPandoramic = false;
     this._allowFullPageBG = 'Partial';
 
@@ -128,7 +128,7 @@ export default class FpsSlickSectionsWebPart extends FPSBaseClass<IFpsSlickSecti
     return super.onInit().then(async _ => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       runFPSSuperOnInit( this as any, PreConfiguredProps, SPPermission );
-      this._performance.ops.process0 = this._initPerf;
+      // this._performance.ops.process0 = this._initPerf;
 
     });
   }
@@ -165,7 +165,7 @@ export default class FpsSlickSectionsWebPart extends FPSBaseClass<IFpsSlickSecti
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    this._performance.ops.process1 = updateSectionStyles( 'stylesR', this as any );
+    // this._performance.ops.process1 = updateSectionStyles( 'stylesR', this as any );
     console.log( `this._performance.ops`, this._performance.ops );
 
     this._analyticsRun = saveViewAnalytics( `Render`, `Success`, bannerProps, this._analyticsRun, this._performance );
@@ -213,7 +213,7 @@ export default class FpsSlickSectionsWebPart extends FPSBaseClass<IFpsSlickSecti
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         sections: buildWPSectionArray( this as any, sectionCount ),
 
-        refreshStyles: this._refreshStyles.bind( this ),
+        // refreshStyles: this._refreshStyles.bind( this ),
         // addParamToUrl: this._addParamToUrl.bind( this ),
         errMessage: '',
 
@@ -224,11 +224,11 @@ export default class FpsSlickSectionsWebPart extends FPSBaseClass<IFpsSlickSecti
     ReactDom.render(element, this.domElement);
   }
 
-  private _refreshStyles(): void {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // private _refreshStyles(): void {
+  //   // eslint-disable-next-line @typescript-eslint/no-explicit-any
     
-    this._performance.ops.process2 = updateSectionStyles( 'stylesR', this as any );
-  }
+  //   this._performance.ops.process2 = updateSectionStyles( 'stylesR', this as any );
+  // }
 
   // private _addParamToUrl( newParamStr: string, reRender: boolean = true, newTab: boolean = false ): void {
   //   // eslint-disable-next-line @typescript-eslint/no-explicit-any

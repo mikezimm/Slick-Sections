@@ -52,7 +52,7 @@ export interface IFpsSlickSectionsProps  extends IFPSCoreReactComponentProps {
 
   performance: ILoadPerformance;
 
-  refreshStyles(): void;
+  // refreshStyles(): void;
   // addParamToUrl: ICallbackAddParamToUrl;
 
   // fpsPageBGWPProps: IFPSPageBGWPProps;
@@ -77,7 +77,7 @@ export interface IFpsSlickSectionsProps  extends IFPSCoreReactComponentProps {
 
 export interface IFpsSlickSectionsState  extends IFPSCorePinMeReactComponentState {
 
-  showSettings: boolean;
+  // showSettings: boolean;
   showThisWebpart: boolean;
   selectedSection: IFPSSlickSectionWPProps;
   scrollWarnCount: number;
