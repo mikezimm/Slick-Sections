@@ -28,7 +28,7 @@ export function aboutTable( bannerProps: IWebpartBannerProps ): { table: IHelpTa
      */
     const { showRepoLinks, gitHubRepo } = bannerProps;
 
-    table.rows.push( createAboutRow('2023-05-19',"1.0.0.10","#65, #66, #67, #68, #69", showRepoLinks === true ? gitHubRepo : null ) );
+    table.rows.push( createAboutRow('2023-05-19',"1.0.0.10","#65, #66, #67, #68, #69, #70", showRepoLinks === true ? gitHubRepo : null ) );
 
     table.rows.push( createAboutRow('2023-05-16',"1.0.0.09","#56, #57, #61, #63", showRepoLinks === true ? gitHubRepo : null ) );
 
