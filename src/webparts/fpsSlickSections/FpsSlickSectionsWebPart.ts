@@ -91,7 +91,7 @@ import { onFPSPropPaneCHanged } from '@mikezimm/fps-library-v2/lib/banner/FPSWeb
 import { FPSBaseClass } from '@mikezimm/fps-library-v2/lib/banner/FPSWebPartClass/FPSBaseClass';
 import { IThisFPSWebPartClass } from '@mikezimm/fps-library-v2/lib/banner/FPSWebPartClass/IThisFPSWebPartClass';
 import { buildWPSectionArray, createSectionGroups, } from './PropPaneGroups/FPSSlickSectionPropGroup';
-import { updateSectionBGStyles } from "@mikezimm/fps-library-v2/lib/components/molecules/FullPageBackGround/SectionStyles";
+// import { updateSectionBGStyles } from "@mikezimm/fps-library-v2/lib/components/molecules/FullPageBackGround/SectionStyles";
 import { getSectionCount } from "@mikezimm/fps-library-v2/lib/components/molecules/FullPageBackGround/updateSectionCSS";
 import { check4This, } from './fpsReferences';
 import { saveViewAnalytics } from './CoreFPS/Analytics';

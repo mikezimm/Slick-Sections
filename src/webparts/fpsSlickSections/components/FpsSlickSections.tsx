@@ -24,12 +24,12 @@ import { getWebPartHelpElementCommon } from '../PropPaneHelp/Common';
 import { getWebPartHelpElementSections } from '../PropPaneHelp/Sections';
 //src\components\molecules\FullPageBackGround\PropHelp
 
-import { getWebPartHelpElementCSSWarning } from '@mikezimm/fps-library-v2/lib/components/molecules/FullPageBackGround/PropHelp/CSSWarning';
-import { getWebPartHelpElementCSSPerformance } from '@mikezimm/fps-library-v2/lib/components/molecules/FullPageBackGround/PropHelp/CSSPerformance';
-import { getFullBackgroundHelp } from '@mikezimm/fps-library-v2/lib/components/molecules/FullPageBackGround/PropHelp/FullImage';
-import { paramLinks } from '@mikezimm/fps-library-v2/lib/components/atoms/Links/CallBackLinks';
-import { FullPageBGParams } from "@mikezimm/fps-library-v2/lib/components/molecules/FullPageBackGround/FullPageBGParams";
-import { ForceHideBannerParam } from '../IFpsSlickSectionsWebPartProps';
+// import { getWebPartHelpElementCSSWarning } from '@mikezimm/fps-library-v2/lib/components/molecules/FullPageBackGround/PropHelp/CSSWarning';
+// import { getWebPartHelpElementCSSPerformance } from '@mikezimm/fps-library-v2/lib/components/molecules/FullPageBackGround/PropHelp/CSSPerformance';
+// import { getFullBackgroundHelp } from '@mikezimm/fps-library-v2/lib/components/molecules/FullPageBackGround/PropHelp/FullImage';
+// import { paramLinks } from '@mikezimm/fps-library-v2/lib/components/atoms/Links/CallBackLinks';
+// import { FullPageBGParams } from "@mikezimm/fps-library-v2/lib/components/molecules/FullPageBackGround/FullPageBGParams";
+// import { ForceHideBannerParam } from '../IFpsSlickSectionsWebPartProps';
 
 const SiteThemes: ISiteThemes = { dark: styles.fpsSiteThemeDark, light: styles.fpsSiteThemeLight, primary: styles.fpsSiteThemePrimary };
 
@@ -101,7 +101,7 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
     super(props);
 
     const { sections, performance, bannerProps, slickCommonProps } = this.props;
-    const { defaultSection, enableTabs, } = slickCommonProps;
+    const { defaultSection, } = slickCommonProps;
 
     if ( this._performance === null ) { this._performance = performance;  }
     this._firstSection = sections[ 0 ];
