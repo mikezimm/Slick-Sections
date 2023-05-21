@@ -49,7 +49,7 @@ export const WebPartPanelChanges : any = {
 }
 
 //Specific for this web part
-export const exportIgnorePropsWP : string[] = [ ];
+export const exportIgnorePropsWP : string[] = [ 'sectButton1', 'sectButton2', 'sectButton3', 'sectButton4', 'sectButton5' ];
 
 
 //These props will not be imported even if they are in one of the change arrays above (fail-safe)
