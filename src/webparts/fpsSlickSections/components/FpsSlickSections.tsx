@@ -1,9 +1,9 @@
 import * as React from 'react';
 import styles from './FpsSlickSections.module.scss';
-import { AllSectionsConst, ICallbackAddParamToUrl, IFPSSlickSectionWPProps, IFpsSlickSectionsProps, IFpsSlickSectionsState } from './IFpsSlickSectionsProps';
+import { AllSectionsConst, IFPSSlickSectionWPProps, IFpsSlickSectionsProps, IFpsSlickSectionsState } from './IFpsSlickSectionsProps';
 // import { escape } from '@microsoft/sp-lodash-subset';
 import { DisplayMode } from '@microsoft/sp-core-library';
-import { getSectionCount } from "../CoreFPS/updateSectionCSS";
+import { getSectionCount } from "@mikezimm/fps-library-v2/lib/components/molecules/FullPageBackGround/updateSectionCSS";
 import { Icon,} from 'office-ui-fabric-react/lib/Icon';
 // import { saveViewAnalytics } from '../CoreFPS/Analytics';
 
@@ -24,12 +24,12 @@ import { getWebPartHelpElementCommon } from '../PropPaneHelp/Common';
 import { getWebPartHelpElementSections } from '../PropPaneHelp/Sections';
 //src\components\molecules\FullPageBackGround\PropHelp
 
-import { getWebPartHelpElementCSSWarning } from '@mikezimm/fps-library-v2/lib/components/molecules/FullPageBackGround/PropHelp/CSSWarning';
-import { getWebPartHelpElementCSSPerformance } from '@mikezimm/fps-library-v2/lib/components/molecules/FullPageBackGround/PropHelp/CSSPerformance';
-import { getFullBackgroundHelp } from '@mikezimm/fps-library-v2/lib/components/molecules/FullPageBackGround/PropHelp/FullImage';
-import { paramLinks } from '@mikezimm/fps-library-v2/lib/components/atoms/Links/CallBackLinks';
-import { FullPageBGParams } from "@mikezimm/fps-library-v2/lib/components/molecules/FullPageBackGround/FullPageBGParams";
-import { ForceHideBannerParam } from '../IFpsSlickSectionsWebPartProps';
+// import { getWebPartHelpElementCSSWarning } from '@mikezimm/fps-library-v2/lib/components/molecules/FullPageBackGround/PropHelp/CSSWarning';
+// import { getWebPartHelpElementCSSPerformance } from '@mikezimm/fps-library-v2/lib/components/molecules/FullPageBackGround/PropHelp/CSSPerformance';
+// import { getFullBackgroundHelp } from '@mikezimm/fps-library-v2/lib/components/molecules/FullPageBackGround/PropHelp/FullImage';
+// import { paramLinks } from '@mikezimm/fps-library-v2/lib/components/atoms/Links/CallBackLinks';
+// import { FullPageBGParams } from "@mikezimm/fps-library-v2/lib/components/molecules/FullPageBackGround/FullPageBGParams";
+// import { ForceHideBannerParam } from '../IFpsSlickSectionsWebPartProps';
 
 const SiteThemes: ISiteThemes = { dark: styles.fpsSiteThemeDark, light: styles.fpsSiteThemeLight, primary: styles.fpsSiteThemePrimary };
 
@@ -38,9 +38,9 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
   private _performance: ILoadPerformance = null;
 
   private _webPartHelpElement = [
-    getWebPartHelpElementCSSWarning( ),
-    getWebPartHelpElementCSSPerformance( ),
-    getFullBackgroundHelp( this.props.bannerProps.addParamToUrl ),
+    // getWebPartHelpElementCSSWarning( ),
+    // getWebPartHelpElementCSSPerformance( ),
+    // getFullBackgroundHelp( this.props.bannerProps.addParamToUrl ),
     getWebPartHelpElementCommon( ),
     getWebPartHelpElementSections( ),
   ];
@@ -101,7 +101,7 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
     super(props);
 
     const { sections, performance, bannerProps, slickCommonProps } = this.props;
-    const { defaultSection, enableTabs, } = slickCommonProps;
+    const { defaultSection, } = slickCommonProps;
 
     if ( this._performance === null ) { this._performance = performance;  }
     this._firstSection = sections[ 0 ];
@@ -115,7 +115,7 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
       debugMode: false,
       showSpinner: false,
 
-      showSettings: false,
+      // showSettings: false,
       showThisWebpart: true,
       // https://github.com/mikezimm/Slick-Sections/issues/20
       selectedSection:  defaultSection === 0 ? AllSectionsConst : 
@@ -225,31 +225,31 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
     // initiate array for adding more buttons here.  If not needed, can be commented out
     const farBannerElementsArray = [...this._farBannerElements, ];
 
-    // https://github.com/mikezimm/Slick-Sections/issues/18
-    if ( this.props.bannerProps.fpsPageBGWPProps.defaultWhiteText === true ) {
-      farBannerElementsArray.push( 
-        //https://github.com/mikezimm/Slick-Sections/issues/49
-        this.props.bannerProps.fpsPageBGWPProps.whiteRefreshTip ? 
-        <div title={'Refresh Font colors - re-whitens them after scrolling down'} onClick={ this.props.refreshStyles } 
-          style={{ flexWrap: 'nowrap',
-            justifyContent: 'start',
-            alignItems: 'center',
-            display: 'flex', cursor: 'pointer' }}>
-              <div>{ this.props.bannerProps.fpsPageBGWPProps.whiteRefreshTip}</div>
-              <Icon iconName={ 'SyncStatusSolid' } style={ bannerProps.bannerCmdReactCSS }/></div>:
-        <div title={'Refresh Font colors - re-whitens them after scrolling down'}><Icon iconName={ 'SyncStatusSolid' } onClick={ this.props.refreshStyles } style={ bannerProps.bannerCmdReactCSS }/></div>
-      );
-    }
+    // // https://github.com/mikezimm/Slick-Sections/issues/18
+    // if ( this.props.bannerProps.fpsPageBGWPProps.defaultWhiteText === true ) {
+    //   farBannerElementsArray.push( 
+    //     //https://github.com/mikezimm/Slick-Sections/issues/49
+    //     this.props.bannerProps.fpsPageBGWPProps.whiteRefreshTip ? 
+    //     <div title={'Refresh Font colors - re-whitens them after scrolling down'} onClick={ this.props.refreshStyles } 
+    //       style={{ flexWrap: 'nowrap',
+    //         justifyContent: 'start',
+    //         alignItems: 'center',
+    //         display: 'flex', cursor: 'pointer' }}>
+    //           <div>{ this.props.bannerProps.fpsPageBGWPProps.whiteRefreshTip}</div>
+    //           <Icon iconName={ 'SyncStatusSolid' } style={ bannerProps.bannerCmdReactCSS }/></div>:
+    //     <div title={'Refresh Font colors - re-whitens them after scrolling down'}><Icon iconName={ 'SyncStatusSolid' } onClick={ this.props.refreshStyles } style={ bannerProps.bannerCmdReactCSS }/></div>
+    //   );
+    // }
 
     //Setting showTricks to false here ( skipping this line does not have any impact on bug #90 )
     // https://github.com/mikezimm/Slick-Sections/issues/18
-    if ( bannerProps.beAUser === false 
-        && bannerProps.FPSUser.simple !== 'Reader' 
-        && bannerProps.FPSUser.simple !== 'None' ) {
-            farBannerElementsArray.push( 
-              <div title={'Show Debug Info'}><Icon iconName='TestAutoSolid' onClick={ this._showSettings.bind(this) } style={ this.debugCmdStyles }/></div>
-            );
-    }
+    // if ( bannerProps.beAUser === false 
+    //     && bannerProps.FPSUser.simple !== 'Reader' 
+    //     && bannerProps.FPSUser.simple !== 'None' ) {
+    //         farBannerElementsArray.push( 
+    //           <div title={'Show Debug Info'}><Icon iconName='TestAutoSolid' onClick={ this._showSettings.bind(this) } style={ this.debugCmdStyles }/></div>
+    //         );
+    // }
 
     // const FPSUser : IFPSUser = bannerProps.FPSUser;
     // const showSpecial = FPSUser.manageWeb === true || FPSUser.managePermissions === true || FPSUser.manageLists === true ? true : false;
@@ -257,6 +257,27 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
     // Special.style = { color: 'black', background: 'limegreen' };
 
     if ( check4Gulp() === true )  console.log('React Render - this._performance:', JSON.parse(JSON.stringify(this._performance)) );
+
+    const showSectionProps: JSX.Element[] = this._createThisSection( sections );
+    const beakerBannerContent: JSX.Element = <div className={ styles.slickSectionElements }>
+      { showSectionProps }
+    </div>;
+
+
+
+    // const showProps: JSX.Element[] = this._createThisSection( sections );
+    // const ShowParmaLinks: string[] =  [...FullPageBGParams ];
+    // if ( enableTabs === false ) ShowParmaLinks.push( ForceHideBannerParam );
+    // const SettingInfo = this.state.showSettings !== true ? undefined : <div className={ styles.settingsArea } style={{ padding: '1em'}}>
+    //     { paramLinks( ShowParmaLinks, bannerProps.addParamToUrl ) }
+    //     <h2 style={{ marginBottom: '0px' }}>FPS Slick Sections Web part properties</h2>
+    //     { enableTabs !== true ? <h3 key={ `79` } style={{ marginBottom: '0px' }}>Tabs are disabled in web part settings.</h3> : undefined  }
+    //     {/* <div>Sample BgImage property:  {`url("https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE4wtd4?ver=a738")`} </div> */}
+    //     <div className={ styles.slickSectionElements }>
+    //       { showProps }
+    //     </div>
+    //   </div>;
+
 
     const Banner = <FetchBannerX 
 
@@ -277,23 +298,10 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
       // SpecialMessage = { Special }
 
       updatePinState = { this._updatePinState.bind(this) }
-      pinState = { this.state.pinState }
+      // pinState = { this.state.pinState }
+      beakerBannerContent = { beakerBannerContent }
 
     />;
-
-
-    const showProps: JSX.Element[] = this._createThisSection( sections );
-    const ShowParmaLinks: string[] =  [...FullPageBGParams ];
-    if ( enableTabs === false ) ShowParmaLinks.push( ForceHideBannerParam );
-    const SettingInfo = this.state.showSettings !== true ? undefined : <div className={ styles.settingsArea } style={{ padding: '1em'}}>
-        { paramLinks( ShowParmaLinks, bannerProps.addParamToUrl ) }
-        <h2 style={{ marginBottom: '0px' }}>FPS Slick Sections Web part properties</h2>
-        { enableTabs !== true ? <h3 key={ `79` } style={{ marginBottom: '0px' }}>Tabs are disabled in web part settings.</h3> : undefined  }
-        {/* <div>Sample BgImage property:  {`url("https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE4wtd4?ver=a738")`} </div> */}
-        <div className={ styles.slickSectionElements }>
-          { showProps }
-        </div>
-      </div>;
 
     const showButtons: JSX.Element[] = this._createThisButton( sections );
 
@@ -311,7 +319,6 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
         { devHeader }
         { Banner }
         { buttonArray }
-        { SettingInfo }
       </section>
     );
   }
@@ -463,9 +470,9 @@ export default class FpsSlickSections extends React.Component<IFpsSlickSectionsP
 
   }
 
-  private _showSettings(): void {
-    this.setState({ showSettings: this.state.showSettings === true ? false : true });
-  }
+  // private _showSettings(): void {
+  //   this.setState({ showSettings: this.state.showSettings === true ? false : true });
+  // }
 
 
 }

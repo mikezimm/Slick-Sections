@@ -72,7 +72,7 @@ export const WPPresetEverywhere : IPreConfigSettings = {
 
         scrollBehavior: 'smooth',
         enableTabs: true,
-
+        defaultSection: 0,
         sectEnable1: false,
         sectBgImage1: ``,
         sectBgColor1: ``,
